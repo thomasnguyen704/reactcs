@@ -16,7 +16,7 @@ ReactDOM.render(
                 <Col sm={12} md={6} lg={4}>
                     <Projects />
                 </Col>
-                <Col sm={12} md={6} lg={8} className='right'>
+                <Col sm={12} md={6} lg={8}>
                     <ProjectForm/>
                 </Col>
             </Row>
