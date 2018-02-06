@@ -1,18 +1,39 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { Menu, Icon } from 'antd';
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
-export default ()=> {
-	<Menu mode="horizontal">
-		<Menu.Item key="mail">
-			<Icon type="mail"/>
-			Navigation One
-		</Menu.Item>
-		<Menu.Item key="app">
-			<Icon type="appstore"/>
-			Navigation Two
-		</Menu.Item>
-	</Menu>
+class Navbar extends React.Component {
+	// set initial state to home
+	state = {
+		selectedMenuItem: "home"
+	}
+
+	// set state to key at onClick event
+	activeLink = (e)=> {
+		this.setState({ 
+			selectedMenuItem: e.key
+		})
+	}
+
+	// render navbar menu
+	render() {
+		return(
+			<Menu 
+				mode = "horizontal" 
+				onClick = { this.activeLink }
+				selectedKey = {[ this.state.selectedMenuItem ]} 
+			>
+				<Menu.Item key = "home">
+					<Icon type = "home"/> Home
+				</Menu.Item>
+				<Menu.Item key = "projects">
+					<Icon type = "rocket"/> Projects
+				</Menu.Item>
+				<Menu.Item key = "associates">
+					<Icon type = "profile"/> Associates
+				</Menu.Item>
+			</Menu>
+		)
+	}
 }
+
+export default Navbar
