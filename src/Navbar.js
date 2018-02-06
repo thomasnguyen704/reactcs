@@ -20,7 +20,8 @@ class Navbar extends React.Component {
 			<Menu 
 				mode = "horizontal" 
 				onClick = { this.activeLink }
-				selectedKey = {[ this.state.selectedMenuItem ]} 
+				selectedKey = {[ this.state.selectedMenuItem ]}
+				className = "Navbar"
 			>
 				<Menu.Item key = "home">
 					<Icon type = "home"/> Home

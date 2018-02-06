@@ -2,10 +2,10 @@ import React from 'react';
 import { Table, Input, Button, Icon } from 'antd';
 
 const data = [
-	{ key: '1', name: 'John Brown', age: 32, address: 'New York No. 1 Lake Park' }, 
-	{ key: '2', name: 'Joe Black', age: 42, address: 'London No. 1 Lake Park' }, 
-	{ key: '3', name: 'Jim Green', age: 32, address: 'Sidney No. 1 Lake Park' }, 
-	{ key: '4', name: 'Jim Red', age: 32, address: 'London No. 2 Lake Park' }
+	{ key: '1', name: 'Project A', lead: 'Thomas Bridgers' }, 
+	{ key: '2', name: 'Project B', lead: 'Chris Stahl' }, 
+	{ key: '3', name: 'Project C', lead: 'Aaron Nguyen' }, 
+	{ key: '4', name: 'Project D', lead: 'Daniel Kennedy' }
 ];
 
 class Projects extends React.Component {
@@ -59,6 +59,8 @@ class Projects extends React.Component {
 			title: 'Name',
 			dataIndex: 'name',
 			key: 'name',
+			
+			// Search dropdown
 			filterDropdown: (
 				<div className="custom-filter-dropdown">
 					<Input
@@ -72,7 +74,7 @@ class Projects extends React.Component {
 				</div>
 			),
 			filterIcon: (
-				<Icon type = "smile-o" style = {{ color: this.state.filtered ? '#108ee9' : '#aaa' }} /> // todo: move the inline style
+				<Icon type = "search" style = {{ color: this.state.filtered ? '#108ee9' : '#aaa' }} /> // todo: move the inline style
 			),
 			filterDropdownVisible: this.state.filterDropdownVisible,
 			onFilterDropdownVisibleChange: (visible) => {
@@ -83,25 +85,24 @@ class Projects extends React.Component {
 			},
 		},
 		{
-			title: 'Age',
-			dataIndex: 'age',
-			key: 'age'
-		}, 
-		{
-			title: 'Address', 
-			dataIndex: 'address', 
-			key: 'address',
+			title: 'Lead', 
+			dataIndex: 'lead', 
+			key: 'lead',
 			filters: [
-				{ text: 'London', value: 'London' }, 
-				{ text: 'New York', value: 'New York' }
+				{ text: 'Aaron Nguyen', value: 'Aaron Nguyen' }, 
+				{ text: 'Chris Stahl', value: 'Chris Stahl' },
+				{ text: 'Daniel Kennedy', value: 'Daniel Kennedy' }, 
+				{ text: 'Thomas Bridgers', value: 'Thomas Bridgers' }
 			],
-			onFilter: (value, record) => record.address.indexOf(value) === 0
+			onFilter: (value, record) => record.lead.indexOf(value) === 0
 		}];
 
 		return (
 			<Table 
 				columns = {columns} 
 				dataSource = {this.state.data} 
+				pagination = {false}
+				footer = { ()=> <a href="#"> New </a> }
 			/>
 		)
 	}
