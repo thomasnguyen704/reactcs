@@ -9,7 +9,7 @@ const data = [
 	{ key: '4', name: 'Project D', lead: 'Daniel Stahl' }
 ];
 
-class Projects extends React.Component {
+class ProjectsTable extends React.Component {
 	// set inital state
 	state = {
 		filterDropdownVisible: false, 
@@ -114,10 +114,12 @@ class Projects extends React.Component {
 							<p> Click <ProjectFormModal /> to create a new project </p>
 						) 
 					}
+					pagination={{ pageSize: 50 }} 
+					scroll={{ y: 240 }}
 				/>
 			</div>
 		)
 	}
 }
 
-export default Projects
+export default ProjectsTable

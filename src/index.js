@@ -4,7 +4,7 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import { Grid, Row, Col } from 'react-flexbox-grid'; 
 import TopNav from './Navbar';
-import Projects from './Projects';
+import ProjectsTable from './ProjectsTable';
 
 ReactDOM.render(
     <div className='container'>
@@ -12,7 +12,7 @@ ReactDOM.render(
         <Grid fluid>
             <Row>
                 <Col lg={12}>
-                    <Projects />
+                    <ProjectsTable />
                 </Col>
             </Row>
         </Grid>
