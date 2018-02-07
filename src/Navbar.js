@@ -30,7 +30,7 @@ class Navbar extends React.Component {
 					<Icon type = "rocket"/> Projects
 				</Menu.Item>
 				<Menu.Item key = "associates">
-					<Icon type = "profile"/> Associates
+					<Icon type = "user"/> Associates
 				</Menu.Item>
 			</Menu>
 		)

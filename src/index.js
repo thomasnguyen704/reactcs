@@ -5,23 +5,17 @@ import registerServiceWorker from './registerServiceWorker';
 import { Grid, Row, Col } from 'react-flexbox-grid'; 
 import TopNav from './Navbar';
 import Projects from './Projects';
-import ProjectForm from './ProjectForm';
 
 ReactDOM.render(
     <div className='container'>
         <TopNav />
-
         <Grid fluid>
             <Row>
-                <Col sm={12} md={6} lg={4}>
+                <Col lg={12}>
                     <Projects />
-                </Col>
-                <Col sm={12} md={6} lg={8}>
-                    <ProjectForm/>
                 </Col>
             </Row>
         </Grid>
-
     </div>
     , document.getElementById('root')
 );

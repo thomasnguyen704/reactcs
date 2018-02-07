@@ -1,11 +1,12 @@
 import React from 'react';
-import { Table, Input, Button, Icon } from 'antd';
+import { Table, Input, Icon } from 'antd';
+import ProjectFormModal from './ProjectFormModal';
 
 const data = [
-	{ key: '1', name: 'Project A', lead: 'Thomas Bridgers' }, 
-	{ key: '2', name: 'Project B', lead: 'Chris Stahl' }, 
-	{ key: '3', name: 'Project C', lead: 'Aaron Nguyen' }, 
-	{ key: '4', name: 'Project D', lead: 'Daniel Kennedy' }
+	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen' }, 
+	{ key: '2', name: 'Project B', lead: 'Chris Kennedy' }, 
+	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers' }, 
+	{ key: '4', name: 'Project D', lead: 'Daniel Stahl' }
 ];
 
 class Projects extends React.Component {
@@ -55,55 +56,67 @@ class Projects extends React.Component {
 	render() {
 		// Create columns for table data.
 		// Todo, comment more on what columns does.
-		const columns = [{
-			title: 'Name',
-			dataIndex: 'name',
-			key: 'name',
-			
-			// Search dropdown
-			filterDropdown: (
-				<div className="custom-filter-dropdown">
-					<Input
-						ref = {ele=> this.searchInput = ele}
-						placeholder = "Search name"
-						value = {this.state.searchText}
-						onChange = {this.onInputChange}
-						onPressEnter = {this.onSearch}
-					/>
-					<Button type="primary" onClick = {this.onSearch}>Search</Button>
-				</div>
-			),
-			filterIcon: (
-				<Icon type = "search" style = {{ color: this.state.filtered ? '#108ee9' : '#aaa' }} /> // todo: move the inline style
-			),
-			filterDropdownVisible: this.state.filterDropdownVisible,
-			onFilterDropdownVisibleChange: (visible) => {
-				this.setState(
-					{ filterDropdownVisible: visible }, 
-					()=> this.searchInput && this.searchInput.focus()
-				);
+		const columns = [
+			{
+				title: 'Action',
+				dataIndex: 'action',
+				key: 'action',
+				render: text=> <ProjectFormModal/>
 			},
-		},
-		{
-			title: 'Lead', 
-			dataIndex: 'lead', 
-			key: 'lead',
-			filters: [
-				{ text: 'Aaron Nguyen', value: 'Aaron Nguyen' }, 
-				{ text: 'Chris Stahl', value: 'Chris Stahl' },
-				{ text: 'Daniel Kennedy', value: 'Daniel Kennedy' }, 
-				{ text: 'Thomas Bridgers', value: 'Thomas Bridgers' }
-			],
-			onFilter: (value, record) => record.lead.indexOf(value) === 0
-		}];
+			{
+				title: 'Name',
+				dataIndex: 'name',
+				key: 'name',
+				filterDropdown: (
+					<div className="custom-filter-dropdown">
+						<Input
+							ref = {ele=> this.searchInput = ele}
+							placeholder = "Search name"
+							value = {this.state.searchText}
+							onChange = {this.onInputChange}
+							onPressEnter = {this.onSearch}
+						/>
+					</div>
+				),
+				filterIcon: (
+					<Icon type = "search" style = {{ color: this.state.filtered ? '#108ee9' : '#aaa' }} /> // todo: move the inline style
+				),
+				filterDropdownVisible: this.state.filterDropdownVisible,
+				onFilterDropdownVisibleChange: (visible) => {
+					this.setState(
+						{ filterDropdownVisible: visible }, 
+						()=> this.searchInput && this.searchInput.focus()
+					);
+				},
+				//render: text=> ( <a onClick={this.showModal}> {text} </a> )
+			},
+			{
+				title: 'Lead', 
+				dataIndex: 'lead', 
+				key: 'lead',
+				filters: [
+					{ text: 'Aaron Nguyen', value: 'Aaron Nguyen' }, 
+					{ text: 'Chris Stahl', value: 'Chris Stahl' },
+					{ text: 'Daniel Kennedy', value: 'Daniel Kennedy' }, 
+					{ text: 'Thomas Bridgers', value: 'Thomas Bridgers' }
+				],
+				onFilter: (value, record) => record.lead.indexOf(value) === 0
+			}
+		];
 
 		return (
-			<Table 
-				columns = {columns} 
-				dataSource = {this.state.data} 
-				pagination = {false}
-				footer = { ()=> <a href="#"> New </a> }
-			/>
+			<div>
+				<Table 
+					columns = {columns} 
+					dataSource = {this.state.data} 
+					pagination = {false}
+					title = { 
+						()=> (
+							<p> Click <ProjectFormModal /> to create a new project </p>
+						) 
+					}
+				/>
+			</div>
 		)
 	}
 }
