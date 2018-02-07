@@ -58,12 +58,6 @@ class Projects extends React.Component {
 		// Todo, comment more on what columns does.
 		const columns = [
 			{
-				title: 'Action',
-				dataIndex: 'action',
-				key: 'action',
-				render: text=> <ProjectFormModal/>
-			},
-			{
 				title: 'Name',
 				dataIndex: 'name',
 				key: 'name',
@@ -88,7 +82,12 @@ class Projects extends React.Component {
 						()=> this.searchInput && this.searchInput.focus()
 					);
 				},
-				//render: text=> ( <a onClick={this.showModal}> {text} </a> )
+				render: text=> ( 
+					<div>
+						<ProjectFormModal/> 
+						{text} 
+					</div>
+				)
 			},
 			{
 				title: 'Lead', 
