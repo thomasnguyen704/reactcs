@@ -1,7 +1,8 @@
 import React from 'react';
-import { Modal, Button, Form, Input, Select, Icon } from 'antd';
+import { Modal, Form, Input, Select, Icon, DatePicker, Transfer } from 'antd';
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class ProjectFormModal extends React.Component {
     state = { 
@@ -32,12 +33,23 @@ class ProjectFormModal extends React.Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <Form className="project">
+                    <Form className = "project">
                         <FormItem label = "Project Name">
                             <Input placeholder = "Project Name" />
                         </FormItem>
                         <FormItem label = "Lead">
                             <Select />
+                        </FormItem>
+                        <FormItem label = "Skill Requirements">
+                            <Transfer showSearch />
+                        </FormItem>
+                        <FormItem label = "Associates">
+                            <Select showSearch mode="multiple">
+                                <Option value="Aaron Bridgers">Aaron Bridgers</Option>
+                                <Option value="Chris Kennedy">Chris Kennedy</Option>
+                                <Option value="Daniel Stahl">Daniel Stahl</Option>
+                                <Option value="Thomas Nguyen">Thomas Nguyen</Option>
+                            </Select>
                         </FormItem>
                     </Form>
                 </Modal>

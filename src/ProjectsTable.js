@@ -108,7 +108,6 @@ class ProjectsTable extends React.Component {
 				<Table 
 					columns = {columns} 
 					dataSource = {this.state.data} 
-					pagination = {false}
 					title = { 
 						()=> (
 							<p> Click <ProjectFormModal /> to create a new project </p>
