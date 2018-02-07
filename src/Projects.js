@@ -85,7 +85,7 @@ class Projects extends React.Component {
 				render: text=> ( 
 					<div>
 						<ProjectFormModal/> 
-						{text} 
+						<span style={{marginLeft: '25px'}}>{text}</span>
 					</div>
 				)
 			},

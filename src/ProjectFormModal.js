@@ -25,7 +25,7 @@ class ProjectFormModal extends React.Component {
     render() {
         return (
             <span>
-                <a type="primary" onClick={this.showModal} style={{marginRight: '25px'}}> <Icon type="form"/> </a>
+                <a type="primary" onClick={this.showModal}> <Icon type="form"/> </a>
                 <Modal
                     title="Project"
                     visible={this.state.visible}
@@ -39,9 +39,6 @@ class ProjectFormModal extends React.Component {
                         <FormItem label = "Lead">
                             <Select />
                         </FormItem>
-                        <Button type="primary" htmlType = "submit"> 
-                            Submit
-                        </Button>
                     </Form>
                 </Modal>
             </span>
