@@ -45,10 +45,10 @@ class ProjectFormModal extends React.Component {
                         </FormItem>
                         <FormItem label = "Associates">
                             <Select showSearch mode="multiple">
-                                <Option value="Aaron Bridgers">Aaron Bridgers</Option>
-                                <Option value="Chris Kennedy">Chris Kennedy</Option>
-                                <Option value="Daniel Stahl">Daniel Stahl</Option>
-                                <Option value="Thomas Nguyen">Thomas Nguyen</Option>
+                                <Option value="Aaron_Bridgers">Aaron Bridgers</Option>
+                                <Option value="Chris_Kennedy">Chris Kennedy</Option>
+                                <Option value="Daniel_Stahl">Daniel Stahl</Option>
+                                <Option value="Thomas_Nguyen">Thomas Nguyen</Option>
                             </Select>
                         </FormItem>
                     </Form>
