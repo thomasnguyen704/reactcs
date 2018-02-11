@@ -3,11 +3,29 @@ import { Table, Input, Icon } from 'antd';
 import ProjectFormModal from './ProjectFormModal';
 
 const data = [
-	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen' }, 
-	{ key: '2', name: 'Project B', lead: 'Chris Kennedy' }, 
-	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers' }, 
-	{ key: '4', name: 'Project D', lead: 'Daniel Stahl' }
-];
+	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
+	{ key: '2', name: 'Project B', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
+	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Srouce' }, 
+	{ key: '4', name: 'Project D', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' }
+]
+const associates = [
+	{ text: 'Aaron Bridgers', value: 'Aaron Bridgers' }, // Governance
+	{ text: 'Chris Kennedy', value: 'Chris Kennedy' },
+	{ text: 'Daniel Stahl', value: 'Daniel Stahl' }, 
+	{ text: 'Thomas Nguyen', value: 'Thomas Nguyen' }
+]
+const statuses = [
+	{ text: 'Draft', value: 'Draft' }, // form is saved, but not complete and/or submitted
+	{ text: 'Pending Review', value: 'Pending Review' }, // form is complete and submitted to governance (Aaron Bridgers)
+	{ text: 'Approved', value: 'Approved' }, // governance helps manager address gaps and approves project
+	{ text: 'Cancelled', value: 'Cancelled' } // the project is cancelled
+]
+const remediations = [
+	{ text: 'N/A', value: 'N/A' },
+	{ text: 'Training', value: 'Training' },
+	{ text: 'In Source', value: 'In Source' },
+	{ text: 'Out Source', value: 'Out Source' },
+]
 
 class ProjectsTable extends React.Component {
 	// set inital state
@@ -93,13 +111,22 @@ class ProjectsTable extends React.Component {
 				title: 'Lead', 
 				dataIndex: 'lead', 
 				key: 'lead',
-				filters: [
-					{ text: 'Aaron Nguyen', value: 'Aaron Nguyen' }, 
-					{ text: 'Chris Stahl', value: 'Chris Stahl' },
-					{ text: 'Daniel Kennedy', value: 'Daniel Kennedy' }, 
-					{ text: 'Thomas Bridgers', value: 'Thomas Bridgers' }
-				],
+				filters: associates,
 				onFilter: (value, record) => record.lead.indexOf(value) === 0
+			},
+			{
+				title: 'Status',
+				dataIndex: 'status',
+				key: 'status',
+				filters: statuses,
+				onFilter: (value, record) => record.status.indexOf(value) === 0
+			},
+			{
+				title: 'Remediation',
+				dataIndex: 'remediation',
+				key: 'remediation',
+				filters: remediations,
+				onFilter: (value, record) => record.remediation.indexOf(value) === 0
 			}
 		];
 
@@ -114,7 +141,6 @@ class ProjectsTable extends React.Component {
 						) 
 					}
 					pagination={{ pageSize: 50 }} 
-					scroll={{ y: 240 }}
 				/>
 			</div>
 		)
