@@ -16,7 +16,7 @@ class ProjectsCharts extends React.Component {
             <div style={{marginTop: '100px'}}>
                 <Row>
                     <Col lg={6}>
-                        <h3 className='chartTitle'>Some Bar Chart</h3>
+                        <p className='chartTitle'>Some Bar Chart</p>
                         <VictoryChart
                             domainPadding={20} // domainPadding will add space to each side of VictoryBar to prevent it from overlapping the axis
                         >
@@ -28,7 +28,12 @@ class ProjectsCharts extends React.Component {
                             <VictoryAxis
                                 dependentAxis
                                 tickFormat={(x) => (`$${x / 1000}k`)}  // tickFormat specifies how ticks should be displayed
-                                style={{ tickLabels: {fontSize: 10} }}
+                                style={{ 
+                                    tickLabels: {
+                                        fontSize: 10
+                                        //, color: 'rgba(0, 0, 0, 0.65)'
+                                    } 
+                                }}
                             />
                             <VictoryBar
                                 data={data}
@@ -38,7 +43,7 @@ class ProjectsCharts extends React.Component {
                         </VictoryChart>
                     </Col>
                     <Col lg={6}>
-                        <h3 className='chartTitle'>Some Line Chart</h3>
+                        <p className='chartTitle'>Some Line Chart</p>
                         <VictoryChart
                             domainPadding={20} // domainPadding will add space to each side of VictoryBar to prevent it from overlapping the axis
                         >
