@@ -5,6 +5,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { Grid, Row, Col } from 'react-flexbox-grid'; 
 import TopNav from './Navbar';
 import ProjectsTable from './ProjectsTable';
+import ProjectsCharts from './ProjectsCharts';
+
 
 ReactDOM.render(
     <div className='container'>
@@ -13,6 +15,7 @@ ReactDOM.render(
             <Row>
                 <Col lg={12}>
                     <ProjectsTable />
+                    <ProjectsCharts />
                 </Col>
             </Row>
         </Grid>
