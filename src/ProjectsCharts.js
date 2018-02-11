@@ -23,12 +23,12 @@ class ProjectsCharts extends React.Component {
                             <VictoryAxis
                                 tickValues={[1, 2, 3, 4]}  // tickValues specifies both the number of ticks and where, they are placed on the axis
                                 tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
-                                style={{ tickLabels: {fontSize: 8} }}
+                                style={{ tickLabels: {fontSize: 10} }}
                             />
                             <VictoryAxis
                                 dependentAxis
                                 tickFormat={(x) => (`$${x / 1000}k`)}  // tickFormat specifies how ticks should be displayed
-                                style={{ tickLabels: {fontSize: 8} }}
+                                style={{ tickLabels: {fontSize: 10} }}
                             />
                             <VictoryBar
                                 data={data}
@@ -45,12 +45,12 @@ class ProjectsCharts extends React.Component {
                             <VictoryAxis
                                 tickValues={[1, 2, 3, 4]}  // tickValues specifies both the number of ticks and where, they are placed on the axis
                                 tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
-                                style={{ tickLabels: {fontSize: 8} }}
+                                style={{ tickLabels: {fontSize: 10} }}
                             />
                             <VictoryAxis
                                 dependentAxis
                                 tickFormat={(x) => (`$${x / 1000}k`)}  // tickFormat specifies how ticks should be displayed
-                                style={{ tickLabels: {fontSize: 8} }}
+                                style={{ tickLabels: {fontSize: 10} }}
                             />
                             <VictoryLine
                                 data={data}
