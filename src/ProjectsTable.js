@@ -5,7 +5,7 @@ import ProjectFormModal from './ProjectFormModal';
 const data = [
 	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
 	{ key: '2', name: 'Project B', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
-	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Srouce' }, 
+	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
 	{ key: '4', name: 'Project D', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' }
 ]
 const associates = [
