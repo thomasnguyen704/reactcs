@@ -6,7 +6,23 @@ const data = [
 	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
 	{ key: '2', name: 'Project B', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
 	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
-	{ key: '4', name: 'Project D', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' }
+	{ key: '4', name: 'Project D', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
+	{ key: '5', name: 'Project E', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
+	{ key: '6', name: 'Project F', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
+	{ key: '7', name: 'Project G', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
+	{ key: '8', name: 'Project H', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
+	{ key: '9', name: 'Project I', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
+	{ key: '10', name: 'Project J', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
+	{ key: '11', name: 'Project K', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
+	{ key: '12', name: 'Project L', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
+	{ key: '13', name: 'Project M', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
+	{ key: '14', name: 'Project N', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
+	{ key: '15', name: 'Project O', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
+	{ key: '16', name: 'Project P', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
+	{ key: '17', name: 'Project Q', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
+	{ key: '18', name: 'Project R', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
+	{ key: '19', name: 'Project S', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
+	{ key: '20', name: 'Project T', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' }
 ]
 const associates = [
 	{ text: 'Aaron Bridgers', value: 'Aaron Bridgers' }, // Governance
@@ -24,7 +40,7 @@ const remediations = [
 	{ text: 'N/A', value: 'N/A' },
 	{ text: 'Training', value: 'Training' },
 	{ text: 'In Source', value: 'In Source' },
-	{ text: 'Out Source', value: 'Out Source' },
+	{ text: 'Out Source', value: 'Out Source' }
 ]
 
 class ProjectsTable extends React.Component {
@@ -132,6 +148,8 @@ class ProjectsTable extends React.Component {
 
 		return (
 			<div>
+				<h1>Projects</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				<Table 
 					columns = {columns} 
 					dataSource = {this.state.data} 
@@ -140,7 +158,7 @@ class ProjectsTable extends React.Component {
 							<p> Click <ProjectFormModal /> to create a new project </p>
 						) 
 					}
-					pagination={{ pageSize: 50 }} 
+					pagination={{ pageSize: 5 }} 
 				/>
 			</div>
 		)
