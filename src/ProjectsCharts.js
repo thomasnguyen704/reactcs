@@ -36,7 +36,7 @@ class ProjectsCharts extends React.Component {
                     <Col lg={6}>
                         <div style={{ height: '75%', border: 'solid thin whitesmoke', padding: '50px 0 50px 0' }}>
                             <p className='chartTitle'>Active Assignments</p>
-                            <VictoryChart domainPadding={{ y: 10 }}>
+                            <VictoryChart domainPadding={{ y: 15 }}>
                                 <VictoryAxis
                                     dependentAxis
                                     style={{ tickLabels: tickStyles, data: dataStyles}}
@@ -47,10 +47,7 @@ class ProjectsCharts extends React.Component {
                                     y='assigned'
                                     horizontal
                                     labels={ (d)=> d.y }
-                                    style={{ 
-                                        data: dataStyles, 
-                                        labels: tickStyles
-                                    }}
+                                    style={{ data: dataStyles, labels: tickStyles }}
                                 />
                             </VictoryChart>
                         </div>
