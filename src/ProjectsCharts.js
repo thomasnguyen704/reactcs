@@ -12,6 +12,12 @@ const dataStyles = {
     opacity: 0.7,
     stroke: 'yellowGreen'
 }
+const chartStyles = {
+    border: 'solid thin whitesmoke', 
+    padding: '50px 0 50px 0', 
+    margin: '10px 0 10px 0',
+    height: '95%'
+}
 
 const assignments = [
     {associate: 'Aaron Bridgers', assigned: 2},
@@ -34,18 +40,21 @@ class ProjectsCharts extends React.Component {
                     <h1>Measures</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <Col lg={6}>
-                        <div style={{ height: '75%', border: 'solid thin whitesmoke', padding: '50px 0 50px 0' }}>
+                        <div style={chartStyles}>
                             <p className='chartTitle'>Active Assignments</p>
-                            <VictoryChart domainPadding={{ y: 15 }}>
+                            <VictoryChart 
+                                domainPadding={20}
+                            >
                                 <VictoryAxis
-                                    dependentAxis
-                                    style={{ tickLabels: tickStyles, data: dataStyles}}
+                                    style={{ 
+                                        tickLabels: tickStyles, 
+                                        data: dataStyles
+                                    }}
                                 />
                                 <VictoryBar  
                                     data={assignments} 
                                     x='associate' 
                                     y='assigned'
-                                    horizontal
                                     labels={ (d)=> d.y }
                                     style={{ data: dataStyles, labels: tickStyles }}
                                 />
@@ -53,7 +62,7 @@ class ProjectsCharts extends React.Component {
                         </div>
                     </Col>
                     <Col lg={6}>
-                        <div style={{ height: '75%', border: 'solid thin whitesmoke', padding: '50px 0 50px 0' }}>
+                        <div style={chartStyles}>
                             <p className='chartTitle'>Entry Status</p>
                             <VictoryPie 
                                 data={statuses} 
@@ -64,6 +73,11 @@ class ProjectsCharts extends React.Component {
                                 padAngle={3}
                                 colorScale={[ 'tomato', 'orange', 'gold', 'cyan', 'navy' ]}
                                 style={{ labels: tickStyles }}
+                                animate={{
+                                    duration: 2000,
+                                    onLoad: { duration: 1000 }
+                                }}
+                                width={500}
                             />
                         </div>
                     </Col>
