@@ -21,7 +21,12 @@ class ProjectFormModal extends React.Component {
                             <Input placeholder = "Project Name" />
                         </FormItem>
                         <FormItem label = "Lead">
-                            <Select />
+                            <Select showSearch>
+                                <Option value = "Aaron_Bridgers">Aaron Bridgers</Option>
+                                <Option value = "Chris_Kennedy">Chris Kennedy</Option>
+                                <Option value = "Daniel_Stahl">Daniel Stahl</Option>
+                                <Option value = "Thomas_Nguyen">Thomas Nguyen</Option>
+                            </Select>
                         </FormItem>
                         <FormItem label = "Skill Requirements">
                             <Select mode = "tags" placeholder = "Skills Requirements">
