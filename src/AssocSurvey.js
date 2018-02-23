@@ -9,7 +9,8 @@ const selectStyles = {
     height: '95%'
 }
 const tag = {
-    border: 'thin solid whitesmoke'
+    border: 'thin solid whitesmoke',
+    margin: 5
 }
 const { CheckableTag } = Tag
 const assocName = 'Thomas Nguyen'
@@ -31,7 +32,7 @@ class ClickTag extends React.Component {
 class SelectTags extends React.Component{
     render(){
         return(
-            <div className = 'section'>
+            <div>
                 <Row>
                     <Col md={6}>
                         <h1>Skills Survey for {assocName}</h1>
@@ -40,52 +41,62 @@ class SelectTags extends React.Component{
                     </Col>
                     <Col md={6}>
                         <div style = {selectStyles}>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
-                            <ClickTag style = {tag} >Skill</ClickTag>
+                            <ClickTag style = {tag}>Skill</ClickTag>
+                            <ClickTag style = {tag}>Another skill</ClickTag>
+                            <ClickTag style = {tag}>One more skill</ClickTag>
+                            <ClickTag style = {tag}>How about another skill</ClickTag>
+                            <ClickTag style = {tag}>And another skill</ClickTag>
+                            <ClickTag style = {tag}>KYC</ClickTag>
+                            <ClickTag style = {tag}>BSA/AML</ClickTag>
+                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
+                            <ClickTag style = {tag}>MS SQL</ClickTag>
+                            <ClickTag style = {tag}>Mainframe</ClickTag>
+                            <ClickTag style = {tag}>SAS</ClickTag>
+                            <ClickTag style = {tag}>CECL</ClickTag>
+                            <ClickTag style = {tag}>Some math</ClickTag>
+                            <ClickTag style = {tag} >More math stuff</ClickTag>
+                            <ClickTag style = {tag}>Skill</ClickTag>
+                            <ClickTag style = {tag}>Another skill</ClickTag>
+                            <ClickTag style = {tag}>One more skill</ClickTag>
+                            <ClickTag style = {tag}>How about another skill</ClickTag>
+                            <ClickTag style = {tag}>And another skill</ClickTag>
+                            <ClickTag style = {tag}>KYC</ClickTag>
+                            <ClickTag style = {tag}>BSA/AML</ClickTag>
+                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
+                            <ClickTag style = {tag}>MS SQL</ClickTag>
+                            <ClickTag style = {tag}>Mainframe</ClickTag>
+                            <ClickTag style = {tag}>SAS</ClickTag>
+                            <ClickTag style = {tag}>CECL</ClickTag>
+                            <ClickTag style = {tag}>Some math</ClickTag>
+                            <ClickTag style = {tag} >More math stuff</ClickTag>
+                            <ClickTag style = {tag}>Skill</ClickTag>
+                            <ClickTag style = {tag}>Another skill</ClickTag>
+                            <ClickTag style = {tag}>One more skill</ClickTag>
+                            <ClickTag style = {tag}>How about another skill</ClickTag>
+                            <ClickTag style = {tag}>And another skill</ClickTag>
+                            <ClickTag style = {tag}>KYC</ClickTag>
+                            <ClickTag style = {tag}>BSA/AML</ClickTag>
+                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
+                            <ClickTag style = {tag}>MS SQL</ClickTag>
+                            <ClickTag style = {tag}>Mainframe</ClickTag>
+                            <ClickTag style = {tag}>SAS</ClickTag>
+                            <ClickTag style = {tag}>CECL</ClickTag>
+                            <ClickTag style = {tag}>Some math</ClickTag>
+                            <ClickTag style = {tag} >More math stuff</ClickTag>
+                            <ClickTag style = {tag}>Skill</ClickTag>
+                            <ClickTag style = {tag}>Another skill</ClickTag>
+                            <ClickTag style = {tag}>One more skill</ClickTag>
+                            <ClickTag style = {tag}>How about another skill</ClickTag>
+                            <ClickTag style = {tag}>And another skill</ClickTag>
+                            <ClickTag style = {tag}>KYC</ClickTag>
+                            <ClickTag style = {tag}>BSA/AML</ClickTag>
+                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
+                            <ClickTag style = {tag}>MS SQL</ClickTag>
+                            <ClickTag style = {tag}>Mainframe</ClickTag>
+                            <ClickTag style = {tag}>SAS</ClickTag>
+                            <ClickTag style = {tag}>CECL</ClickTag>
+                            <ClickTag style = {tag}>Some math</ClickTag>
+                            <ClickTag style = {tag} >More math stuff</ClickTag>
                         </div>
                     </Col>
                 </Row>

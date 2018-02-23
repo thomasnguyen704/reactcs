@@ -7,8 +7,8 @@ body {
 .Navbar {
   margin-bottom: 25px;
 }
-.section {
-  padding: 50px 0 50px 0;
+.divider {
+  margin: 10% 0 10% 0;
 }
 .right {
   background-color: whitesmoke;
