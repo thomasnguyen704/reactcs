@@ -3,26 +3,30 @@ import { Table, Input, Icon } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 
 const data = [
-	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
-	{ key: '2', name: 'Project B', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
-	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
-	{ key: '4', name: 'Project D', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
-	{ key: '5', name: 'Project E', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
-	{ key: '6', name: 'Project F', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
-	{ key: '7', name: 'Project G', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
-	{ key: '8', name: 'Project H', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
-	{ key: '9', name: 'Project I', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
-	{ key: '10', name: 'Project J', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
-	{ key: '11', name: 'Project K', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
-	{ key: '12', name: 'Project L', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
-	{ key: '13', name: 'Project M', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
-	{ key: '14', name: 'Project N', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
-	{ key: '15', name: 'Project O', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
-	{ key: '16', name: 'Project P', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' },
-	{ key: '17', name: 'Project Q', lead: 'Thomas Nguyen', status: 'Draft', remediation: 'Training' }, 
-	{ key: '18', name: 'Project R', lead: 'Chris Kennedy', status: 'Pending Review', remediation: 'In Source' }, 
-	{ key: '19', name: 'Project S', lead: 'Aaron Bridgers', status: 'Approved', remediation: 'Out Source' }, 
-	{ key: '20', name: 'Project T', lead: 'Daniel Stahl', status: 'Cancelled', remediation: 'N/A' }
+	{ key: '1', name: 'Project A', lead: 'Thomas Nguyen', status: 'Draft', skillGap: 'No', remediation: 'None' }, 
+	{ key: '2', name: 'Project B', lead: 'Chris Kennedy', status: 'Pending Review', skillGap: 'Yes', remediation: 'In Source' }, 
+	{ key: '3', name: 'Project C', lead: 'Aaron Bridgers', status: 'Approved', skillGap: 'Yes', remediation: 'Out Source' }, 
+	{ key: '4', name: 'Project D', lead: 'Daniel Stahl', status: 'Cancelled', skillGap: 'N/A', remediation: 'None' },
+
+	{ key: '5', name: 'Project E', lead: 'Thomas Nguyen', status: 'Draft', skillGap: 'No', remediation: 'None' }, 
+	{ key: '6', name: 'Project F', lead: 'Chris Kennedy', status: 'Pending Review', skillGap: 'Yes', remediation: 'In Source' }, 
+	{ key: '7', name: 'Project G', lead: 'Aaron Bridgers', status: 'Approved', skillGap: 'Yes', remediation: 'Out Source' }, 
+	{ key: '8', name: 'Project H', lead: 'Daniel Stahl', status: 'Cancelled', skillGap: 'N/A', remediation: 'None' },
+
+	{ key: '9', name: 'Project I', lead: 'Thomas Nguyen', status: 'Draft', skillGap: 'No', remediation: 'None' }, 
+	{ key: '10', name: 'Project J', lead: 'Chris Kennedy', status: 'Pending Review', skillGap: 'Yes', remediation: 'In Source' }, 
+	{ key: '11', name: 'Project K', lead: 'Aaron Bridgers', status: 'Approved', skillGap: 'Yes', remediation: 'Out Source' }, 
+	{ key: '12', name: 'Project L', lead: 'Daniel Stahl', status: 'Cancelled', skillGap: 'N/A', remediation: 'None' },
+
+	{ key: '13', name: 'Project M', lead: 'Thomas Nguyen', status: 'Draft', skillGap: 'No', remediation: 'None' }, 
+	{ key: '14', name: 'Project N', lead: 'Chris Kennedy', status: 'Pending Review', skillGap: 'Yes', remediation: 'In Source' }, 
+	{ key: '15', name: 'Project O', lead: 'Aaron Bridgers', status: 'Approved', skillGap: 'Yes', remediation: 'Out Source' }, 
+	{ key: '16', name: 'Project P', lead: 'Daniel Stahl', status: 'Cancelled', skillGap: 'N/A', remediation: 'None' },
+
+	{ key: '17', name: 'Project Q', lead: 'Thomas Nguyen', status: 'Draft', skillGap: 'No', remediation: 'None' }, 
+	{ key: '18', name: 'Project R', lead: 'Chris Kennedy', status: 'Pending Review', skillGap: 'Yes', remediation: 'In Source' }, 
+	{ key: '19', name: 'Project S', lead: 'Aaron Bridgers', status: 'Approved', skillGap: 'Yes', remediation: 'Out Source' }, 
+	{ key: '20', name: 'Project T', lead: 'Daniel Stahl', status: 'Cancelled', skillGap: 'N/A', remediation: 'None' }
 ]
 const associates = [
 	{ text: 'Aaron Bridgers', value: 'Aaron Bridgers' }, // Governance
@@ -37,10 +41,15 @@ const statuses = [
 	{ text: 'Cancelled', value: 'Cancelled' } // the project is cancelled
 ]
 const remediations = [
-	{ text: 'N/A', value: 'N/A' },
+	{ text: 'None', value: 'None' },
 	{ text: 'Training', value: 'Training' },
 	{ text: 'In Source', value: 'In Source' },
 	{ text: 'Out Source', value: 'Out Source' }
+]
+const skillGaps = [
+	{ text: 'N/A', value: 'N/A' },
+	{ text: 'Yes', value: 'Yes' },
+	{ text: 'No', value: 'No' },
 ]
 
 class ProjectsTable extends React.Component {
@@ -136,6 +145,13 @@ class ProjectsTable extends React.Component {
 				key: 'status',
 				filters: statuses,
 				onFilter: (value, record) => record.status.indexOf(value) === 0
+			},
+			{
+				title: 'Skill Gap',
+				dataIndex: 'skillGap',
+				key: 'skillGap',
+				filters: skillGaps,
+				onFilter: (value, record) => record.skillGap.indexOf(value) === 0
 			},
 			{
 				title: 'Remediation',
