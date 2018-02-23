@@ -29,6 +29,9 @@ class Navbar extends React.Component {
 				<Menu.Item key = "projects">
 					<Icon type = "rocket"/> Projects
 				</Menu.Item>
+				<Menu.Item key = "measures">
+					<Icon type = "area-chart" /> Measures
+				</Menu.Item>
 				<Menu.Item key = "associates">
 					<Icon type = "user"/> Associates
 				</Menu.Item>

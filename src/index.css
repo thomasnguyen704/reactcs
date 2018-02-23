@@ -3,14 +3,19 @@
 
 body {
   margin: 0 0 20% 0;
-  padding: 0;
 }
 .Navbar {
   margin-bottom: 25px;
 }
+.section {
+  padding: 50px 0 50px 0;
+}
 .right {
   background-color: whitesmoke;
   height: 75vh;
+}
+.container {
+  margin-bottom: 20%;
 }
 
 
