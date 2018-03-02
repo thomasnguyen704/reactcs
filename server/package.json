@@ -1,0 +1,18 @@
+{
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "capstone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start_db": "./start_db.sh"
+  },
+  "author": "Thomas Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "knex": "^0.14.4",
+    "pg": "^7.4.1",
+    "sqlite3": "^3.1.13"
+  }
+}

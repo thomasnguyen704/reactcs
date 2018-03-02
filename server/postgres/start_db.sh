@@ -1,0 +1,1 @@
+docker run --name capstone --env-file ./.env -d postgres -p 5432:5432
