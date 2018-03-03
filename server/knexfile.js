@@ -1,8 +1,6 @@
 require('dotenv').config()
 const {POSTGRES_ENV_DB_NAME, POSTGRES_ENV_POSTGRES_USER, POSTGRES_ENV_POSTGRES_PASSWORD} = process.env
 
-// Update with your config settings.
-
 module.exports = {
 
   development: {
@@ -46,5 +44,4 @@ module.exports = {
       tableName: 'knex_migrations_prd'
     }
   }
-
 };
