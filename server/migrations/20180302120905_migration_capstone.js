@@ -38,7 +38,7 @@ exports.up = function(knex, Promise) {
         return knex.schema.createTable('project_skills', (table)=> {
             table.integer('skill_id').notNull()
             table.integer('project_id').notNull()
-            table.unquie(['skill_id', 'project_id'])
+            table.unique(['skill_id', 'project_id'])
             table.foreign('skill_id').references('skills.id')
             table.foreign('project_id').references('projects.id')
         })
@@ -46,7 +46,11 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTable('surveys').then( ()=>{
+    return knex.schema.dropTable('project_skills').then( ()=> {
+        return knex.schema.dropTable('project_associates')
+    }).then( ()=>{
+        return knex.schema.dropTable('surveys')
+    }).then( ()=>{
         return knex.schema.dropTable('skills')
     }).then( ()=> {
         return knex.schema.dropTable('projects')

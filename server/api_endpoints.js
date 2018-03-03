@@ -27,19 +27,21 @@ const getProjectSkills = ()=> {
 
 /* table: get all projects by project id */
 app.get('/projects/:id', (req, res)=> {
-    if (req.params.id){
-        getProjects().leftJoin(
-            'projects_skills', 'projects.id', 'project_skills.project_id' // join project_skills and associates
-        ).leftJoin (
-            'project_associates', 'projects.id', 'project_assocites.project_id'
-        ).where (
-            'projects.id', req.params.id
-        ).then (
-            res.send
-        )
-    } else {
-        getProjects().then(res.send)
-    }
+     // join project_skills and associates
+    getProjects().leftJoin(
+        'project_skills', 'projects.id', 'project_skills.project_id'
+    ).leftJoin (
+        'project_associates', 'projects.id', 'project_associates.project_id'
+    ).where (
+        'projects.id', req.params.id
+    ).then (results=>{
+        res.send(results)
+    })
+})
+app.get('/projects', (req, res)=> {
+    getProjects().then(results=>{
+        res.send(results)
+    })
 })
 
 
@@ -72,3 +74,6 @@ app.get('/projects/:id', (req, res)=> {
 /*
     post skill by associate to the survey table
 */
+
+
+app.listen(3001, ()=> console.log('Server listening on 3001'))
