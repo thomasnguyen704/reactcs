@@ -29,5 +29,13 @@ exports.seed = (knex, Promise)=> {
 			{ skill_id: 1, project_id: 2 },
 			{ skill_id: 2, project_id: 2 }
 		])
+	}).then( ()=> {
+		return knex('project_associates').del()
+	}).then( ()=>{
+		return knex('project_associates').insert([
+			{ project_id: 1, associate: 'thomasnguyen' },
+			{ project_id: 1, associate: 'danielstahl' },
+			{ project_id: 2, associate: 'danielstahl' }
+		])
 	})
 }

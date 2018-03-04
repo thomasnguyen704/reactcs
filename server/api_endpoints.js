@@ -28,7 +28,7 @@ const getProjectSkills = ()=> {
 /* table: get all projects by project id */
 app.get('/projects/:id', (req, res)=> {
     return knex.select(
-        'project', 'project', 'lead', 'status', 'remediation', 'skill_id', 'skill'
+        'project', 'project', 'lead', 'status', 'remediation', 'skill', 'associate'
     ).from(
         'projects'
     ).leftJoin(
