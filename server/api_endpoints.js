@@ -28,11 +28,13 @@ const getProjectSkills = ()=> {
 /* table: get all projects by project id */
 app.get('/projects/:id', (req, res)=> {
     return knex.select(
-        'project', 'project', 'lead', 'status', 'remediation', 'skill_id'
+        'project', 'project', 'lead', 'status', 'remediation', 'skill_id', 'skill'
     ).from(
         'projects'
     ).leftJoin(
         'project_skills', 'projects.id', 'project_skills.project_id'
+    ).leftJoin(
+        'skills', 'project_skills.skill_id', 'skills.id'
     ).leftJoin(
         'project_associates', 'projects.id', 'project_associates.project_id'
     ).where(
