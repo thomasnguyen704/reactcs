@@ -46,7 +46,8 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTable('project_skills').then( ()=> {
+    return knex.schema.dropTable('project_skills'
+    ).then( ()=> {
         return knex.schema.dropTable('project_associates')
     }).then( ()=>{
         return knex.schema.dropTable('surveys')

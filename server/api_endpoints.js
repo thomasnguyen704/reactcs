@@ -27,7 +27,22 @@ const getProjectSkills = ()=> {
 
 /* table: get all projects by project id */
 app.get('/projects/:id', (req, res)=> {
-     // join project_skills and associates
+    return knex.select(
+        'project', 'project', 'lead', 'status', 'remediation', 'skill_id'
+    ).from(
+        'projects'
+    ).leftJoin(
+        'project_skills', 'projects.id', 'project_skills.project_id'
+    ).leftJoin(
+        'project_associates', 'projects.id', 'project_associates.project_id'
+    ).where(
+        'projects.id', req.params.id
+    ).then(
+        results=>{
+            res.send(results)
+        }
+    )
+    /*
     getProjects().leftJoin(
         'project_skills', 'projects.id', 'project_skills.project_id'
     ).leftJoin (
@@ -37,11 +52,23 @@ app.get('/projects/:id', (req, res)=> {
     ).then (results=>{
         res.send(results)
     })
+    */
 })
 app.get('/projects', (req, res)=> {
+    return knex.select(
+        'id', 'project', 'lead', 'status', 'remediation'
+    ).from(
+        'projects'
+    ).then(
+        results=>{
+            res.send(results)
+        }
+    )
+    /*
     getProjects().then(results=>{
         res.send(results)
     })
+    */
 })
 
 
