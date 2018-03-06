@@ -5,7 +5,7 @@
   "main": "api_endpoints.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start_db": "./start_db.sh"
+    "start": "node ./node_modules/nodemon/bin/nodemon.js ./api_endpoints.js"
   },
   "author": "Thomas Nguyen",
   "license": "ISC",
@@ -16,5 +16,10 @@
     "knex": "^0.14.4",
     "pg": "^7.4.1",
     "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {
+    "install": "^0.10.4",
+    "nodemon": "^1.17.1",
+    "npm": "^5.7.1"
   }
 }
