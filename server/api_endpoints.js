@@ -86,15 +86,21 @@ app.get('/users', (req,res)=>{
 })
 
 // get an associate from user/survey table
-app.get('/surveys:user', (req, res)=> {
-    return knex.select('id', 'skill_id', 'user')
+app.get('surveys:user', (req, res)=> {
+    return knex.select('id', 'user')
     .from('surveys')
     .where('user', req.params.user)
     .then(results=> {res.send(results)})
 })
 
+
 // get skills by associate from surveys table
-app.get('')
+app.get('/surveys/skill:user', (req, res)=> {
+    return knex.select('skill_id', 'user')
+    .from('surveys')
+    .where('user', req.params.user)
+    .then(results=> {res.send(results)})
+})
 
 /*
     post skill by associate to the survey table
