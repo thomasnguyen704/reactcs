@@ -27,50 +27,45 @@ const getProjectSkills = ()=> {
 
 /* table: get all projects by project id */
 app.get('/projects/:id', (req, res)=> {
-    return knex.select(
-        'project', 'project', 'lead', 'status', 'remediation', 'skill', 'associate'
-    ).from(
-        'projects'
-    ).leftJoin(
-        'project_skills', 'projects.id', 'project_skills.project_id'
-    ).leftJoin(
-        'skills', 'project_skills.skill_id', 'skills.id'
-    ).leftJoin(
-        'project_associates', 'projects.id', 'project_associates.project_id'
-    ).where(
-        'projects.id', req.params.id
-    ).then(
-        results=>{
-            res.send(results)
+    const projectId = req.params.id
+    
+    const results = Promise.all([
+        knex.select('project', 'lead', 'status', 'remediation')
+            .from('projects')
+            .where({id:projectId}),
+        knex.select('skill_id', 'skill')
+            .from('project_skills')
+            .innerJoin('skills', 'skills.id', 'project_skills.skill_id')
+            .where('project_skills.project_id', projectId),
+        knex.select('associate', 'username')
+            .from('project_associates')
+            .innerJoin('users', 'users.user', 'project_associates.associate')
+            .where('project_associates.project_id', projectId)
+    ]).then(results=> {
+        // results is an array, first item is the project, second is skill, third is associates
+        if(results[0].length === 0){
+            throw new Error ('No projects for that ID')
         }
-    )
-    /*
-    getProjects().leftJoin(
-        'project_skills', 'projects.id', 'project_skills.project_id'
-    ).leftJoin (
-        'project_associates', 'projects.id', 'project_associates.project_id'
-    ).where (
-        'projects.id', req.params.id
-    ).then (results=>{
-        res.send(results)
+        else {
+            res.send({
+                ...results[0][0],
+                skills: results[1],
+                associates: results[2]
+            })
+        }
+    }).catch(error=>{
+        res.send({error: error.message}) 
     })
-    */
 })
+
+
 app.get('/projects', (req, res)=> {
-    return knex.select(
-        'id', 'project', 'lead', 'status', 'remediation'
-    ).from(
-        'projects'
-    ).then(
-        results=>{
+    return knex.select('id', 'project', 'lead', 'status', 'remediation')
+        .from('projects').then(
+        results=> {
             res.send(results)
         }
     )
-    /*
-    getProjects().then(results=>{
-        res.send(results)
-    })
-    */
 })
 
 
