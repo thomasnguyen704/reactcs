@@ -54,16 +54,6 @@ app.get('/projects/:id', (req, res)=> {
     })
 })
 
-/*
-    new form: post a project form
-    this will create a new project id (auto inc)
-    this will include assigned assoc
-    this will include assigned skills
-*/
-app.post('/projects/:id', (req, res)=> {
-    req.body()
-})
-
 // get skills from skills table
 app.get('/skills', (req, res)=> {
     return knex.select('id', 'skill')
@@ -86,16 +76,15 @@ app.get('/users', (req,res)=>{
 })
 
 // get an associate from user/survey table
-app.get('surveys:user', (req, res)=> {
+app.get('/surveys/:user', (req, res)=> {
     return knex.select('id', 'user')
     .from('surveys')
     .where('user', req.params.user)
     .then(results=> {res.send(results)})
 })
 
-
 // get skills by associate from surveys table
-app.get('/surveys/skill:user', (req, res)=> {
+app.get('/surveys/skills/:user', (req, res)=> {
     return knex.select('skill_id', 'user')
     .from('surveys')
     .where('user', req.params.user)
@@ -103,8 +92,17 @@ app.get('/surveys/skill:user', (req, res)=> {
 })
 
 /*
-    post skill by associate to the survey table
+    new form: post a project form
+    this will create a new project id (auto inc)
+    this will include assigned assoc
+    this will include assigned skills
 */
+app.post('/projects/:id', (req, res)=> {
+    req.body()
+})
+
+// post skill by associate to the survey table
+
 
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))

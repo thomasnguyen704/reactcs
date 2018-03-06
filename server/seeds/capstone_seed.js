@@ -21,7 +21,7 @@ exports.seed = (knex, Promise)=> {
 			{ skill: 'ALLL' },
 			{ skill: 'FASB Topic 326' }
 		])
-	}).then( ()=> {
+	}).then( ()=>{
 		return knex('project_skills').del()
 	}).then( ()=> {
 		return knex('project_skills').insert([
@@ -29,13 +29,21 @@ exports.seed = (knex, Promise)=> {
 			{ skill_id: 1, project_id: 2 },
 			{ skill_id: 2, project_id: 2 }
 		])
-	}).then( ()=> {
+	}).then( ()=>{
 		return knex('project_associates').del()
 	}).then( ()=>{
 		return knex('project_associates').insert([
 			{ project_id: 1, associate: 'thomasnguyen' },
 			{ project_id: 1, associate: 'danielstahl' },
 			{ project_id: 2, associate: 'danielstahl' }
+		])
+	}).then( ()=>{
+		return knex('surveys').del()
+	}).then( ()=>{
+		return knex('surveys').insert([
+			{ id: 1, skill_id: 1, user: 'thomasnguyen' },
+			{ id: 2, skill_id: 1, user: 'danielstahl' },
+			{ id: 3, skill_id: 2, user: 'danielstahl' }
 		])
 	})
 }
