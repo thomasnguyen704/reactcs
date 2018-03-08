@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tag } from 'antd'
 import { Row, Col } from 'react-flexbox-grid'
+const url = process.env.production? 'digitalOceanDomain' : 'http://localhost:3001'
 
 const selectStyles = {
     border: 'solid thin whitesmoke', 
@@ -12,12 +13,25 @@ const tag = {
     border: 'thin solid whitesmoke',
     margin: 5
 }
-const { CheckableTag } = Tag
-const assocName = 'Thomas Nguyen'
 
-class ClickTag extends React.Component {
-    state = {  checked: false  }
+const getApi = (setState)=> {
+	fetch( url + '/surveys/thomasnguyen' )
+	.then( response=> response.json() )
+	.then( response=> {
+		setState({ data: response })
+	})
+}
+
+const assocName = 'Thomas Nguyen'
+const { CheckableTag } = Tag
+
+class ClickTag extends React.Component {    
+    state = {
+        checked: this.props.checked
+    }
+
     handleChange = (checked) => { this.setState({ checked }) }
+
     render() {
         return (
             <CheckableTag 
@@ -30,6 +44,13 @@ class ClickTag extends React.Component {
 }
 
 class SelectTags extends React.Component{
+    state = {
+        data: []
+    }
+	componentWillMount(){
+		getApi(this.setState.bind(this))
+	}
+
     render(){
         return(
             <div>
@@ -41,62 +62,19 @@ class SelectTags extends React.Component{
                     </Col>
                     <Col md={6}>
                         <div style = {selectStyles}>
-                            <ClickTag style = {tag}>Skill</ClickTag>
-                            <ClickTag style = {tag}>Another skill</ClickTag>
-                            <ClickTag style = {tag}>One more skill</ClickTag>
-                            <ClickTag style = {tag}>How about another skill</ClickTag>
-                            <ClickTag style = {tag}>And another skill</ClickTag>
-                            <ClickTag style = {tag}>KYC</ClickTag>
-                            <ClickTag style = {tag}>BSA/AML</ClickTag>
-                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
-                            <ClickTag style = {tag}>MS SQL</ClickTag>
-                            <ClickTag style = {tag}>Mainframe</ClickTag>
-                            <ClickTag style = {tag}>SAS</ClickTag>
-                            <ClickTag style = {tag}>CECL</ClickTag>
-                            <ClickTag style = {tag}>Some math</ClickTag>
-                            <ClickTag style = {tag} >More math stuff</ClickTag>
-                            <ClickTag style = {tag}>Skill</ClickTag>
-                            <ClickTag style = {tag}>Another skill</ClickTag>
-                            <ClickTag style = {tag}>One more skill</ClickTag>
-                            <ClickTag style = {tag}>How about another skill</ClickTag>
-                            <ClickTag style = {tag}>And another skill</ClickTag>
-                            <ClickTag style = {tag}>KYC</ClickTag>
-                            <ClickTag style = {tag}>BSA/AML</ClickTag>
-                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
-                            <ClickTag style = {tag}>MS SQL</ClickTag>
-                            <ClickTag style = {tag}>Mainframe</ClickTag>
-                            <ClickTag style = {tag}>SAS</ClickTag>
-                            <ClickTag style = {tag}>CECL</ClickTag>
-                            <ClickTag style = {tag}>Some math</ClickTag>
-                            <ClickTag style = {tag} >More math stuff</ClickTag>
-                            <ClickTag style = {tag}>Skill</ClickTag>
-                            <ClickTag style = {tag}>Another skill</ClickTag>
-                            <ClickTag style = {tag}>One more skill</ClickTag>
-                            <ClickTag style = {tag}>How about another skill</ClickTag>
-                            <ClickTag style = {tag}>And another skill</ClickTag>
-                            <ClickTag style = {tag}>KYC</ClickTag>
-                            <ClickTag style = {tag}>BSA/AML</ClickTag>
-                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
-                            <ClickTag style = {tag}>MS SQL</ClickTag>
-                            <ClickTag style = {tag}>Mainframe</ClickTag>
-                            <ClickTag style = {tag}>SAS</ClickTag>
-                            <ClickTag style = {tag}>CECL</ClickTag>
-                            <ClickTag style = {tag}>Some math</ClickTag>
-                            <ClickTag style = {tag} >More math stuff</ClickTag>
-                            <ClickTag style = {tag}>Skill</ClickTag>
-                            <ClickTag style = {tag}>Another skill</ClickTag>
-                            <ClickTag style = {tag}>One more skill</ClickTag>
-                            <ClickTag style = {tag}>How about another skill</ClickTag>
-                            <ClickTag style = {tag}>And another skill</ClickTag>
-                            <ClickTag style = {tag}>KYC</ClickTag>
-                            <ClickTag style = {tag}>BSA/AML</ClickTag>
-                            <ClickTag style = {tag}>Oracle SQL</ClickTag>
-                            <ClickTag style = {tag}>MS SQL</ClickTag>
-                            <ClickTag style = {tag}>Mainframe</ClickTag>
-                            <ClickTag style = {tag}>SAS</ClickTag>
-                            <ClickTag style = {tag}>CECL</ClickTag>
-                            <ClickTag style = {tag}>Some math</ClickTag>
-                            <ClickTag style = {tag} >More math stuff</ClickTag>
+                            {
+                                this.state.data.map( (row)=>{
+                                    return (
+                                        <ClickTag 
+                                            key = {row.skill_id} 
+                                            style = {tag} 
+                                            checked = {row.skill_exist}
+                                        > 
+                                            {row.skill} 
+                                        </ClickTag>
+                                    )
+                                })
+                            }
                         </div>
                     </Col>
                 </Row>

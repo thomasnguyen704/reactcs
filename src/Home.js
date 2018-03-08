@@ -28,33 +28,3 @@ class Home extends React.Component {
     }
 }
 export default Home
-
-/*
-const jumbotron = {
-    width: '100%',
-    height: '70vh',
-    backgroundColor: 'whitesmoke',
-    padding: '25px',
-    marginBottom: '100px',
-    background: 'url(https://thumbor.forbes.com/thumbor/1280x868/smart/https%3A%2F%2Fblogs-images.forbes.com%2Fjoshsteimle%2Ffiles%2F2015%2F08%2Ftodoist-office2-1940x1294.jpg) no-repeat center center fixed',
-    backgroundSize: 'cover',
-    display: 'flex',
-    alignItems: 'center'
-}
-const jumbotitle = {
-    fontSize: '3em', 
-    color: 'white', 
-    textShadow: '1px 1px dimgrey',
-    textAlign: 'center',
-    fontStretch: 'ultra-expanded',
-    fontFamily: '"Open Sans", sans-serif'
-
-}
-<Row>
-    <div style = {jumbotron}>
-        <Col sm={12}>
-            <p style = {jumbotitle}>Human Capital Analytics</p>
-        </Col>
-    </div>
-</Row>
-*/

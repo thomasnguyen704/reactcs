@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.2.0",
+    "array_utils": "^1.4.1",
     "bookshelf": "^0.12.1",
     "gh-pages": "^1.1.0",
     "knex": "^0.14.4",

@@ -19,8 +19,9 @@ const getProjectSkills = ()=> { return knex.select('skill_id', 'project_id').fro
 
 // table: get all projects
 app.get('/projects', (req, res)=> {
-    return knex.select('id', 'project', 'lead', 'status', 'remediation')
+    return knex.select('id', 'project', 'lead as lead_id', 'username as lead', 'status', 'remediation')
         .from('projects')
+        .innerJoin('users', 'lead', 'user')
         .then((results)=> {res.send(results)})
 })
 
