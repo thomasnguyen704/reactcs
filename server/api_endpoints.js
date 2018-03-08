@@ -21,7 +21,7 @@ const getProjectSkills = ()=> { return knex.select('skill_id', 'project_id').fro
 app.get('/projects', (req, res)=> {
     return knex.select('id', 'project', 'lead', 'status', 'remediation')
         .from('projects')
-        .then(results=> {res.send(results)})
+        .then((results)=> {res.send(results)})
 })
 
 // table: get all projects by project id
@@ -61,13 +61,6 @@ app.get('/skills', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
-// get lead from users table
-app.get('/leads', (req, res)=> {
-    return knex.select('lead')
-    .from('projects')
-    .then(results=> {res.send(results)})
-})
-
 // get associates from users table
 app.get('/users', (req,res)=>{
     return knex.select('user')
@@ -75,20 +68,26 @@ app.get('/users', (req,res)=>{
     .then(results=> {res.send(results)})
 })
 
-// get an associate from user/survey table
+// get an user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
-    return knex.select('id', 'user')
-    .from('surveys')
-    .where('user', req.params.user)
-    .then(results=> {res.send(results)})
-})
-
-// get skills by associate from surveys table
-app.get('/surveys/skills/:user', (req, res)=> {
-    return knex.select('skill_id', 'user')
-    .from('surveys')
-    .where('user', req.params.user)
-    .then(results=> {res.send(results)})
+    const results = 
+        knex.select(
+            'user', 
+            'skill', 
+            'skills.id as skill_id', 
+            knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist')
+        )
+        .from('skills')
+        .leftJoin('surveys', 'surveys.skill_id', 'skills.id')
+        .where('user', req.params.user)
+        .orWhere('user', null)
+    .then(results=> {
+        if(results[0].length===0){
+            throw new Error('User not found')
+        } else {
+            res.send(results)
+        }
+    })
 })
 
 /*
@@ -106,3 +105,41 @@ app.post('/projects/:id', (req, res)=> {
 
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))
+
+
+// DONT NEED
+// users per skill
+app.get('/project_skills/:skill_id', (req,res)=> {
+    return knex.select('skill_id', 'associate')
+        .from('project_skills')
+        .where('skill_id', req.params.skill_id)
+        .innerJoin('project_associates', 'project_associates.project_id', 'project_skills.skill_id')
+        .groupBy('skill_id', 'associate')
+    .then(results=> {res.send(results)})
+})
+
+// get skills by associate from surveys table
+app.get('/surveys/skills/:skill_id', (req, res)=> {
+    return knex.select('skill_id', 'user')
+    .from('surveys')
+    .where('user', req.params.user)
+    .then(results=> {res.send(results)})
+})
+
+// skills per associate from projects
+app.get('/projects/skills/:associate', (req,res)=> {
+    return knex.select('project_associates.associate', 'skills.skill')
+        .from('project_associates')
+        .innerJoin('project_skills', 'project_skills.project_id', 'project_associates.project_id')
+        .innerJoin('skills', 'skills.id', 'project_skills.skill_id')
+        .groupBy('skill_id')
+        .where('associate', req.params.associate)
+    .then(results=> {res.send(results)})
+})
+
+// get lead from users table
+app.get('/leads', (req, res)=> {
+    return knex.select('lead')
+    .from('projects')
+    .then(results=> {res.send(results)})
+})
