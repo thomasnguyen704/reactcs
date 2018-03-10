@@ -9,14 +9,6 @@ const knex = require('knex')({
 
 app.use(bodyParser)
 
-/*
-const getProjects = ()=> { return knex.select('id', 'project', 'lead', 'status', 'remediation').from('projects') }
-const getSkills = ()=> { return knex.select('id', 'skill').from('skills') }
-const getSurveys = ()=> { return knex.select('id', 'skill_id', 'user').from('surveys') }
-const getProjectAssociates = ()=> { return knex.select('project_id', 'associate').from('project_associates') }
-const getProjectSkills = ()=> { return knex.select('skill_id', 'project_id').from('project_skills') }
-*/
-
 // table: get all projects
 app.get('/projects', (req, res)=> {
     return knex.select('id', 'project', 'lead as lead_id', 'username as lead', 'status', 'remediation')
@@ -98,49 +90,12 @@ app.get('/surveys/:user', (req, res)=> {
     this will include assigned skills
 */
 app.post('/projects/:id', (req, res)=> {
-    req.body()
 })
 
 // post skill by associate to the survey table
 
 
 
+
+
 app.listen(3001, ()=> console.log('Server listening on 3001'))
-
-
-// DONT NEED
-// users per skill
-app.get('/project_skills/:skill_id', (req,res)=> {
-    return knex.select('skill_id', 'associate')
-        .from('project_skills')
-        .where('skill_id', req.params.skill_id)
-        .innerJoin('project_associates', 'project_associates.project_id', 'project_skills.skill_id')
-        .groupBy('skill_id', 'associate')
-    .then(results=> {res.send(results)})
-})
-
-// get skills by associate from surveys table
-app.get('/surveys/skills/:skill_id', (req, res)=> {
-    return knex.select('skill_id', 'user')
-    .from('surveys')
-    .where('user', req.params.user)
-    .then(results=> {res.send(results)})
-})
-
-// skills per associate from projects
-app.get('/projects/skills/:associate', (req,res)=> {
-    return knex.select('project_associates.associate', 'skills.skill')
-        .from('project_associates')
-        .innerJoin('project_skills', 'project_skills.project_id', 'project_associates.project_id')
-        .innerJoin('skills', 'skills.id', 'project_skills.skill_id')
-        .groupBy('skill_id')
-        .where('associate', req.params.associate)
-    .then(results=> {res.send(results)})
-})
-
-// get lead from users table
-app.get('/leads', (req, res)=> {
-    return knex.select('lead')
-    .from('projects')
-    .then(results=> {res.send(results)})
-})
