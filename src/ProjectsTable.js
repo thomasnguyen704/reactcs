@@ -3,9 +3,8 @@ import { Table, Input, Icon } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 import {getUniqueArray} from 'array_utils'
 
-// const url = process.env.production? '159.65.189.161:3001' : 'http://localhost:3001'
-const url = '159.65.189.161:3001'
-
+const url = process.env.production? '159.65.189.161:3001' : 'http://localhost:3001'
+// const url = '159.65.189.161:3001'
 
 const statuses = [
 	{ text: 'Draft', value: 'Draft' },
