@@ -3,15 +3,15 @@ exports.seed = (knex, Promise)=> {
 	return knex('users').del().then( ()=> {
 		// Inserts seed entries
 		return knex('users').insert([
-			{ user: 'thomasnguyen', username: 'thomas nguyen' },
-			{ user: 'danielstahl', username: 'daniel stahl' }
+			{ user: 'thomasnguyen', username: 'Thomas Nguyen' },
+			{ user: 'danielstahl', username: 'Daniel Stahl' }
 		])
 	}).then( ()=> {
 		return knex('projects').del()
 	}).then( ()=> {
 		return knex('projects').insert([
-			{ project: 'CECL', lead: 'danielstahl', status: 'complete', remediation: 'training' },
-			{ project: 'Compliance', lead: 'thomasnguyen', status: 'draft', remediation: 'none' }
+			{ project: 'CECL', lead: 'danielstahl', status: 'Complete', remediation: 'Training' },
+			{ project: 'Compliance', lead: 'thomasnguyen', status: 'Draft', remediation: 'None' }
 		])
 	}).then( ()=>{
 		return knex('skills').del()
