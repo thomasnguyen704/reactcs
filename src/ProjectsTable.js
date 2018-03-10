@@ -3,13 +3,15 @@ import { Table, Input, Icon } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 import {getUniqueArray} from 'array_utils'
 
-const url = process.env.production? 'digitalOceanDomain' : 'http://localhost:3001'
+// const url = process.env.production? '159.65.189.161:3001' : 'http://localhost:3001'
+const url = '159.65.189.161:3001'
+
 
 const statuses = [
-	{ text: 'Draft', value: 'Draft' }, 							// form is saved, but not complete and/or submitted
-	{ text: 'Pending Review', value: 'Pending Review' }, 		// form is complete and submitted to governance (Aaron Bridgers)
-	{ text: 'Approved', value: 'Approved' }, 					// governance helps manager address gaps and approves project
-	{ text: 'Cancelled', value: 'Cancelled' } 					// the project is cancelled
+	{ text: 'Draft', value: 'Draft' },
+	{ text: 'Pending Review', value: 'Pending Review' },
+	{ text: 'Approved', value: 'Approved' },
+	{ text: 'Cancelled', value: 'Cancelled' }
 ]
 const remediations = [
 	{ text: 'None', value: 'None' },
@@ -27,7 +29,6 @@ const getApi = (setState)=> {
 	fetch( url + '/projects' )
 	.then( response=> response.json() )
 	.then( response=> {
-		console.log(response)
 		setState({ data: response })
 	})
 }
@@ -40,7 +41,7 @@ const filter = (dataArray)=>{
 
 const columns = [
 	{ 
-		title: 'Project ID', 
+		title: 'Project ID',
 		dataIndex: 'id'
 	},
 	{
@@ -72,10 +73,6 @@ class ProjectsTable extends React.Component {
 	}
 
 	render() {
-		// Todo, comment more on what columns does.
-
-		console.log('State: ', this.state)
-
 		return (
 			<div>
 				<h1>Projects</h1>
@@ -93,58 +90,3 @@ class ProjectsTable extends React.Component {
 }
 
 export default ProjectsTable
-
-
-/*
-// set state at onInputChange event
-onInputChange = (e) => {
-	this.setState({ 
-		searchText: e.target.value 
-	})
-}
-
-// need to comment onSearch that makes sense
-onSearch = () => {
-	const { searchText } = this.state;
-	const reg = new RegExp(searchText, 'gi');
-	this.setState({
-		filterDropdownVisible: false,
-		filtered: !!searchText,
-		data: data.map( (record)=> {
-			const match = record.name.match(reg);
-			if (!match) {
-				return null;
-			} 
-			return {
-				...record,
-				name: ( <span> { record.name.split(reg).map( (text, i) => ( i > 0 ? [<span className="highlight">{match[0]}</span>, text] : text )) } </span>),
-			};
-		}).filter(record => !!record)
-	});
-}
-
-{
-	title: 'Project',
-	dataIndex: 'project',
-	key: 'project',
-	filterDropdown: (
-		<div className="custom-filter-dropdown">
-			<Input ref = {ele=> this.searchInput = ele} placeholder = "Search project" value = {this.state.searchText} onChange = {this.onInputChange} onPressEnter = {this.onSearch} />
-		</div>
-	),
-	filterIcon: ( <Icon type = "search" style = {{ color: this.state.filtered ? '#108ee9' : '#aaa' }} /> ),
-	filterDropdownVisible: this.state.filterDropdownVisible,
-	onFilterDropdownVisibleChange: (visible) => {
-		this.setState(
-			{ filterDropdownVisible: visible }, 
-			()=> this.searchInput && this.searchInput.focus()
-		);
-	},
-	render: text=> ( 
-		<div>
-			<ProjectFormModal/> 
-			<span style={{marginLeft: '25px'}}>{text}</span>
-		</div>
-	)
-},
-*/
