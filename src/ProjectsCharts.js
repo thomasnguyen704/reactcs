@@ -2,6 +2,8 @@ import React from 'react'
 import { VictoryBar, VictoryPie, VictoryChart, VictoryAxis } from 'victory'
 import { Row, Col } from 'react-flexbox-grid'
 
+const url = process.env.production? '159.65.189.161:3001' : ''
+
 const tickStyles = {
     fontSize: 12,
     fontFamily: 'Open Sans'
@@ -17,13 +19,14 @@ const chartStyles = {
     margin: '10px 0 10px 0',
     height: '95%'
 }
-
+/*
 const assignments = [
     {associate: 'Aaron Bridgers', assigned: 2},
     {associate: 'Chris Kennedy', assigned: 3},
     {associate: 'Daniel Stahl', assigned: 5},
     {associate: 'Thomas Nguyen', assigned: 1}
 ]
+*/
 const statuses = [
     {status: 'Draft', count: 3},
     {status: 'Pending', count: 2},
@@ -31,8 +34,25 @@ const statuses = [
     {status: 'Cancelled', count: 1}
 ]
 
+const getApi = (setState)=> {
+	fetch( url + '/chartActiveLead' )
+	.then( response=> response.json() )
+	.then( response=> {
+		setState({ data: response })
+	})
+}
+
 class ProjectsCharts extends React.Component {
+	componentWillMount(){
+		getApi(this.setState.bind(this))
+    }
+
+    state = {
+        data: []
+    }
+    
     render() {
+        console.log(this.state)
         return (
             <div>
                 <Row>
@@ -51,8 +71,8 @@ class ProjectsCharts extends React.Component {
                                     }}
                                 />
                                 <VictoryBar  
-                                    data={assignments} 
-                                    x='associate' 
+                                    data={this.state.data} 
+                                    x='lead' 
                                     y='assigned'
                                     labels={ (d)=> d.y }
                                     style={{ data: dataStyles, labels: tickStyles }}
@@ -60,6 +80,7 @@ class ProjectsCharts extends React.Component {
                             </VictoryChart>
                         </div>
                     </Col>
+
                     <Col lg={6}>
                         <div style={chartStyles}>
                             <p className='chartTitle'>Entry Status</p>

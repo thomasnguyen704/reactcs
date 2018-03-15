@@ -47,10 +47,17 @@ app.get('/projects/:id', (req, res)=> {
     })
 })
 
+app.get('/chartActiveLead', (req, res)=> {
+    return knex('projects')
+    .select(knex.raw('count(id) as assigned, lead'))
+    .whereNot('status', 'Complete')
+    .groupBy('lead')
+    .then(results=> {res.send(results)})
+})
+
 // get skills from skills table
 app.get('/skills', (req, res)=> {
-    return knex.select('id', 'skill')
-    .from('skills')
+    return knex.select('id', 'skill', 'status').from('skills')
     .then(results=> {res.send(results)})
 })
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tag } from 'antd'
 import { Row, Col } from 'react-flexbox-grid'
-const url = process.env.production? 'digitalOceanDomain' : 'http://localhost:3001'
+const url = process.env.production? 'digitalOceanDomain' : ''
 
 const selectStyles = {
     border: 'solid thin whitesmoke', 
