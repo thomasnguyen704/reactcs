@@ -1,8 +1,7 @@
 import React from 'react'
 import { VictoryBar, VictoryPie, VictoryChart, VictoryAxis } from 'victory'
 import { Row, Col } from 'react-flexbox-grid'
-
-const url = process.env.production? '159.65.189.161:3001' : ''
+import {url} from './utils'
 
 const tickStyles = {
     fontSize: 12,

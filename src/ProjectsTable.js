@@ -1,73 +1,67 @@
 import React from 'react'
 import { Table, Input, Icon } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
-import {getUniqueArray} from 'array_utils'
+import { getUniqueArray } from 'array_utils'
+import {url} from './utils'
 
-const url = process.env.production? '159.65.189.161:3001' : ''
-// const url = '159.65.189.161:3001'
-
-const Search = Input.Search
-
-const getApi = (setState)=> {
+const getApi_projects = (setState)=> {
 	fetch( url + '/projects' )
 	.then( response=> response.json() )
 	.then( response=> {
-		setState({ data: response })
+		setState({ projects: response })
 	})
 }
-const getApi_ProjectLead = (setState)=> {
+
+const getApi_lead = (setState)=> {
 	fetch( url + '/lead' )
 	.then( response=> response.json() )
 	.then( response=> {
-		setState({ data: response })
+		setState({ leads: response })
 	})
 }
 
-const filter = (dataArray)=>{
-	return (key)=>{ getUniqueArray(dataArray, key) }
+const columns = (associates)=> {
+	return [
+		{ 
+			title: 'Project ID',
+			dataIndex: 'id',
+			sorter: (a, b)=> a.id - b.id,
+			render: text=> <a href="#">{text}</a>
+		},
+		{
+			title: 'Project Name', 
+			dataIndex: 'project',
+			sorter: (a, b)=> a.project.length - b.project.length
+		},
+		{
+			title: 'Lead', 
+			dataIndex: 'lead',
+			sorter: (a, b)=> a.lead.length - b.lead.length,
+			filters: associates.map( ({ lead })=> ({ text: lead, value: lead }) ),
+			onFilter: (value, record)=> record.lead.indexOf(value) === 0
+		},
+		{ 
+			title: 'Status', 
+			dataIndex: 'status',
+			sorter: (a, b)=> a.status.length - b.status.length
+		},
+		{ 
+			title: 'Remediation', 
+			dataIndex: 'remediation',
+			sorter: (a, b)=> a.remediation.length - b.remediation.length
+		}
+	]
 }
-
-const columns = [
-	{ 
-		title: 'Project ID',
-		dataIndex: 'id',
-		sorter: (a, b) => a.id - b.id,
-		render: text => <a href="#">{text}</a>
-	},
-	{
-		title: 'Project Name', 
-		dataIndex: 'project',
-		sorter: (a, b) => a.project.length - b.project.length
-	},
-	{
-		title: 'Lead', 
-		dataIndex: 'lead',
-		sorter: (a, b) => a.lead.length - b.lead.length,
-		filters: [
-			{ text: 'Daniel Stahl', value: 'Daniel Stahl' }, 
-			{ text: 'Thomas Nguyen', value: 'Thomas Nguyen' }
-		],
-		onFilter: (value, record) => record.lead.indexOf(value) === 0
-	},
-	{ 
-		title: 'Status', 
-		dataIndex: 'status',
-		sorter: (a, b) => a.status.length - b.status.length
-	},
-	{ 
-		title: 'Remediation', 
-		dataIndex: 'remediation',
-		sorter: (a, b) => a.remediation.length - b.remediation.length
-	}
-]
 
 class ProjectsTable extends React.Component {	
 	state = {
-		data: []
+		projects: [],
+		leads: []
 	}
 
 	componentWillMount(){
-		getApi(this.setState.bind(this))
+		getApi_projects(this.setState.bind(this))
+		//getApi_lead(this.setState.bind(this))
 	}
 
 	render() {
@@ -76,8 +70,8 @@ class ProjectsTable extends React.Component {
 				<h1>Projects</h1>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				<Table 
-					columns = {columns} 
-					dataSource = {this.state.data}
+					columns = {columns(getUniqueArray(this.state.projects, 'lead'))} 
+					dataSource = {this.state.projects}
 					title = { ()=> <p> Click <ProjectFormModal /> to create a new project </p> }
 					pagination={{ pageSize: 5 }}
 					rowKey = 'id' 
