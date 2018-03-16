@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('users', (table)=> {
         table.string('user', 32).notNull().primary()
