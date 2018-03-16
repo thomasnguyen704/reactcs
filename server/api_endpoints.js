@@ -47,14 +47,6 @@ app.get('/projects/:id', (req, res)=> {
     })
 })
 
-app.get('/chartActiveLead', (req, res)=> {
-    return knex('projects')
-    .select(knex.raw('count(id) as assigned, lead'))
-    .whereNot('status', 'Complete')
-    .groupBy('lead')
-    .then(results=> {res.send(results)})
-})
-
 // get skills from skills table
 app.get('/skills', (req, res)=> {
     return knex.select('id', 'skill', 'status').from('skills')
@@ -65,6 +57,13 @@ app.get('/skills', (req, res)=> {
 app.get('/users', (req,res)=>{
     return knex.select('user')
     .from('users')
+    .then(results=> {res.send(results)})
+})
+// get lead from projects table
+app.get('/lead', (req,res)=>{
+    return knex.select('username')
+    .from('projects')
+    .innerJoin('users', 'user', 'lead')
     .then(results=> {res.send(results)})
 })
 
@@ -101,7 +100,22 @@ app.post('/projects/:id', (req, res)=> {
 
 // post skill by associate to the survey table
 
+app.get('/charts/active_lead', (req, res)=> {
+    return knex('projects')
+    .select(knex.raw('count(id) as assigned, username'))
+    .innerJoin('users', 'user', 'projects.lead')
+    .whereNot('status', 'Complete')
+    .groupBy('lead')
+    .then(results=> {res.send(results)})
+})
 
+app.get('/charts/active_status', (req, res)=> {
+    return knex('projects')
+    .select(knex.raw('count(id) as count, status'))
+    .whereNot('status', 'Complete')
+    .groupBy('status')
+    .then(results=> {res.send(results)})
+})
 
 
 
