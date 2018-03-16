@@ -6,23 +6,7 @@ import {getUniqueArray} from 'array_utils'
 const url = process.env.production? '159.65.189.161:3001' : ''
 // const url = '159.65.189.161:3001'
 
-const statuses = [
-	{ text: 'Draft', value: 'Draft' },
-	{ text: 'Pending Review', value: 'Pending Review' },
-	{ text: 'Approved', value: 'Approved' },
-	{ text: 'Cancelled', value: 'Cancelled' }
-]
-const remediations = [
-	{ text: 'None', value: 'None' },
-	{ text: 'Training', value: 'Training' },
-	{ text: 'In Source', value: 'In Source' },
-	{ text: 'Out Source', value: 'Out Source' }
-]
-const skillGaps = [
-	{ text: 'N/A', value: 'N/A' },
-	{ text: 'Yes', value: 'Yes' },
-	{ text: 'No', value: 'No' },
-]
+const Search = Input.Search
 
 const getApi = (setState)=> {
 	fetch( url + '/projects' )
@@ -31,44 +15,59 @@ const getApi = (setState)=> {
 		setState({ data: response })
 	})
 }
+const getApi_ProjectLead = (setState)=> {
+	fetch( url + '/lead' )
+	.then( response=> response.json() )
+	.then( response=> {
+		setState({ data: response })
+	})
+}
 
 const filter = (dataArray)=>{
-	return (key)=>{
-		getUniqueArray(dataArray, key)
-	}
+	return (key)=>{ getUniqueArray(dataArray, key) }
 }
 
 const columns = [
 	{ 
 		title: 'Project ID',
-		dataIndex: 'id'
+		dataIndex: 'id',
+		sorter: (a, b) => a.id - b.id,
+		render: text => <a href="#">{text}</a>
 	},
 	{
-		title: 'Project', 
-		dataIndex: 'project'
+		title: 'Lead', 
+		dataIndex: 'lead',
+		sorter: (a, b) => a.lead.length - b.lead.length,
+		filters: [
+			{ text: 'Daniel Stahl', value: 'Daniel Stahl' }, 
+			{ text: 'Thomas Nguyen', value: 'Thomas Nguyen' }
+		],
+		onFilter: (value, record) => record.lead.indexOf(value) === 0
 	},
 	{
-		 title: 'Lead', 
-		 dataIndex: 'lead'
+		title: 'Project Name', 
+		dataIndex: 'project',
+		sorter: (a, b) => a.project.length - b.project.length
 	},
 	{ 
 		title: 'Status', 
-		dataIndex: 'status'
+		dataIndex: 'status',
+		sorter: (a, b) => a.status.length - b.status.length
 	},
 	{ 
 		title: 'Remediation', 
-		dataIndex: 'remediation'
+		dataIndex: 'remediation',
+		sorter: (a, b) => a.remediation.length - b.remediation.length
 	}
 ]
 
-class ProjectsTable extends React.Component {
-	componentWillMount(){
-		getApi(this.setState.bind(this))
-	}
-
-	// set inital state
+class ProjectsTable extends React.Component {	
 	state = {
 		data: []
+	}
+
+	componentWillMount(){
+		getApi(this.setState.bind(this))
 	}
 
 	render() {
@@ -79,7 +78,13 @@ class ProjectsTable extends React.Component {
 				<Table 
 					columns = {columns} 
 					dataSource = {this.state.data}
-					title = { ()=> ( <p> Click <ProjectFormModal /> to create a new project </p> ) }
+					title = { ()=> (
+							<div>
+								<p> Click <ProjectFormModal /> to create a new project </p> 
+								<Search placeholder='Search By Project Name' onSearch={value => console.log(value)} enterButton />
+							</div>
+						)
+					}
 					pagination={{ pageSize: 5 }}
 					rowKey = 'id' 
 				/>

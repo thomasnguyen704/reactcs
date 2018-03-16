@@ -19,14 +19,7 @@ const chartStyles = {
     margin: '10px 0 10px 0',
     height: '95%'
 }
-/*
-const assignments = [
-    {associate: 'Aaron Bridgers', assigned: 2},
-    {associate: 'Chris Kennedy', assigned: 3},
-    {associate: 'Daniel Stahl', assigned: 5},
-    {associate: 'Thomas Nguyen', assigned: 1}
-]
-*/
+
 const statuses = [
     {status: 'Draft', count: 3},
     {status: 'Pending', count: 2},
@@ -35,24 +28,33 @@ const statuses = [
 ]
 
 const getApi = (setState)=> {
-	fetch( url + '/chartActiveLead' )
+    fetch( url + '/charts/active_lead' )
 	.then( response=> response.json() )
 	.then( response=> {
 		setState({ data: response })
 	})
 }
+const getApi2 = (setState)=> {
+    fetch( url + '/charts/active_status' )
+	.then( response=> response.json() )
+	.then( response=> {
+		setState({ data2: response })
+	})
+}
+
 
 class ProjectsCharts extends React.Component {
 	componentWillMount(){
-		getApi(this.setState.bind(this))
+        getApi(this.setState.bind(this))
+        getApi2(this.setState.bind(this))
     }
 
     state = {
-        data: []
+        data: [],
+        data2: []
     }
     
     render() {
-        console.log(this.state)
         return (
             <div>
                 <Row>
@@ -60,7 +62,7 @@ class ProjectsCharts extends React.Component {
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <Col lg={6}>
                         <div style={chartStyles}>
-                            <p className='chartTitle'>Active Assignments</p>
+                            <p className='chartTitle'>Active Assignments by Lead</p>
                             <VictoryChart 
                                 domainPadding={20}
                             >
@@ -72,7 +74,7 @@ class ProjectsCharts extends React.Component {
                                 />
                                 <VictoryBar  
                                     data={this.state.data} 
-                                    x='lead' 
+                                    x='username' 
                                     y='assigned'
                                     labels={ (d)=> d.y }
                                     style={{ data: dataStyles, labels: tickStyles }}
@@ -83,9 +85,9 @@ class ProjectsCharts extends React.Component {
 
                     <Col lg={6}>
                         <div style={chartStyles}>
-                            <p className='chartTitle'>Entry Status</p>
+                            <p className='chartTitle'>Status of Open Items</p>
                             <VictoryPie 
-                                data={statuses} 
+                                data={this.state.data2} 
                                 x='status' 
                                 y='count'
                                 labels={ (d) => `${d.x}: ${d.y}` }
