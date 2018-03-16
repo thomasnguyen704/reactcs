@@ -22,14 +22,14 @@ app.get('/projects', (req, res)=> {
 app.get('/projects/:id', (req, res)=> {
     const projectId = req.params.id
     const results = Promise.all([
-        knex.select('project', 'lead', 'status', 'remediation')
+        knex.select('project', 'status', 'lead', 'remediation')
             .from('projects')
             .where({id:projectId}),
-        knex.select('skill_id', 'skill')
+        knex.select('skill')
             .from('project_skills')
             .innerJoin('skills', 'skills.id', 'project_skills.skill_id')
             .where('project_skills.project_id', projectId),
-        knex.select('associate', 'username')
+        knex.select('username as associate')
             .from('project_associates')
             .innerJoin('users', 'users.user', 'project_associates.associate')
             .where('project_associates.project_id', projectId)
