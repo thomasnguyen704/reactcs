@@ -35,6 +35,11 @@ const columns = [
 		render: text => <a href="#">{text}</a>
 	},
 	{
+		title: 'Project Name', 
+		dataIndex: 'project',
+		sorter: (a, b) => a.project.length - b.project.length
+	},
+	{
 		title: 'Lead', 
 		dataIndex: 'lead',
 		sorter: (a, b) => a.lead.length - b.lead.length,
@@ -43,11 +48,6 @@ const columns = [
 			{ text: 'Thomas Nguyen', value: 'Thomas Nguyen' }
 		],
 		onFilter: (value, record) => record.lead.indexOf(value) === 0
-	},
-	{
-		title: 'Project Name', 
-		dataIndex: 'project',
-		sorter: (a, b) => a.project.length - b.project.length
 	},
 	{ 
 		title: 'Status', 
@@ -78,13 +78,7 @@ class ProjectsTable extends React.Component {
 				<Table 
 					columns = {columns} 
 					dataSource = {this.state.data}
-					title = { ()=> (
-							<div>
-								<p> Click <ProjectFormModal /> to create a new project </p> 
-								<Search placeholder='Search By Project Name' onSearch={value => console.log(value)} enterButton />
-							</div>
-						)
-					}
+					title = { ()=> <p> Click <ProjectFormModal /> to create a new project </p> }
 					pagination={{ pageSize: 5 }}
 					rowKey = 'id' 
 				/>
