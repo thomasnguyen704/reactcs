@@ -20,12 +20,14 @@ const getApi_lead = (setState)=> {
 	})
 }
 
-const columns = (associates)=> {
+
+const columns = (selectFilter)=> {
 	return [
 		{ 
 			title: 'Project ID',
 			dataIndex: 'id',
 			sorter: (a, b)=> a.id - b.id,
+			defaultSortOrder: 'ascend',
 			render: text=> <a href="#">{text}</a>
 		},
 		{
@@ -37,18 +39,22 @@ const columns = (associates)=> {
 			title: 'Lead', 
 			dataIndex: 'lead',
 			sorter: (a, b)=> a.lead.length - b.lead.length,
-			filters: associates.map( ({ lead })=> ({ text: lead, value: lead }) ),
+			filters: selectFilter.map( ({ lead })=> ({ text: lead, value: lead }) ),
 			onFilter: (value, record)=> record.lead.indexOf(value) === 0
 		},
 		{ 
 			title: 'Status', 
 			dataIndex: 'status',
-			sorter: (a, b)=> a.status.length - b.status.length
+			sorter: (a, b)=> a.status.length - b.status.length,
+			filters: selectFilter.map( ({ status })=> ({ text: status, value: status }) ),
+			onFilter: (value, record)=> record.status.indexOf(value) === 0
 		},
 		{ 
 			title: 'Remediation', 
 			dataIndex: 'remediation',
-			sorter: (a, b)=> a.remediation.length - b.remediation.length
+			sorter: (a, b)=> a.remediation.length - b.remediation.length,
+			filters: selectFilter.map( ({ remediation })=> ({ text: remediation, value: remediation }) ),
+			onFilter: (value, record)=> record.remediation.indexOf(value) === 0
 		}
 	]
 }
@@ -61,7 +67,6 @@ class ProjectsTable extends React.Component {
 
 	componentWillMount(){
 		getApi_projects(this.setState.bind(this))
-		//getApi_lead(this.setState.bind(this))
 	}
 
 	render() {
@@ -70,7 +75,9 @@ class ProjectsTable extends React.Component {
 				<h1>Projects</h1>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				<Table 
-					columns = {columns(getUniqueArray(this.state.projects, 'lead'))} 
+					columns = { columns( 
+						getUniqueArray(this.state.projects, 'lead'),
+					)} 
 					dataSource = {this.state.projects}
 					title = { ()=> <p> Click <ProjectFormModal /> to create a new project </p> }
 					pagination={{ pageSize: 5 }}
