@@ -20,7 +20,6 @@ const getApi_lead = (setState)=> {
 	})
 }
 
-
 const columns = (selectFilter)=> {
 	return [
 		{ 
