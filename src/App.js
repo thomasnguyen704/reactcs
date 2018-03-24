@@ -43,7 +43,7 @@ class App extends Component{
                 <div className = 'container'>
                     <GoogleLogin clientId = {'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} onSuccess = {success} style = {LoginBtn}>
                         <Button type='danger'>
-                            <Icon type='google'/> Login With Google
+                            <Icon type='google'/> Sign In
                          </Button>
                     </GoogleLogin>
                     <Divider style={dividerStyle}/>
