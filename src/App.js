@@ -8,8 +8,10 @@ import TopNav from './Navbar'
 import Home from './Home'
 import ProjectsContainer from './ProjectsContainer'
 import SelectTags from './AssocSurvey'
+import SignIn from './SignIn'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
+const signinStyle = { backgroundColor: 'whitesmoke', padding: '5% 0 5% 0' }
 const LoginBtn = { background: 'none', border: 'none', marginTop: 15 }
 const dividerStyle = { marginTop: 10 }
 
@@ -40,14 +42,17 @@ class App extends Component{
                     </div>
                 </Router>
             ):(
-                <div className = 'container'>
-                    <GoogleLogin clientId = {'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} onSuccess = {success} style = {LoginBtn}>
-                        <Button type='danger'>
-                            <Icon type='google'/> Sign In
-                         </Button>
-                    </GoogleLogin>
-                    <Divider style={dividerStyle}/>
-                    <Home/>
+                <div style={signinStyle}>
+                    <Row center='xs'>
+                        <Col xs={6}>
+                            <SignIn/>
+                            <GoogleLogin clientId = {'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} onSuccess = {success} style = {LoginBtn}>
+                                <Button ghost type='danger'>
+                                    <Icon type='google'/> Sign In
+                                </Button>
+                            </GoogleLogin>
+                        </Col>
+                    </Row>
                 </div>
             )
         )
