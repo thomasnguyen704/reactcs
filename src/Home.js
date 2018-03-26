@@ -15,9 +15,9 @@ class Home extends React.Component {
                         <iframe
                             title = 'blog3'
                             src = 'https://www.youtube.com/embed/F085WwMIWgM?showinfo=0' 
-                            frameborder = '0' 
+                            frameBorder = '0' 
                             allow = 'autoplay; encrypted-media' 
-                            allowfullscreen
+                            allowFullScreen
                             style={{ width: '100%', minHeight: '405px' }}
                         />
                     </Col>
