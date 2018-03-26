@@ -11,7 +11,7 @@ import SignIn from './SignIn'
 import { GoogleLogin } from 'react-google-login'
 
 const signinStyle = { backgroundColor: 'whitesmoke', height: '100vh', display: 'flex', alignItems: 'center', padding: '5% 0 10% 0', overflow: 'hidden' }
-const LoginBtn = { color: 'white', background: 'whitesmoke', border: 'solid lightgrey thin', marginTop: 15, padding: '10px' }
+const LoginBtn = { color: 'white', background: 'whitesmoke', border: 'solid #1890ff thin', marginTop: 15, padding: '10px' }
 
 const success_generator = (setState)=> (response)=> {
     console.log(response) // user attributes from Google
