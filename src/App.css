@@ -4,8 +4,7 @@
 
 
 body {
-  margin: 0 0 20% 0;
-  height: 100%;
+  height: 100vh;
 }
 .Navbar {
   margin-bottom: 25px;
@@ -17,10 +16,6 @@ body {
   background-color: whitesmoke;
   height: 75vh;
 }
-.container {
-  margin-bottom: 20%;
-}
-
 
 /* Start Project Table Styles */
 .custom-filter-dropdown {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Input, Icon } from 'antd'
+import { Table } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 import { getUniqueArray } from 'array_utils'
 import {url} from './utils'
