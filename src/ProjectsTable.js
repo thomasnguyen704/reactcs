@@ -2,7 +2,7 @@ import React from 'react'
 import { Table } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 import { getUniqueArray } from 'array_utils'
-import {url} from './utils'
+import { url}  from './utils'
 
 const getApi_projects = (setState)=> {
 	fetch( url + '/projects' )
@@ -59,10 +59,7 @@ const columns = (selectFilter)=> {
 }
 
 class ProjectsTable extends React.Component {	
-	state = {
-		projects: [],
-		leads: []
-	}
+	state = { projects: [], leads: [] }
 
 	componentWillMount(){
 		getApi_projects(this.setState.bind(this))
@@ -74,9 +71,7 @@ class ProjectsTable extends React.Component {
 				<h1>Projects</h1>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				<Table 
-					columns = { columns( 
-						getUniqueArray(this.state.projects, 'lead'),
-					)} 
+					columns = { columns( getUniqueArray(this.state.projects, 'lead'), ) } 
 					dataSource = {this.state.projects}
 					title = { ()=> <p> Click <ProjectFormModal /> to create a new project </p> }
 					pagination={{ pageSize: 5 }}

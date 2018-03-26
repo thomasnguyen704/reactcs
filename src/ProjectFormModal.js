@@ -7,9 +7,9 @@ const children = []
 
 class ProjectFormModal extends React.Component {
     state = { visible: false }
-    showModal = () => { this.setState({ visible: true }) }
-    handleOk = (e) => { this.setState({ visible: false }) }
-    handleCancel = (e) => { this.setState({ visible: false }) }
+    showModal = ()=> { this.setState({ visible: true }) }
+    handleOk = (e)=> { this.setState({ visible: false }) }
+    handleCancel = (e)=> { this.setState({ visible: false }) }
 
     render() {
         return (

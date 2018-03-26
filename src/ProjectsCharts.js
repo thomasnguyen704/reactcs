@@ -3,21 +3,9 @@ import { VictoryBar, VictoryPie, VictoryChart, VictoryAxis } from 'victory'
 import { Row, Col } from 'react-flexbox-grid'
 import {url} from './utils'
 
-const tickStyles = {
-    fontSize: 12,
-    fontFamily: 'Open Sans'
-}
-const dataStyles = {
-    fill: 'yellowGreen',
-    opacity: 0.7,
-    stroke: 'yellowGreen'
-}
-const chartStyles = {
-    border: 'solid thin whitesmoke', 
-    padding: '50px 0 50px 0', 
-    margin: '10px 0 10px 0',
-    height: '95%'
-}
+const tickStyles = { fontSize: 12, fontFamily: 'Open Sans' }
+const dataStyles = { fill: 'yellowGreen', opacity: 0.7, stroke: 'yellowGreen' }
+const chartStyles = { border: 'solid thin whitesmoke', padding: '50px 0 50px 0', margin: '10px 0 10px 0', height: '95%' }
 
 const statuses = [
     {status: 'Draft', count: 3},
@@ -41,17 +29,13 @@ const getApi2 = (setState)=> {
 	})
 }
 
-
 class ProjectsCharts extends React.Component {
 	componentWillMount(){
         getApi(this.setState.bind(this))
         getApi2(this.setState.bind(this))
     }
 
-    state = {
-        data: [],
-        data2: []
-    }
+    state = { data: [], data2: [] }
     
     render() {
         return (
@@ -62,15 +46,8 @@ class ProjectsCharts extends React.Component {
                     <Col lg={6}>
                         <div style={chartStyles}>
                             <p className='chartTitle'>Active Assignments by Lead</p>
-                            <VictoryChart 
-                                domainPadding={20}
-                            >
-                                <VictoryAxis
-                                    style={{ 
-                                        tickLabels: tickStyles, 
-                                        data: dataStyles
-                                    }}
-                                />
+                            <VictoryChart domainPadding={20} >
+                                <VictoryAxis style={{ tickLabels: tickStyles, data: dataStyles }} />
                                 <VictoryBar  
                                     data={this.state.data} 
                                     x='username' 
@@ -94,10 +71,7 @@ class ProjectsCharts extends React.Component {
                                 padAngle={3}
                                 colorScale={[ 'tomato', 'orange', 'gold', 'cyan', 'navy' ]}
                                 style={{ labels: tickStyles }}
-                                animate={{
-                                    duration: 2000,
-                                    onLoad: { duration: 1000 }
-                                }}
+                                animate={{ duration: 2000, onLoad: { duration: 1000 } }}
                                 width={500}
                             />
                         </div>
