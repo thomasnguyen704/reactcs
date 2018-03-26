@@ -6,7 +6,7 @@ class ProjectsContainer extends React.Component {
     render(){
         return(
             <div>
-                <ProjectsTable />
+                <ProjectsTable {...this.props}/>
                 <ProjectsCharts />
             </div>
         )

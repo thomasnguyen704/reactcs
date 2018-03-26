@@ -7,13 +7,6 @@ const tickStyles = { fontSize: 12, fontFamily: 'Open Sans' }
 const dataStyles = { fill: 'yellowGreen', opacity: 0.7, stroke: 'yellowGreen' }
 const chartStyles = { border: 'solid thin whitesmoke', padding: '50px 0 50px 0', margin: '10px 0 10px 0', height: '95%' }
 
-const statuses = [
-    {status: 'Draft', count: 3},
-    {status: 'Pending', count: 2},
-    {status: 'Approved', count: 5},
-    {status: 'Cancelled', count: 1}
-]
-
 const getApi = (setState)=> {
     fetch( url + '/charts/active_lead' )
 	.then( response=> response.json() )
