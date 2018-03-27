@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, Icon } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 import { getUniqueArray } from 'array_utils'
 import { url }  from './utils'
@@ -67,7 +67,7 @@ class ProjectsTable extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.match)
+		// console.log(this.props.match)
 		return (
 			<div>
 				<h1>Projects</h1>
@@ -75,7 +75,7 @@ class ProjectsTable extends React.Component {
 				<Table 
 					columns = { columns( getUniqueArray(this.state.projects, 'lead'), this.props.match ) } 
 					dataSource = {this.state.projects}
-					title = { ()=> <p> Click <ProjectFormModal /> to create a new project </p> }
+					title = { ()=> <p> Click <Route component={ProjectFormModal}> here </Route> to create a new project </p> }
 					pagination={{ pageSize: 5 }}
 					rowKey = 'id' 
 				/>

@@ -37,7 +37,7 @@ class ProjectFormModal extends React.Component {
     }
     
     handleOk = e=> {}
-    handleCancel = e=> {this.props.history.goBack()} 
+    handleCancel = e=> { this.props.history.goBack() } 
 
     render() {
         return (
