@@ -31,7 +31,7 @@ class ProjectFormModal extends React.Component {
         if( this.props.match.params && this.props.match.params.id ) {
             getApi_project( 
                 this.setState.bind(this), 
-                this.props.match.params.id 
+                this.props.match.params.id
             )
         }
     }
