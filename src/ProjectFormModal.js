@@ -74,10 +74,10 @@ class ProjectFormModal extends React.Component {
 
                     <FormItem label = "Lead">
                         <Select showSearch value={this.state.lead}>
-                            <Option value = "Aaron_Bridgers">Aaron Bridgers</Option>
-                            <Option value = "Chris_Kennedy">Chris Kennedy</Option>
-                            <Option value = "Daniel_Stahl">Daniel Stahl</Option>
-                            <Option value = "Thomas_Nguyen">Thomas Nguyen</Option>
+                            <Option value = "aaronbridgers">Aaron Bridgers</Option>
+                            <Option value = "chriskennedy">Chris Kennedy</Option>
+                            <Option value = "danielstahl">Daniel Stahl</Option>
+                            <Option value = "thomasnguyen">Thomas Nguyen</Option>
                         </Select>
                     </FormItem>
 
