@@ -22,17 +22,21 @@ app.get('/projects', (req, res)=> {
 app.get('/projects/:id', (req, res)=> {
     const projectId = req.params.id
     const results = Promise.all([
-        knex.select('project', 'status', 'lead', 'remediation')
+        knex.select('project', 'status', 'lead', 'username as lead_name', 'remediation')
             .from('projects')
+            .innerJoin('users', 'lead', 'user')
             .where({id:projectId}),
+
         knex.select('skill')
             .from('project_skills')
-            .innerJoin('skills', 'skills.id', 'project_skills.skill_id')
-            .where('project_skills.project_id', projectId),
-        knex.select('username as associate' )
+            .innerJoin('skills', 'skills.id', 'skill_id')
+            .where('project_id', projectId),
+        
+        knex.select('username as associate')
             .from('project_associates')
-            .innerJoin('users', 'users.user', 'project_associates.associate')
-            .where('project_associates.project_id', projectId)
+            .innerJoin('users', 'user', 'associate')
+            .where('project_id', projectId)
+
     ]).then(results=> {
         // results is an array, first item is the project, second is skill, third is associates
         if(results[0].length===0){
@@ -60,7 +64,7 @@ app.get('/users', (req,res)=>{
     .then(results=> {res.send(results)})
 })
 // get lead from projects table
-app.get('/lead', (req,res)=>{
+app.get('/leads', (req,res)=>{
     return knex.select('username')
     .from('projects')
     .innerJoin('users', 'user', 'lead')
