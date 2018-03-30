@@ -75,10 +75,11 @@ class ProjectsTable extends React.Component {
 				<Table 
 					columns = { columns( getUniqueArray(this.state.projects, 'lead'), this.props.match ) } 
 					dataSource = {this.state.projects}
-					title = { ()=> <p> Click <Route component={ProjectFormModal}> here </Route> to create a new project </p> }
+					title = { ()=> <p> Click <Link to={this.props.match.path + '/modal'}> here </Link> to create a new project </p> }
 					pagination={{ pageSize: 5 }}
 					rowKey = 'id' 
 				/>
+				<Route exact path={this.props.match.path + '/modal'} component={ProjectFormModal}/> 
 				<Route path={this.props.match.path + '/modal/:id'} component={ProjectFormModal}/>
 			</div>
 		)

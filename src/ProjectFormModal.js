@@ -15,6 +15,16 @@ const getApi_project = (setState, id)=> {
 	})
 }
 
+const getApi_users = (setState)=> {
+    fetch( url + '/users' )
+	.then( response=> response.json() )
+	.then( response=> {
+		setState({
+            users: response
+        })
+	})
+}
+
 class ProjectFormModal extends React.Component {
     state = { 
         visible: false,
@@ -24,15 +34,20 @@ class ProjectFormModal extends React.Component {
         skillReq: [],
         associates: [],
         skillGap: '',
-        remediation: []
+        remediation: [],
+        users: []
     }
 
     componentWillMount(){
+        getApi_users(
+            this.setState.bind(this)
+        )
         if( this.props.match.params && this.props.match.params.id ) {
             getApi_project( 
                 this.setState.bind(this), 
                 this.props.match.params.id
             )
+
         }
     }
     
@@ -76,12 +91,12 @@ class ProjectFormModal extends React.Component {
                         <Select 
                             showSearch 
                             mode = "multiple" 
-                            value= { this.state.associates.map( row=> row.associate ) }
+                            value= { this.state.associates.map( row=> row.associate ) } // load only checked associates
                             optionLabelProp='associate'
                         >
                             {
-                                this.state.associates.map( (row)=>{
-                                    return ( <Option value={row.associate}> {row.associate} </Option> )
+                                this.state.users.map( (row)=>{ // load all associates
+                                    return ( <Option value={row.user}> {row.username} </Option> )
                                 })
                             }
                         </Select>

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './App.css'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 import { Icon } from 'antd'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import TopNav from './Navbar'
 import Home from './Home'
 import ProjectsContainer from './ProjectsContainer'
@@ -30,10 +30,12 @@ class App extends Component{
                         <Grid fluid>
                             <Row>
                                 <Col lg={12}>
-                                    <Redirect to="/home" from ="/" />
-                                    <Route component = {Home} path = '/home' />
-                                    <Route component = {ProjectsContainer} path = '/projects' />
-                                    <Route component = {SelectTags} path = '/associates' />
+                                    <Switch>
+                                        <Redirect exact to="/home" from ="/" />
+                                        <Route component = {Home} path = '/home' />
+                                        <Route component = {ProjectsContainer} path = '/projects' />
+                                        <Route component = {SelectTags} path = '/associates' />
+                                    </Switch>
                                 </Col>
                             </Row>
                         </Grid>

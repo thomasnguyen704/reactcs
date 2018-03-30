@@ -29,7 +29,7 @@ app.get('/projects/:id', (req, res)=> {
             .from('project_skills')
             .innerJoin('skills', 'skills.id', 'project_skills.skill_id')
             .where('project_skills.project_id', projectId),
-        knex.select('username as associate')
+        knex.select('username as associate' )
             .from('project_associates')
             .innerJoin('users', 'users.user', 'project_associates.associate')
             .where('project_associates.project_id', projectId)
@@ -55,7 +55,7 @@ app.get('/skills', (req, res)=> {
 
 // get associates from users table
 app.get('/users', (req,res)=>{
-    return knex.select('user')
+    return knex.select('user', 'username')
     .from('users')
     .then(results=> {res.send(results)})
 })
