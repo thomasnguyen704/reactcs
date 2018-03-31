@@ -1,7 +1,7 @@
 import React from 'react'
-import { Modal, Form, Input, Select, Icon } from 'antd'
+import { Modal, Form, Input, Select } from 'antd'
+import { url }  from './utils'
 
-const url = process.env.production? '159.65.189.161:3001' : ''
 const FormItem = Form.Item
 const Option = Select.Option
 const children = []
