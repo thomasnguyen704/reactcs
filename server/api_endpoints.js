@@ -2,9 +2,7 @@ const app = require('express')()
 const bodyParser = require('body-parser').json()
 const knex = require('knex')({
     client: 'sqlite3',
-    connection: {
-        filename: "./mydb.sqlite"
-    }
+    connection: { filename: './mydb.sqlite' }
 })
 
 app.use(bodyParser)
@@ -122,6 +120,12 @@ app.get('/charts/active_status', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
+app.insert('/createUser', (req, res)=> {
+     knex.('users')
+    .insert(
+        knex.raw( 'INSERT or IGNORE INTO users(user, username) VALUES("thomasnguyen", "Tommy Nguyen")' )
+    )
+})
 
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))

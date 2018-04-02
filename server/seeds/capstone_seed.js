@@ -1,10 +1,10 @@
 exports.seed = (knex, Promise)=> {
 	return knex('users').del().then( ()=> {
 		return knex('users').insert([
-			{ user: 'thomasnguyen', username: 'Thomas Nguyen' },
+			{ user: 'thomasnguyen', username: 'Tommy Nguyen' },
 			{ user: 'danielstahl', username: 'Daniel Stahl' },
 			{ user: 'chriskennedy', username: 'Chris Kennedy' },
-			{ user: 'aaronbridgers', username: 'Aaron Bridgers'}
+			{ user: 'aaronbridgers', username: 'Aaron Bridgers' }
 		])
 	}).then( ()=> {
 		return knex('projects').del()
@@ -24,7 +24,7 @@ exports.seed = (knex, Promise)=> {
 			{ id: 3, skill: 'FASB' },
 			{ id: 4, skill: 'Know Your Customer' },
 			{ id: 5, skill: 'Bank Secrecy Act' },
-			{ id: 6, skill: 'Anti Money Laundring' },
+			{ id: 6, skill: 'Anti Money Laundering' },
 			{ id: 7, skill: 'Advanced Statistics' }
 		])
 	}).then( ()=>{
