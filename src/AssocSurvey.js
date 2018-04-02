@@ -14,7 +14,7 @@ const getApi = (setState)=> {
 	})
 }
 
-const assocName = 'Thomas Nguyen'
+const assocName = 'Tommy Nguyen'
 const { CheckableTag } = Tag
 
 class ClickTag extends React.Component {    
