@@ -79,7 +79,11 @@ app.get('/surveys/:user', (req, res)=> {
             knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist')
         )
         .from('skills')
-        .leftJoin('surveys', 'surveys.skill_id', 'skills.id')
+        .leftJoin(
+            'surveys', 
+            'surveys.skill_id', 
+            'skills.id'
+        )
         .where('user', req.params.user)
         .orWhere('user', null)
     .then(results=> {
@@ -120,12 +124,13 @@ app.get('/charts/active_status', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
+/*
 app.insert('/createUser', (req, res)=> {
-     knex.('users')
+    knex('users')
     .insert(
         knex.raw( 'INSERT or IGNORE INTO users(user, username) VALUES("thomasnguyen", "Tommy Nguyen")' )
     )
 })
-
+*/
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))

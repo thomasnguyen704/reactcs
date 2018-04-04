@@ -1,19 +1,19 @@
 exports.seed = (knex, Promise)=> {
 	return knex('users').del().then( ()=> {
 		return knex('users').insert([
-			{ user: 'thomasnguyen', username: 'Tommy Nguyen' },
-			{ user: 'danielstahl', username: 'Daniel Stahl' },
-			{ user: 'chriskennedy', username: 'Chris Kennedy' },
-			{ user: 'aaronbridgers', username: 'Aaron Bridgers' }
+			{ user: 'thomasnguyen704@gmail.com', username: 'Tommy Nguyen' },
+			{ user: 'danstahl1138@gmail.com', username: 'Daniel Stahl' },
+			{ user: 'chris_Kennedy@kenan-flagler.unc.edu', username: 'Chris Kennedy' },
+			{ user: 'AaronTBridgers@gmail.com', username: 'Aaron T. Bridgers' }
 		])
 	}).then( ()=> {
 		return knex('projects').del()
 	}).then( ()=> {
 		return knex('projects').insert([
-			{ id: 1, project: 'CECL', lead: 'danielstahl', status: 'Draft', remediation: 'Training' },
-			{ id: 2, project: 'Compliance', lead: 'thomasnguyen', status: 'Pending', remediation: 'In Source' },
-			{ id: 3, project: 'ALLL', lead: 'aaronbridgers', status: 'Approved', remediation: 'Out Source' },
-			{ id: 4, project: 'SAS BSA/AML', lead: 'thomasnguyen', status: 'Approved', remediation: 'Training' }
+			{ id: 1, project: 'CECL', lead: 'danstahl1138@gmail.com', status: 'Draft', remediation: 'Training' },
+			{ id: 2, project: 'Compliance', lead: 'thomasnguyen704@gmail.com', status: 'Pending', remediation: 'In Source' },
+			{ id: 3, project: 'ALLL', lead: 'AaronTBridgers@gmail.com', status: 'Approved', remediation: 'Out Source' },
+			{ id: 4, project: 'SAS BSA/AML', lead: 'thomasnguyen704@gmail.com', status: 'Approved', remediation: 'Training' }
 		])
 	}).then( ()=>{
 		return knex('skills').del()
@@ -47,23 +47,28 @@ exports.seed = (knex, Promise)=> {
 		return knex('project_associates').del()
 	}).then( ()=>{
 		return knex('project_associates').insert([
-			{ project_id: 1, associate: 'thomasnguyen' },
-			{ project_id: 1, associate: 'danielstahl' },
-			{ project_id: 2, associate: 'chriskennedy' },
-			{ project_id: 3, associate: 'danielstahl' },
-			{ project_id: 3, associate: 'aaronbridgers' },
-			{ project_id: 3, associate: 'thomasnguyen' },
-			{ project_id: 4, associate: 'danielstahl' },
-			{ project_id: 4, associate: 'aaronbridgers' },
-			{ project_id: 4, associate: 'chriskennedy' }
+			{ project_id: 1, associate: 'thomasnguyen704@gmail.com' },
+			{ project_id: 1, associate: 'danstahl1138@gmail.com' },
+			{ project_id: 2, associate: 'chris_Kennedy@kenan-flagler.unc.edu' },
+			{ project_id: 3, associate: 'danstahl1138@gmail.com' },
+			{ project_id: 3, associate: 'AaronTBridgers@gmail.com' },
+			{ project_id: 3, associate: 'thomasnguyen704@gmail.com' },
+			{ project_id: 4, associate: 'danstahl1138@gmail.com' },
+			{ project_id: 4, associate: 'AaronTBridgers@gmail.com' },
+			{ project_id: 4, associate: 'chris_Kennedy@kenan-flagler.unc.edu' }
 		])
 	}).then( ()=>{
 		return knex('surveys').del()
 	}).then( ()=>{
 		return knex('surveys').insert([
-			{ id: 1, skill_id: 1, user: 'thomasnguyen' },
-			{ id: 2, skill_id: 1, user: 'danielstahl' },
-			{ id: 3, skill_id: 2, user: 'danielstahl' }
+			{ id: 1, skill_id: 1, user: 'thomasnguyen704@gmail.com' },
+			{ id: 2, skill_id: 1, user: 'danstahl1138@gmail.com' },
+			{ id: 3, skill_id: 2, user: 'danstahl1138@gmail.com' },
+			{ id: 4, skill_id: 1, user: 'AaronTBridgers@gmail.com' },
+			{ id: 5, skill_id: 7, user: 'AaronTBridgers@gmail.com' },
+			{ id: 6, skill_id: 4, user: 'chris_Kennedy@kenan-flagler.unc.edu' },
+			{ id: 7, skill_id: 5, user: 'chris_Kennedy@kenan-flagler.unc.edu' }
+
 		])
 	})
 }
