@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tag } from 'antd'
 import { Row, Col } from 'react-flexbox-grid'
-import {url} from './utils'
+import { url } from './utils'
 
 const selectStyles = { border: 'solid thin whitesmoke', padding: '50px', margin: '10px 0 10px 0', height: '95%' }
 const tag = { border: 'thin solid whitesmoke', margin: 5 }
@@ -20,9 +20,7 @@ const { CheckableTag } = Tag
 
 class ClickTag extends React.Component {    
     state = { checked: this.props.checked }
-    
     handleChange = checked=> { this.setState({ checked }) }
-
     render() {
         return ( <CheckableTag {...this.props} checked={this.state.checked} onChange={this.handleChange} /> )
     }
@@ -33,9 +31,8 @@ class SelectTags extends React.Component{
         data: []
     }
 	componentWillMount(){
-		getApi(this.setState.bind(this))
+		getApi( this.setState.bind(this) )
 	}
-
     render(){
         return(
             <div>
