@@ -34,6 +34,23 @@ const getApi_users = (setState)=> {
 	})
 }
 
+const postApi_project = (data)=> {
+    fetch ( 
+        url + '/create_project', 
+        {
+            method: 'post',
+            body: JSON.stringify(data),
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'user-agent': 'Mozilla/4.0 MDN Example',
+              'content-type': 'application/json'
+            }
+        }
+    )
+    .then( response=> response.json() )
+}
+
 class ProjectFormModal extends React.Component {
     state = { 
         visible: false,
@@ -43,8 +60,12 @@ class ProjectFormModal extends React.Component {
         skills: [],
         associates: [],
         skillGap: '',
-        remediation: [],
+        remediation: '',
         users: []
+    }
+
+    submit = ()=> {
+        postApi_project(this.state)
     }
 
     componentWillMount(){
@@ -58,10 +79,6 @@ class ProjectFormModal extends React.Component {
             )
         }
     }
-    
-    handleOk = e=> {}
-    handleCancel = e=> { this.props.history.goBack() } 
-
     inputItemEvent = key=> {
         return e=> {
             console.log(e)
@@ -79,11 +96,15 @@ class ProjectFormModal extends React.Component {
         }
     }
 
-
     render() {
         console.log(this.state)
         return (
-            <Modal title="Project" visible={true} onOk={this.handleOk} onCancel={this.handleCancel}>
+            <Modal 
+                title="Project" 
+                visible={true} 
+                onOk={this.submit} 
+                onCancel={this.props.history.goBack}
+            >
                 <Form className = "project">
                     <FormItem label = "Project Name">
                         <Input value={this.state.project} placeholder = "Project Name" onChange={ this.inputItemEvent('project') }/>
@@ -109,16 +130,12 @@ class ProjectFormModal extends React.Component {
 
                     <FormItem label = "Skill Requirements">
                         <Select 
-                            mode = "multiple" 
+                            mode = "tags" 
                             placeholder = "Skills Requirements" 
                             value={this.state.skills}
                             onChange={this.inputItem('skills')}
                         >
-                            {
-                                this.state.skills.map( (skill)=>{
-                                    return ( <Option value={skill} key={skill}> {skill} </Option> )
-                                })
-                            }
+                            { children }
                         </Select>
                     </FormItem>
 
@@ -129,7 +146,7 @@ class ProjectFormModal extends React.Component {
                             value= { this.state.associates } // load only checked associates
                             onChange={this.inputItem('associates')}
                         >
-                            {
+                            { 
                                 this.state.users.map( (username)=>{ // load all associates
                                     return ( <Option value={username} key={username}> {username} </Option> )
                                 })
@@ -142,7 +159,10 @@ class ProjectFormModal extends React.Component {
                     </FormItem>
 
                     <FormItem label = "Remediation">
-                        <Select showSearch mode = "multiple" value={this.state.remediation} onChange={this.inputItem('remediation')}>
+                        <Select 
+                            value={this.state.remediation} 
+                            onChange={this.inputItem('remediation')}
+                        >
                             <Option value = "training">Training</Option>
                             <Option value = "insource">In Source</Option>
                             <Option value = "outsource">Out Source</Option>

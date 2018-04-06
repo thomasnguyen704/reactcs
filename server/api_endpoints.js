@@ -49,6 +49,40 @@ app.get('/projects/:id', (req, res)=> {
     })
 })
 
+// post new project with project, status, lead, skills req, assoc, remediation 
+// this api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
+app.post('/create_project', (req, res)=>{
+    console.log(req.body)
+
+    const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
+    Promise.all([
+        knex('projects').insert([
+            {
+                project,
+                lead,
+                status,
+                remediation
+            }
+        ]),
+        knex('skills').insert(
+            skills.map( skill=> ({ skill }) )
+        ),
+        knex('project_associates').insert(
+            associates.map( associate=> ({ associate }))
+        )
+        /*
+        knex('project_skills').insert(
+            projectSkills.map( projectSkill=> ({ projectSkills }) )
+        )
+        */
+    ]).then(
+        v=> { res.send({message: 'post'}) }
+    ).catch(
+        err=> { res.send({message: err}) }
+    )
+})
+
+
 // get skills from skills table
 app.get('/skills', (req, res)=> {
     return knex.select('id', 'skill', 'status').from('skills')
@@ -123,8 +157,6 @@ app.get('/charts/active_status', (req, res)=> {
     .groupBy('status')
     .then(results=> {res.send(results)})
 })
-
-
 
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))
