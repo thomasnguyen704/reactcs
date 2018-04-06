@@ -36,7 +36,7 @@ class App extends Component{
                                         <Redirect exact to="/home" from ="/" />
                                         <Route component = {Home} path = '/home' />
                                         <Route component = {ProjectsContainer} path = '/projects' />
-                                        <Route component = {SelectTags} path = '/associates' />
+                                        <Route render = { props=> <SelectTags { ...props } googleToken = {this.state.googleToken} /> } path = '/associates' />
                                     </Switch>
                                 </Col>
                             </Row>
@@ -47,7 +47,11 @@ class App extends Component{
                 <Row center='xs' style={signinStyle}>
                     <Col xs={6}>
                         <SignIn />
-                        <GoogleLogin clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} onSuccess={success} style={LoginBtn}>
+                        <GoogleLogin 
+                            clientId={ '1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com' } 
+                            onSuccess={success} 
+                            style={LoginBtn}
+                        >
                             <a type='danger'><Icon type='google' /> Sign In</a>
                         </GoogleLogin>
                     </Col>

@@ -124,13 +124,7 @@ app.get('/charts/active_status', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
-/*
-app.insert('/createUser', (req, res)=> {
-    knex('users')
-    .insert(
-        knex.raw( 'INSERT or IGNORE INTO users(user, username) VALUES("thomasnguyen", "Tommy Nguyen")' )
-    )
-})
-*/
+
+
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))
