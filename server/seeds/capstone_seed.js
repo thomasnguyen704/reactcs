@@ -4,7 +4,7 @@ exports.seed = (knex, Promise)=> {
 			{ user: 'thomasnguyen704@gmail.com', username: 'Tommy Nguyen' },
 			{ user: 'danstahl1138@gmail.com', username: 'Daniel Stahl' },
 			{ user: 'chris_Kennedy@kenan-flagler.unc.edu', username: 'Chris Kennedy' },
-			{ user: 'AaronTBridgers@gmail.com', username: 'Aaron T. Bridgers' }
+			{ user: 'AaronTBridgers@gmail.com', username: 'Aaron Bridgers' }
 		])
 	}).then( ()=> {
 		return knex('projects').del()
