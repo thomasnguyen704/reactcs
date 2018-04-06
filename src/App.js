@@ -15,6 +15,8 @@ const LoginBtn = { color: 'white', background: 'whitesmoke', border: 'solid #189
 
 const success_generator = (setState)=> (response)=> {
     console.log(response) // user attributes from Google
+    console.log('User Email: ' + response.profileObj.email) // email from Google
+    console.log('Full Name: ' + response.profileObj.name)
     setState({ googleToken: response })
 }
 

@@ -10,7 +10,7 @@ const getApi_project = (setState, id)=> {
 	fetch( url + '/projects/' + id )
 	.then( response=> response.json() )
 	.then( response=> {
-        console.log(response)
+        // console.log(response)
 		setState(response)
 	})
 }
@@ -74,10 +74,10 @@ class ProjectFormModal extends React.Component {
 
                     <FormItem label = "Lead">
                         <Select showSearch value={this.state.lead}>
-                            <Option value = "aaronbridgers">Aaron Bridgers</Option>
-                            <Option value = "chriskennedy">Chris Kennedy</Option>
-                            <Option value = "danielstahl">Daniel Stahl</Option>
-                            <Option value = "thomasnguyen">Thomas Nguyen</Option>
+                            <Option value = "AaronTBridgers@gmail.com">Aaron Bridgers</Option>
+                            <Option value = "chris_Kennedy@kenan-flagler.unc.edu">Chris Kennedy</Option>
+                            <Option value = "danstahl1138@gmail.com">Daniel Stahl</Option>
+                            <Option value = "thomasnguyen704@gmail.com">Thomas Nguyen</Option>
                         </Select>
                     </FormItem>
 
