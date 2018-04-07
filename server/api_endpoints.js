@@ -76,7 +76,7 @@ app.post('/create_project', (req, res)=>{
         )
         */
     ]).then(
-        v=> { res.send({message: 'post'}) }
+        ()=> { res.send({message: 'post'}) }
     ).catch(
         err=> { res.send({message: err}) }
     )

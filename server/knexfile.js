@@ -8,6 +8,7 @@ module.exports = {
     connection: {
       filename: "./mydb.sqlite"
     },
+    useNullAsDefault: true,
     migrations: {
       tableName: 'knex_migrations_dev'
     }
