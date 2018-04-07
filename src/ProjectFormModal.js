@@ -63,10 +63,15 @@ class ProjectFormModal extends React.Component {
         remediation: '',
         users: []
     }
-
+    
     submit = ()=> {
-        postApi_project(this.state)
+        postApi_project(this.state);
+        this.props.history.goBack()
     }
+
+    handleCancel = e=> { 
+        this.props.history.goBack()
+    } 
 
     componentWillMount(){
         getApi_users(
@@ -102,8 +107,8 @@ class ProjectFormModal extends React.Component {
             <Modal 
                 title="Project" 
                 visible={true} 
-                onOk={this.submit} 
-                onCancel={this.props.history.goBack}
+                onOk={this.submit}
+                onCancel={this.handleCancel}
             >
                 <Form className = "project">
                     <FormItem label = "Project Name">
@@ -163,9 +168,9 @@ class ProjectFormModal extends React.Component {
                             value={this.state.remediation} 
                             onChange={this.inputItem('remediation')}
                         >
-                            <Option value = "training">Training</Option>
-                            <Option value = "insource">In Source</Option>
-                            <Option value = "outsource">Out Source</Option>
+                            <Option value = "Training">Training</Option>
+                            <Option value = "In Source">In Source</Option>
+                            <Option value = "Out Source">Out Source</Option>
                         </Select>
                     </FormItem>
 
