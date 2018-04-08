@@ -7,7 +7,7 @@ const knex = require('knex')({
 
 app.use(bodyParser)
 
-// table: get all projects
+// Get all projects
 app.get('/projects', (req, res)=> {
     return knex.select('id', 'project', 'lead as lead_id', 'username as lead', 'status', 'remediation')
         .from('projects')
@@ -15,8 +15,22 @@ app.get('/projects', (req, res)=> {
         .then((results)=> {res.send(results)})
 })
 
-// table: get all projects by project id
-// exiting form: get a project by project id this will include assigned assoc
+// CREATE: post new project with project, status, lead, skills req, assoc, remediation. 
+// This api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
+app.post('/create_project', (req, res)=>{
+    const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
+    Promise.all([
+        knex('projects').insert([ { project, lead, status, remediation } ]),
+        knex('skills').insert( skills.map( skill=> ({ skill }) ) ),
+        knex('project_associates').insert( associates.map( associate=> ({ associate })) )
+    ]).then(
+        ()=> { res.send({message: 'post'}) }
+    ).catch(
+        err=> { res.send({message: err}) }
+    )
+})
+
+// READ Projects: Get all projects by project id
 app.get('/projects/:id', (req, res)=> {
     const projectId = req.params.id
     const results = Promise.all([
@@ -49,39 +63,30 @@ app.get('/projects/:id', (req, res)=> {
     })
 })
 
-// post new project with project, status, lead, skills req, assoc, remediation 
-// this api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
-app.post('/create_project', (req, res)=>{
-    console.log(req.body)
-
+// UPDATE: Update project with project, status, lead, skills req, assoc, remediation. 
+// This api endpoint will update to multiple tables: projects, skills, project_associates, project_skills
+app.get('/update_project/:id', (req, res)=> {
+    const projectId = req.params.id
     const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
     Promise.all([
-        knex('projects').insert([
-            {
-                project,
-                lead,
-                status,
-                remediation
-            }
-        ]),
-        knex('skills').insert(
-            skills.map( skill=> ({ skill }) )
-        ),
-        knex('project_associates').insert(
-            associates.map( associate=> ({ associate }))
-        )
-        /*
-        knex('project_skills').insert(
-            projectSkills.map( projectSkill=> ({ projectSkills }) )
-        )
-        */
+        knex('projects')
+        .where({ id:projectId })
+        .update([{ project, lead, status, remediation }]),
+        
+        knex('skills')
+        .where({ id:projectId })
+        .update(skills.map( skill=> ({ skill }) )),
+
+        knex('project_associates')
+        .where({ id:projectId })
+        .update(associates.map( associate=> ({ associate }) ))
+
     ]).then(
-        ()=> { res.send({message: 'post'}) }
+        ()=> { res.send({message: 'update'}) }
     ).catch(
         err=> { res.send({message: err}) }
     )
 })
-
 
 // get skills from skills table
 app.get('/skills', (req, res)=> {
@@ -95,6 +100,7 @@ app.get('/users', (req,res)=>{
     .from('users')
     .then(results=> {res.send(results)})
 })
+
 // get lead from projects table
 app.get('/leads', (req,res)=>{
     return knex.select('username')
@@ -103,44 +109,26 @@ app.get('/leads', (req,res)=>{
     .then(results=> {res.send(results)})
 })
 
-// get an user and skills from survey table
+// READ: Get user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
     const results = 
-        knex.select(
-            'user', 
-            'skill', 
-            'skills.id as skill_id', 
-            knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist')
-        )
-        .from('skills')
-        .leftJoin(
-            'surveys', 
-            'surveys.skill_id', 
-            'skills.id'
-        )
-        .where('user', req.params.user)
-        .orWhere('user', null)
+        knex.select( 'user', 'skill', 'skills.id as skill_id', knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist'))
+        .from( 'skills' )
+        .leftJoin( 'surveys', 'surveys.skill_id', 'skills.id' )
+        .where( 'user', req.params.user )
+        .orWhere( 'user', null )
     .then(results=> {
         if(results[0].length===0){
-            throw new Error('User not found')
+            throw new Error( 'User not found' )
         } else {
             res.send(results)
         }
     })
 })
 
-/*
-    new form: post a project form
-    this will create a new project id (auto inc)
-    this will include assigned assoc
-    this will include assigned skills
-*/
 
-app.post('/projects/:id', (req, res)=> {
-})
 
-// post skill by associate to the survey table
-
+// Chart: Projects by leasd
 app.get('/charts/active_lead', (req, res)=> {
     return knex('projects')
     .select(knex.raw('count(id) as assigned, username'))
@@ -150,6 +138,7 @@ app.get('/charts/active_lead', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
+// Chart: Projects by status
 app.get('/charts/active_status', (req, res)=> {
     return knex('projects')
     .select(knex.raw('count(id) as count, status'))
