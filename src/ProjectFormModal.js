@@ -64,19 +64,7 @@ const updateApi_project = (setState, id, data)=> {
             }
         }
     )
-	.then( response=> response.json() )
-	.then( response=> {
-        const { project, status, lead, lead_name, remediation, skills, associates } = response
-        setState({ 
-            project, 
-            status, 
-            lead, 
-            lead_name, 
-            remediation, 
-            skills: skills.map( row=> row.skill ), 
-            associates: associates.map( row=> row.associate )
-        })
-	})
+    .then( response=> response.json() )
 }
 
 class ProjectFormModal extends React.Component {
