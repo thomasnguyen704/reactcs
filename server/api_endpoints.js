@@ -65,7 +65,8 @@ app.get('/projects/:id', (req, res)=> {
 
 // UPDATE: Update project with project, status, lead, skills req, assoc, remediation. 
 // This api endpoint will update to multiple tables: projects, skills, project_associates, project_skills
-app.get('/update_project/:id', (req, res)=> {
+/*
+app.update('/update_project/:id', (req, res)=> {
     const projectId = req.params.id
     const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
     Promise.all([
@@ -87,6 +88,7 @@ app.get('/update_project/:id', (req, res)=> {
         err=> { res.send({message: err}) }
     )
 })
+*/
 
 // get skills from skills table
 app.get('/skills', (req, res)=> {
