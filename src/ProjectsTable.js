@@ -13,16 +13,6 @@ const getApi_projects = (setState)=> {
 	})
 }
 
-/*
-const getApi_lead = (setState)=> {
-	fetch( url + '/lead' )
-	.then( response=> response.json() )
-	.then( response=> {
-		setState({ leads: response })
-	})
-}
-*/
-
 const columns = (selectFilter, match)=> {
 	return [
 		{ 
@@ -30,7 +20,7 @@ const columns = (selectFilter, match)=> {
 			dataIndex: 'id',
 			sorter: (a, b)=> a.id - b.id,
 			defaultSortOrder: 'ascend',
-			render: text=> <Link to={ match.url + '/modal/' + text }> {text} </Link> // get stuff
+			render: text=> <Link to={ match.url + '/modal/' + text }> {text} </Link>
 		},
 		{
 			title: 'Project Name', 
@@ -69,7 +59,6 @@ class ProjectsTable extends React.Component {
 	}
 
 	render() {
-		// console.log(this.props.match)
 		return (
 			<div>
 				<h1>Projects</h1>
