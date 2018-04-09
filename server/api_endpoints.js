@@ -38,19 +38,16 @@ app.get('/projects/:id', (req, res)=> {
             .from('projects')
             .innerJoin('users', 'lead', 'user')
             .where({id:projectId}),
-
         knex.select('skill')
             .from('project_skills')
             .innerJoin('skills', 'skills.id', 'skill_id')
             .where('project_id', projectId),
-        
         knex.select('username as associate')
             .from('project_associates')
             .innerJoin('users', 'user', 'associate')
             .where('project_id', projectId)
-
     ]).then(results=> {
-        // results is an array, first item is the project, second is skill, third is associates
+        // results is an array: first item is the project, second is skill, third is associates
         if(results[0].length===0){
             throw new Error ('No projects for that ID')
         } else {
@@ -128,8 +125,6 @@ app.get('/surveys/:user', (req, res)=> {
     })
 })
 
-
-
 // Chart: Projects by leasd
 app.get('/charts/active_lead', (req, res)=> {
     return knex('projects')
@@ -148,6 +143,5 @@ app.get('/charts/active_status', (req, res)=> {
     .groupBy('status')
     .then(results=> {res.send(results)})
 })
-
 
 app.listen(3001, ()=> console.log('Server listening on 3001'))
