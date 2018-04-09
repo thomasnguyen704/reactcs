@@ -119,6 +119,7 @@ app.get('/surveys/:user', (req, res)=> {
         .leftJoin( 'surveys', 'surveys.skill_id', 'skills.id' )
         .where( 'user', req.params.user )
         .orWhere( 'user', null )
+        .groupBy('skill')
     .then(results=> {
         if(results[0].length===0){
             throw new Error( 'User not found' )
