@@ -33,10 +33,10 @@ class App extends Component{
                             <Row>
                                 <Col lg={12}>
                                     <Switch>
-                                        <Redirect exact to="/home" from ="/" />
+                                        <Redirect exact to='/home' from ='/' />
                                         <Route component = {Home} path = '/home' />
                                         <Route component = {ProjectsContainer} path = '/projects' />
-                                        <Route render = { props=> <SelectTags { ...props } googleToken = {this.state.googleToken} /> } path = '/associates' />
+                                        <Route render = { props=> <SelectTags {...props} googleToken = {this.state.googleToken} /> } path = '/associates' />
                                     </Switch>
                                 </Col>
                             </Row>
@@ -48,7 +48,7 @@ class App extends Component{
                     <Col xs={6}>
                         <SignIn />
                         <GoogleLogin 
-                            clientId={ '1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com' } 
+                            clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} 
                             onSuccess={success} 
                             style={LoginBtn}
                         >

@@ -29,7 +29,10 @@ class SelectTags extends React.Component{
         data: []
     }
 	componentWillMount(){
-		getApi( this.setState.bind(this), this.props.googleToken.profileObj.email )
+        getApi( 
+            this.setState.bind(this), 
+            this.props.googleToken.profileObj.email 
+        )
 	}
     render(){
         return(

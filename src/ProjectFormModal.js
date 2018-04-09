@@ -6,23 +6,7 @@ const FormItem = Form.Item
 const Option = Select.Option
 let children = []
 
-const getApi_project = (setState, id)=> {
-	fetch( url + '/projects/' + id )
-	.then( response=> response.json() )
-	.then( response=> {
-        const { project, status, lead, lead_name, remediation, skills, associates } = response
-        setState({ 
-            project, 
-            status, 
-            lead, 
-            lead_name, 
-            remediation, 
-            skills: skills.map( row=> row.skill ), 
-            associates: associates.map( row=> row.associate )
-        })
-	})
-}
-
+// Read Users
 const getApi_users = (setState)=> {
     fetch( url + '/users' )
 	.then( response=> response.json() )
@@ -32,7 +16,7 @@ const getApi_users = (setState)=> {
         })
 	})
 }
-
+// Create Projects
 const postApi_project = (data)=> {
     fetch ( 
         url + '/create_project', 
@@ -49,12 +33,29 @@ const postApi_project = (data)=> {
     )
     .then( response=> response.json() )
 }
-
+// Read Projects
+const getApi_project = (setState, id)=> {
+	fetch( url + '/projects/' + id )
+	.then( response=> response.json() )
+	.then( response=> {
+        const { project, status, lead, lead_name, remediation, skills, associates } = response
+        setState({ 
+            project, 
+            status, 
+            lead, 
+            lead_name, 
+            remediation, 
+            skills: skills.map( row=> row.skill ), 
+            associates: associates.map( row=> row.associate )
+        })
+	})
+}
+// Update Projects
 const updateApi_project = (setState, id, data)=> {
 	fetch( 
         url + '/update_project/' + id,
         {
-            method: 'post',
+            method: 'patch',
             body: JSON.stringify(data),
             cache: 'no-cache',
             credentials: 'same-origin',
@@ -68,6 +69,7 @@ const updateApi_project = (setState, id, data)=> {
 }
 
 class ProjectFormModal extends React.Component {
+    // set initial state
     state = { 
         visible: false,
         project: '',
@@ -80,26 +82,31 @@ class ProjectFormModal extends React.Component {
         users: []
     }
 
-    edit = ()=> {
-        const bool = !bool
-        alert(bool)
-    }
-
     submit = ()=> {
         postApi_project(this.state)
         this.props.history.goBack()
         message.info('Form Submitted.')
     }
 
-    submitUpdate = ()=> {
-        updateApi_project(this.state)
-        this.props.history.goBack()
-    }
-
     handleCancel = e=> { 
         this.props.history.goBack()
     }
 
+    // form input values
+    inputItemEvent = key=> {
+        return e=> {
+            this.setState({
+                [key]: e.target.value
+            })
+        }
+    }
+    inputItem = key=> {
+        return value=> {
+            this.setState({
+                [key]: value
+            })
+        }
+    }
 
     componentWillMount(){
         getApi_users(
@@ -110,22 +117,6 @@ class ProjectFormModal extends React.Component {
                 this.setState.bind(this), 
                 this.props.match.params.id
             )
-        }
-    }
-    inputItemEvent = key=> {
-        return e=> {
-            console.log(e)
-            this.setState({
-                [key]: e.target.value
-            })
-        }
-    }
-    inputItem = key=> {
-        return value=> {
-            console.log(value)
-            this.setState({
-                [key]: value
-            })
         }
     }
 
@@ -141,48 +132,48 @@ class ProjectFormModal extends React.Component {
                 cancelText='Back'
             >
                 <Form className = 'project'>
-                    <FormItem label = "Project Name">
-                        <Input 
+                    <FormItem label = 'Project Name'>
+                        <Input
                             required={true} 
                             value={this.state.project} 
-                            placeholder = "Project Name"
+                            placeholder = 'Project Name'
                             onChange={ this.inputItemEvent('project') }
                         />
                     </FormItem>
-                    <FormItem label = "Status">
+                    <FormItem label = 'Status'>
                         <Select 
                             showSearch 
                             value={this.state.status} 
                             onChange={this.inputItem('status')}
                         >
-                            <Option value = "Draft">Draft</Option>
-                            <Option value = "Pending">Pending Review</Option>
-                            <Option value = "Approved">Approved</Option>
-                            <Option value = "Cancelled">Cancelled</Option>
+                            <Option value = 'Draft'>Draft</Option>
+                            <Option value = 'Pending'>Pending Review</Option>
+                            <Option value = 'Approved'>Approved</Option>
+                            <Option value = 'Cancelled'>Cancelled</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label = "Lead">
+                    <FormItem label = 'Lead'>
                         <Select 
                             showSearch value={this.state.lead} 
                             onChange={this.inputItem('lead')}
                         >
-                            <Option value = "AaronTBridgers@gmail.com">Aaron Bridgers</Option>
-                            <Option value = "chris_Kennedy@kenan-flagler.unc.edu">Chris Kennedy</Option>
-                            <Option value = "danstahl1138@gmail.com">Daniel Stahl</Option>
-                            <Option value = "thomasnguyen704@gmail.com">Thomas Nguyen</Option>
+                            <Option value = 'AaronTBridgers@gmail.com'>Aaron Bridgers</Option>
+                            <Option value = 'chris_Kennedy@kenan-flagler.unc.edu'>Chris Kennedy</Option>
+                            <Option value = 'danstahl1138@gmail.com'>Daniel Stahl</Option>
+                            <Option value = 'thomasnguyen704@gmail.com'>Thomas Nguyen</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label = "Skill Requirements">
+                    <FormItem label = 'Skill Requirements'>
                         <Select
-                            mode = "tags" 
-                            placeholder = "Skills Requirements" 
+                            mode = 'tags' 
+                            placeholder = 'Skills Requirements' 
                             value={this.state.skills}
                             onChange={this.inputItem('skills')}
                         >
                             { children }
                         </Select>
                     </FormItem>
-                    <FormItem label = "Associates">
+                    <FormItem label = 'Associates'>
                         <Select
                             showSearch 
                             mode = 'multiple'
@@ -196,22 +187,22 @@ class ProjectFormModal extends React.Component {
                             }
                         </Select>
                     </FormItem>
-                    <FormItem label = "Skill Gap">
+                    <FormItem label = 'Skill Gap'>
                         <Input 
                             disabled 
-                            placeholder = "Based on entries by associates skills survey" 
+                            placeholder = 'Based on entries by associates skills survey' 
                             value={this.state.skillGap} 
                             onChange={this.inputItem('skillGap')}
                         />
                     </FormItem>
-                    <FormItem label = "Remediation">
+                    <FormItem label = 'Remediation'>
                         <Select 
                             value={this.state.remediation} 
                             onChange={this.inputItem('remediation')}
                         >
-                            <Option value = "Training">Training</Option>
-                            <Option value = "In Source">In Source</Option>
-                            <Option value = "Out Source">Out Source</Option>
+                            <Option value = 'Training'>Training</Option>
+                            <Option value = 'In Source'>In Source</Option>
+                            <Option value = 'Out Source'>Out Source</Option>
                         </Select>
                     </FormItem>
                 </Form>
@@ -221,3 +212,13 @@ class ProjectFormModal extends React.Component {
     }
 }
 export default ProjectFormModal
+
+/*
+// Query used to  'upsert' a row 
+INSERT OR REPLACE INTO projects ( id, project, lead ) 
+	VALUES (
+		5,
+		'Test Update 5',
+		'thomasnguyen704@gmail.com'
+);
+*/
