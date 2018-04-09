@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, Select } from 'antd'
+import { Modal, Form, Input, Select, message } from 'antd'
 import { url }  from './utils'
 
 const FormItem = Form.Item
@@ -20,7 +20,6 @@ const getApi_project = (setState, id)=> {
             skills: skills.map( row=> row.skill ), 
             associates: associates.map( row=> row.associate )
         })
-       console.log(response)
 	})
 }
 
@@ -51,6 +50,35 @@ const postApi_project = (data)=> {
     .then( response=> response.json() )
 }
 
+const updateApi_project = (setState, id, data)=> {
+	fetch( 
+        url + '/update_project/' + id,
+        {
+            method: 'post',
+            body: JSON.stringify(data),
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'user-agent': 'Mozilla/4.0 MDN Example',
+              'content-type': 'application/json'
+            }
+        }
+    )
+	.then( response=> response.json() )
+	.then( response=> {
+        const { project, status, lead, lead_name, remediation, skills, associates } = response
+        setState({ 
+            project, 
+            status, 
+            lead, 
+            lead_name, 
+            remediation, 
+            skills: skills.map( row=> row.skill ), 
+            associates: associates.map( row=> row.associate )
+        })
+	})
+}
+
 class ProjectFormModal extends React.Component {
     state = { 
         visible: false,
@@ -65,13 +93,19 @@ class ProjectFormModal extends React.Component {
     }
     
     submit = ()=> {
-        postApi_project(this.state);
+        postApi_project(this.state)
+        this.props.history.goBack()
+        message.info('Form Submitted.')
+    }
+
+    submitUpdate = ()=> {
+        updateApi_project(this.state)
         this.props.history.goBack()
     }
 
     handleCancel = e=> { 
         this.props.history.goBack()
-    } 
+    }
 
     componentWillMount(){
         getApi_users(
