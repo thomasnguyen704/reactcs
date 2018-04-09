@@ -20,9 +20,19 @@ app.get('/projects', (req, res)=> {
 app.post('/create_project', (req, res)=>{
     const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
     Promise.all([
-        knex('projects').insert([ { project, lead, status, remediation } ]),
-        knex('skills').insert( skills.map( skill=> ({ skill }) ) ),
-        knex('project_associates').insert( associates.map( associate=> ({ associate })) )
+        knex('projects').insert([ 
+            { project, lead, status, remediation } 
+        ]),
+        knex('skills').insert( 
+            skills.map( 
+                skill=> ({ skill }) 
+            )
+        ),
+        knex('project_associates').insert( 
+            associates.map( 
+                associate=> ({ associate })
+            ) 
+        )
     ]).then(
         ()=> { res.send({message: 'post'}) }
     ).catch(
@@ -65,9 +75,7 @@ app.get('/projects/:id', (req, res)=> {
 
 app.post('/update_project/:id', (req, res)=> {
     const projectId = req.params.id
-
     const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
-    
     Promise.all([
         knex('projects')
         .where({ id:projectId })
@@ -86,7 +94,6 @@ app.post('/update_project/:id', (req, res)=> {
     ).catch(
         err=> { res.send({message: err}) }
     )
-
 })
 
 
