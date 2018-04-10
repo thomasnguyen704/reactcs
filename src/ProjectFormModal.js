@@ -50,23 +50,6 @@ const getApi_project = (setState, id)=> {
         })
 	})
 }
-// Update Projects
-const updateApi_project = (setState, id, data)=> {
-	fetch( 
-        url + '/update_project/' + id,
-        {
-            method: 'patch',
-            body: JSON.stringify(data),
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'user-agent': 'Mozilla/4.0 MDN Example',
-              'content-type': 'application/json'
-            }
-        }
-    )
-    .then( response=> response.json() )
-}
 
 class ProjectFormModal extends React.Component {
     // set initial state
@@ -79,7 +62,8 @@ class ProjectFormModal extends React.Component {
         associates: [],
         skillGap: '',
         remediation: '',
-        users: []
+        users: [],
+        id: this.props.match.params.id? parseInt(this.props.match.params.id, 10) : null
     }
 
     submit = ()=> {
@@ -215,7 +199,7 @@ export default ProjectFormModal
 
 /*
 // Query used to  'upsert' a row 
-INSERT OR REPLACE INTO projects ( id, project, lead ) 
+REPLACE INTO projects ( id, project, lead ) 
 	VALUES (
 		5,
 		'Test Update 5',
