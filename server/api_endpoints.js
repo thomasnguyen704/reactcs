@@ -15,36 +15,85 @@ app.get('/projects', (req, res)=> {
         .then((results)=> {res.send(results)})
 })
 
-// CREATE: post new project with project, status, lead, skills req, assoc, remediation. 
-// This api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
-app.post('/create_project', (req, res)=>{
-    const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
-    Promise.all([
-        knex('projects').insert([ 
+/* 
+CREATE: post new project with project, status, lead, skills req, assoc, remediation. 
+This api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
+*/
+const insertProject = (project, lead, status, remediation, skills, associates)=> {
+    return Promise.all([
+        knex('projects')
+        .returning('id')
+        .insert([ 
             { project, lead, status, remediation } 
-        ]),
-        knex('skills').insert( 
-            skills.map( 
-                skill=> ({ skill }) 
-            )
+        ]).then(
+            (value)=> {
+                knex('project_associates').insert( 
+                    associates.map( associate=> ({ project_id: value.id, associate }) ) 
+                )
+            }
         ),
-        knex('project_associates').insert( 
-            associates.map( 
-                associate=> ({ associate })
-            ) 
+        knex('skills').insert( 
+            skills.map( skill=> ({ skill }) )
         )
     ]).then(
         ()=> { res.send({message: 'post'}) }
     ).catch(
         err=> { res.send({message: err}) }
     )
+}
+/* 
+UPDATE: Update project with project, status, lead, skills req, assoc, remediation. 
+This api endpoint will update to multiple tables: projects, skills, project_associates, project_skills
+*/
+const updateProject = (id, project, lead, status, remediation, skills, associates)=> {
+    return Promise.all([
+        knex('projects')
+        .where({ id })
+        .update([{ project, lead, status, remediation }]),
+
+        Promise.all(
+            skills.map( skill=> (
+                knex.raw(
+                    'replace into skills(skill) values(?)',
+                    [skill]
+                )
+            ))
+        ),
+
+        Promise.all(
+            associates.map( associate=> (
+                knex.raw(
+                    'replace into project_associates(project_id, associate) values(?,?)',
+                    [id, associate]
+                )
+            ))
+        )
+
+    ]).then(
+        ()=> { res.send({message: 'update'}) }
+    ).catch(
+        err=> { res.send({message: err}) }
+    )
+}
+app.post('/create_project', (req, res)=>{
+    const { id, project, lead, status, remediation, skills, associates, projectSkills } = req.body
+    console.log(id)
+    if (id){
+        updateProject(
+            id, project, lead, status, remediation, skills, associates
+        )
+    } else {
+        insertProject(
+            project, lead, status, remediation, skills, associates
+        )
+    }
 })
 
 // READ Projects: Get all projects by project id
 app.get('/projects/:id', (req, res)=> {
     const projectId = req.params.id
     const results = Promise.all([
-        knex.select('project', 'status', 'lead', 'username as lead_name', 'remediation')
+        knex.select('id','project', 'status', 'lead', 'username as lead_name', 'remediation')
             .from('projects')
             .innerJoin('users', 'lead', 'user')
             .where({id:projectId}),
@@ -69,33 +118,6 @@ app.get('/projects/:id', (req, res)=> {
         res.send({error: error.message}) 
     })
 })
-
-// UPDATE: Update project with project, status, lead, skills req, assoc, remediation. 
-// This api endpoint will update to multiple tables: projects, skills, project_associates, project_skills
-
-app.post('/update_project/:id', (req, res)=> {
-    const projectId = req.params.id
-    const { project, lead, status, remediation, skills, associates, projectSkills } = req.body
-    Promise.all([
-        knex('projects')
-        .where({ id:projectId })
-        .update([{ project, lead, status, remediation }]),
-        
-        knex('skills')
-        .where({ id:projectId })
-        .update(skills.map( skill=> ({ skill }) )),
-
-        knex('project_associates')
-        .where({ id:projectId })
-        .update(associates.map( associate=> ({ associate }) ))
-
-    ]).then(
-        ()=> { res.send({message: 'update'}) }
-    ).catch(
-        err=> { res.send({message: err}) }
-    )
-})
-
 
 // get skills from skills table
 app.get('/skills', (req, res)=> {
