@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, Select, Button, message } from 'antd'
+import { Modal, Form, Input, Select, message } from 'antd'
 import { url }  from './utils'
 
 const FormItem = Form.Item
@@ -19,7 +19,7 @@ const getApi_users = (setState)=> {
 // Create Projects
 const postApi_project = (data)=> {
     fetch ( 
-        url + '/create_project', 
+        url + '/create_project',
         {
             method: 'post',
             body: JSON.stringify(data),
@@ -196,13 +196,3 @@ class ProjectFormModal extends React.Component {
     }
 }
 export default ProjectFormModal
-
-/*
-// Query used to  'upsert' a row 
-REPLACE INTO projects ( id, project, lead ) 
-	VALUES (
-		5,
-		'Test Update 5',
-		'thomasnguyen704@gmail.com'
-);
-*/
