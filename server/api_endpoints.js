@@ -23,10 +23,9 @@ const insertProject = (project, lead, status, remediation, skills, associates)=>
     return Promise.all([
         knex('projects')
         .returning('id')
-        .insert([ 
-            { project, lead, status, remediation } 
-        ]).then(
-            (value)=> {
+        .insert([ { project, lead, status, remediation } ])
+        .then(
+            value=> {
                 knex('project_associates').insert( 
                     associates.map( associate=> ({ project_id: value.id, associate }) ) 
                 )
@@ -48,46 +47,41 @@ This api endpoint will update to multiple tables: projects, skills, project_asso
 const updateProject = (id, project, lead, status, remediation, skills, associates)=> {
     return Promise.all([
         knex('projects')
-        .where({ id })
-        .update([{ project, lead, status, remediation }]),
-
+            .where({ id })
+            .update([{ project, lead, status, remediation }]),
         Promise.all(
             skills.map( skill=> (
-                knex.raw(
-                    'replace into skills(skill) values(?)',
-                    [skill]
-                )
+                knex.raw( 'replace into skills(skill) values(?)', [skill] )
             ))
         ),
-
         Promise.all(
             associates.map( associate=> (
-                knex.raw(
-                    'replace into project_associates(project_id, associate) values(?,?)',
-                    [id, associate]
-                )
+                knex.raw( 'replace into project_associates(project_id, associate) values(?,?)', [id, associate] )
             ))
         )
-
     ]).then(
         ()=> { res.send({message: 'update'}) }
     ).catch(
         err=> { res.send({message: err}) }
     )
 }
+// if id, then update else insert row
 app.post('/create_project', (req, res)=>{
-    const { id, project, lead, status, remediation, skills, associates, projectSkills } = req.body
-    console.log(id)
-    if (id){
-        updateProject(
-            id, project, lead, status, remediation, skills, associates
-        )
+    const { id, project, lead, status, remediation, skills, associates } = req.body
+    
+    console.log('Project ID: ' + id)
+
+    if(id) {
+        updateProject( id, project, lead, status, remediation, skills, associates )
+        .then( ()=> { res.send({ message: 'post' }) })
+        .catch( err=> { res.send({ message: err }) })
     } else {
-        insertProject(
-            project, lead, status, remediation, skills, associates
-        )
+        insertProject( project, lead, status, remediation, skills, associates )
+        .then( ()=> { res.send({ message: 'post' }) })
+        .catch( err=> { res.send({ message: err }) })
     }
 })
+
 
 // READ Projects: Get all projects by project id
 app.get('/projects/:id', (req, res)=> {
