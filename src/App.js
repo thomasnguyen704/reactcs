@@ -47,8 +47,7 @@ class App extends Component{
                     <Col xs={6}>
                         <SignIn />
                         <GoogleLogin 
-                            // clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} //local
-                            clientId={'1079311309956-53aub39mnsaeqms7u31d1qm16j8n2v5n.apps.googleusercontent.com'} //server
+                            clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'}
                             onSuccess={success} 
                             style={LoginBtn}
                         >
