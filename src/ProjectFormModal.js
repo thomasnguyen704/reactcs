@@ -18,7 +18,7 @@ const getApi_users = (setState)=> {
 }
 // Create Projects
 const postApi_project = (data)=> {
-    fetch ( 
+    return fetch ( 
         url + '/create_project',
         {
             method: 'post',
@@ -72,7 +72,7 @@ class ProjectFormModal extends React.Component {
         const id = tempId? parseInt(tempId, 10) :null
         console.log(id)
         const {visible, ...rest} = this.state
-        postApi_project({...rest, id})
+        postApi_project({...rest, id}).then( ()=>{this.props.getProjects()})
         this.props.history.goBack()
         message.info('Form Submitted.')
     }

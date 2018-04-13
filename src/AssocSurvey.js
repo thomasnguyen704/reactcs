@@ -14,11 +14,30 @@ const getApi = (setState, user)=> {
 	})
 }
 
+const postApi = (user, data)=> {
+    console.log(user, data)
+    return fetch( url + '/surveys/' + user,
+    {
+        method: 'post',
+        body: JSON.stringify(data),
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'user-agent': 'Mozilla/4.0 MDN Example',
+          'content-type': 'application/json'
+        }
+    }
+) .then( response=> response.json() )
+}
+
 const { CheckableTag } = Tag
 
 class ClickTag extends React.Component {    
     state = { checked: this.props.checked }
-    handleChange = checked=> { this.setState({ checked }) }
+    handleChange = checked=> { 
+        this.setState({ checked })
+        postApi(this.props.user, {project_skill: this.props.project_skill, checked})
+    }
     render() {
         return ( <CheckableTag {...this.props} checked={this.state.checked} onChange={this.handleChange} /> )
     }
@@ -47,7 +66,14 @@ class SelectTags extends React.Component{
                         <div style = {selectStyles}>
                             {
                                 this.state.data.map( (row)=>{
-                                    return ( <ClickTag key={row.skill_id} style={tag} checked={row.skill_exist}> {row.skill} </ClickTag> )
+                                    return ( 
+                                        <ClickTag 
+                                            key={row.skill_id} 
+                                            style={tag} 
+                                            checked={row.skill_exist}
+                                            project_skill={row.skill_id}
+                                            user={this.props.googleToken.profileObj.email}
+                                        > {row.skill} </ClickTag> )
                                 })
                             }
                         </div>

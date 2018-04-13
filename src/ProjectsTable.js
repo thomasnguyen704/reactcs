@@ -51,8 +51,18 @@ const columns = (selectFilter, match)=> {
 	]
 }
 
+const modalHoc = (getProjects)=>{
+	return props=>{
+		return <ProjectFormModal {...props} getProjects = {getProjects}/>
+	}
+}
+
 class ProjectsTable extends React.Component {	
 	state = { projects: [], leads: [] }
+	
+	classModalHoc = modalHoc( ()=>{
+		return getApi_projects(this.setState.bind(this))
+	} )
 
 	componentWillMount(){
 		getApi_projects(this.setState.bind(this))
@@ -70,8 +80,8 @@ class ProjectsTable extends React.Component {
 					pagination={{ pageSize: 5 }}
 					rowKey = 'id' 
 				/>
-				<Route exact path={this.props.match.path + '/modal'} component={ProjectFormModal}/> 
-				<Route path={this.props.match.path + '/modal/:id'} component={ProjectFormModal}/>
+				<Route exact path={this.props.match.path + '/modal'} render={this.classModalHoc}/> 
+				<Route path={this.props.match.path + '/modal/:id'} render={this.classModalHoc}/>
 			</div>
 		)
 	}
