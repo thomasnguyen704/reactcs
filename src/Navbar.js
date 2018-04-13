@@ -39,6 +39,11 @@ class Navbar extends React.Component {
 						<Icon type = 'user'/> Associates
 					</Link>
 				</Menu.Item>
+				<Menu.Item key = 'projectCharts'>
+					<Link to ='/projectCharts'>
+						<Icon type = 'dot-chart'/> Reports
+					</Link>
+				</Menu.Item>
 			</Menu>
 		)
 	}

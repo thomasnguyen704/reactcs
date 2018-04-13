@@ -77,7 +77,7 @@ class ProjectsTable extends React.Component {
 					columns = { columns( getUniqueArray(this.state.projects, 'lead'), this.props.match ) } 
 					dataSource = {this.state.projects}
 					title = { ()=> <p> Click <Link to={this.props.match.path + '/modal'}> <Icon type="file-add" /> </Link> to create a new project </p> }
-					pagination={{ pageSize: 5 }}
+					pagination={{ pageSize: 10 }}
 					rowKey = 'id' 
 				/>
 				<Route exact path={this.props.match.path + '/modal'} render={this.classModalHoc}/> 

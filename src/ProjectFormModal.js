@@ -64,7 +64,6 @@ class ProjectFormModal extends React.Component {
         skillGap: '',
         remediation: '',
         users: [],
-        // id: this.props.match.params.id? parseInt(this.props.match.params.id, 10) : null
     }
 
     submit = ()=> {

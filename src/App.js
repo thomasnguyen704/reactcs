@@ -5,8 +5,9 @@ import { Icon } from 'antd'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import TopNav from './Navbar'
 import Home from './Home'
-import ProjectsContainer from './ProjectsContainer'
+import ProjectsTable from './ProjectsTable'
 import SelectTags from './AssocSurvey'
+import ProjectCharts from './ProjectsCharts'
 import SignIn from './SignIn'
 import { GoogleLogin } from 'react-google-login'
 
@@ -32,8 +33,9 @@ class App extends Component{
                                     <Switch>
                                         <Redirect exact to='/home' from ='/' />
                                         <Route component = {Home} path = '/home' />
-                                        <Route component = {ProjectsContainer} path = '/projects' />
+                                        <Route component = {ProjectsTable} path = '/projects' />
                                         <Route render = { props=> <SelectTags {...props} googleToken = {this.state.googleToken} /> } path = '/associates' />
+                                        <Route component = {ProjectCharts} path = '/projectCharts' />
                                     </Switch>
                                 </Col>
                             </Row>
@@ -45,7 +47,8 @@ class App extends Component{
                     <Col xs={6}>
                         <SignIn />
                         <GoogleLogin 
-                            clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} 
+                            // clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'} //local
+                            clientId={'1079311309956-53aub39mnsaeqms7u31d1qm16j8n2v5n.apps.googleusercontent.com'} //server
                             onSuccess={success} 
                             style={LoginBtn}
                         >
