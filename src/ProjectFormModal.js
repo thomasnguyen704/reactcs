@@ -38,7 +38,7 @@ const getApi_project = (setState, id)=> {
 	fetch( url + '/projects/' + id )
 	.then( response=> response.json() )
 	.then( response=> {
-        const { project, status, lead, lead_name, remediation, skills, associates } = response
+        const { project, status, lead, lead_name, remediation, skills, skillGap, associates } = response
         setState({ 
             project, 
             status, 
@@ -46,6 +46,7 @@ const getApi_project = (setState, id)=> {
             lead_name, 
             remediation, 
             skills: skills.map( row=> row.skill ), 
+            skillGap: skillGap.length>0? skillGap[0].skillGap: '',
             associates: associates.map( row=> row.associate )
         })
 	})
@@ -63,11 +64,15 @@ class ProjectFormModal extends React.Component {
         skillGap: '',
         remediation: '',
         users: [],
-        id: this.props.match.params.id? parseInt(this.props.match.params.id, 10) : null
+        // id: this.props.match.params.id? parseInt(this.props.match.params.id, 10) : null
     }
 
     submit = ()=> {
-        postApi_project(this.state)
+        const tempId = this.props.match.params.id
+        const id = tempId? parseInt(tempId, 10) :null
+        console.log(id)
+        const {visible, ...rest} = this.state
+        postApi_project({...rest, id})
         this.props.history.goBack()
         message.info('Form Submitted.')
     }
@@ -93,6 +98,7 @@ class ProjectFormModal extends React.Component {
     }
 
     componentWillMount(){
+        console.log(this.props.match)
         getApi_users(
             this.setState.bind(this)
         )
@@ -105,7 +111,7 @@ class ProjectFormModal extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.props.match)
         return (
             <Modal 
                 title='Project'
