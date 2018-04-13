@@ -15,7 +15,6 @@ const getApi = (setState, user)=> {
 }
 
 const postApi = (user, data)=> {
-    console.log(user, data)
     return fetch( url + '/surveys/' + user,
     {
         method: 'post',

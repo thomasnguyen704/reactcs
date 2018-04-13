@@ -70,7 +70,6 @@ class ProjectFormModal extends React.Component {
     submit = ()=> {
         const tempId = this.props.match.params.id
         const id = tempId? parseInt(tempId, 10) :null
-        console.log(id)
         const {visible, ...rest} = this.state
         postApi_project({...rest, id}).then( ()=>{this.props.getProjects()})
         this.props.history.goBack()
@@ -98,7 +97,6 @@ class ProjectFormModal extends React.Component {
     }
 
     componentWillMount(){
-        console.log(this.props.match)
         getApi_users(
             this.setState.bind(this)
         )
@@ -111,7 +109,6 @@ class ProjectFormModal extends React.Component {
     }
 
     render() {
-        console.log(this.props.match)
         return (
             <Modal 
                 title='Project'

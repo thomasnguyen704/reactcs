@@ -50,9 +50,6 @@ const insertSkills = (skills)=> {
 const insertProjectAssociates = (id, associates)=> {
     if(associates.length > 0){
         return knex.select('user').from('users').whereIn('username', associates).then( ids=>{
-            console.log('you are on line 52')
-            console.log('assoc', associates)
-            console.log('ids', ids)
             return knex('project_associates')
             .insert( ids.map( associate=> ({ project_id: id, associate: associate.user }) ) )
         }) 
@@ -61,10 +58,8 @@ const insertProjectAssociates = (id, associates)=> {
     }
 }
 const insertProjectSkills = (id, skills)=> {
-    console.log(skills)
     if (skills.length > 0){
         return knex.select('id').from('skills').whereIn('skill', skills).then( ids=>{
-            console.log('ids on 67', ids)
             return knex('project_skills')
             .insert( ids.map( skill=> ({ project_id: id, skill_id: skill.id }) ) )
         })
@@ -76,29 +71,22 @@ const insertProjectSkills = (id, skills)=> {
 // Insert of update project
 app.post('/create_project', (req, res)=>{
     const { id, project, lead, status, remediation, skills, associates } = req.body
-    console.log(id)
     let someId
-
     ( 
         id? updateProject(id, project, lead, status, remediation, skills, associates)
         : insertProject(project, lead, status, remediation, skills, associates) 
     )
     .then( newId=> {
-        console.log('line 77')
         someId = id || newId[0]
-        console.log(newId)
-        console.log(someId)
         return deleteItems(someId)
     })
     .then( 
         ()=>{
-            console.log('insertskills')
             return insertSkills(skills)
         }
     )
     .then(
         ()=>{
-            console.log('insertassoc')
             return Promise.all([
                 insertProjectAssociates(someId, associates),
                 insertProjectSkills(someId, skills)
@@ -107,13 +95,11 @@ app.post('/create_project', (req, res)=>{
     )
     .then(
         ()=>{
-            console.log('success!')
             res.send({message: 'success'})
         }
     )
     .catch(
         (err)=>{
-            console.log(err)
             res.send({err})
         }
     )
