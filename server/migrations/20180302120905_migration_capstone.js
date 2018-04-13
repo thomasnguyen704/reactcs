@@ -15,7 +15,7 @@ exports.up = function(knex, Promise) {
         return knex.schema.createTable('skills', (table)=> {
             table.increments('id').primary()
             table.string('skill').notNull()
-            table.unique('skill')
+            table.unique(['skill'])
         })
     }).then( ()=>{
         return knex.schema.createTable('surveys',(table)=> {
