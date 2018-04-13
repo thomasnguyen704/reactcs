@@ -205,6 +205,18 @@ app.get('/surveys/:user', (req, res)=> {
     })
 })
 
+app.post('/surveys/:user', (req, res)=> {
+    const { project_skill, checked } = req.body
+        return (checked? knex('surveys')
+        .insert( {skill_id: project_skill, user: req.params.user}) 
+        : knex('surveys').where({skill_id: project_skill, user: req.params.user })
+        .del())
+        .then(()=>{res.send({message: 'success'})})
+        .catch(err=> res.send({err}))
+    })
+
+
+
 // Chart: Projects by leasd
 app.get('/charts/active_lead', (req, res)=> {
     return knex('projects')
