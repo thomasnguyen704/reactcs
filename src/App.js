@@ -11,12 +11,46 @@ import ProjectCharts from './ProjectsCharts'
 import SignIn from './SignIn'
 import { GoogleLogin } from 'react-google-login'
 
-const signinStyle = { backgroundColor: 'whitesmoke', height: '100vh', display: 'flex', alignItems: 'center', padding: '5% 0 10% 0', overflow: 'hidden' }
-const LoginBtn = { color: 'white', background: 'whitesmoke', border: 'solid #1890ff thin', marginTop: 15, padding: '10px' }
+
+// Styles
+const LoginBtn = { 
+    background: 'whitesmoke', 
+    border: 'solid #1890ff thin', 
+    marginTop: 15, 
+    padding: '10px' 
+}
+const background = {
+    backgroundColor: 'whitesmoke',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    overflow: 'hidden'
+}
+const video = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    filter: 'grayscale(75%) brightness(25%)'
+}
+const foreground = {
+    zIndex: 1,
+    width: '50rem',
+    textAlign: 'center',
+    border: 'solid thin whitesmoke',
+    padding: '2%'
+}
+
 
 const success_generator = (setState)=> (response)=> {
     setState({ googleToken: response })
 }
+
 
 class App extends Component{
     state = { googleToken: '' }
@@ -43,8 +77,17 @@ class App extends Component{
                     </div>
                 </Router>
             ):(
-                <Row center='xs' style={signinStyle}>
-                    <Col xs={6}>
+                <div style={background}>
+                    <video 
+                        style={video}
+                        className='videoSignIn'
+                        src='http://nguyentom.com/capstone/blog3.mp4'
+                        autoPlay 
+                        loop
+                        muted
+                    >
+                    </video>
+                    <div style={foreground}>
                         <SignIn />
                         <GoogleLogin 
                             clientId={'1079311309956-sfnl438ioar2h22p14panqudljq70gks.apps.googleusercontent.com'}
@@ -53,8 +96,8 @@ class App extends Component{
                         >
                             <a type='danger'><Icon type='google' /> Sign In</a>
                         </GoogleLogin>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             )
         )
     }

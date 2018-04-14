@@ -17,6 +17,19 @@ body, html {
   height: 75vh;
 }
 
+.brightLarge {
+  color: white;
+  font-weight: thin;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 3em;
+}
+.brightSmall {
+  color: white;
+  font-weight: thin;
+  font-family: 'Open Sans', san-serif;
+  font-size: 1.2em;
+}
+
 /* Start Project Table Styles */
 .custom-filter-dropdown {
   padding: 8px;
@@ -31,9 +44,9 @@ body, html {
 .highlight {
   color: #f50;
 }
-/* End Project Table Styles */
 
 
+/* Charts and graphs*/
 .chartTitle {
   text-align: center;
   font-size: 1.2em;

@@ -16,17 +16,17 @@ const getApi = (setState, user)=> {
 
 const postApi = (user, data)=> {
     return fetch( url + '/surveys/' + user,
-    {
-        method: 'post',
-        body: JSON.stringify(data),
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'user-agent': 'Mozilla/4.0 MDN Example',
-          'content-type': 'application/json'
+        {
+            method: 'post',
+            body: JSON.stringify(data),
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'user-agent': 'Mozilla/4.0 MDN Example',
+                'content-type': 'application/json'
+            }
         }
-    }
-) .then( response=> response.json() )
+    ).then( response=> response.json() )
 }
 
 const { CheckableTag } = Tag

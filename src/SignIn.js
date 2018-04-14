@@ -6,8 +6,10 @@ class SignIn extends React.Component {
         return(
             <Row type='flex' justify='space-around' align='middle'>
                 <Col sm={24} lg={18}>
-                    <h1>Human Capital Requirements Tracker</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <h1 className='brightLarge'>Human Capital Requirements Tracker</h1>
+                    <p className='brightSmall'>
+                        The purpose of this application is to document the linkage between human talent to project requirements as specified by regulation. A real world example are banks whom are required to have competencies around financial models and oversight functions. Additionally, the application will help identify gaps in talent that may need to be addressed by training, outsourcing, or hiring.
+                    </p>
                 </Col>
             </Row>
         )
