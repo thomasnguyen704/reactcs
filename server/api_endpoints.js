@@ -4,6 +4,8 @@ const knex = require('knex')({
     client: 'sqlite3',
     connection: { filename: './mydb.sqlite' }
 })
+const https = require('https')
+
 
 app.use(bodyParser)
 
@@ -222,4 +224,11 @@ app.get('/charts/active_status', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
-app.listen(3001, ()=> console.log('Server listening on 3001'))
+if (process.env.NODE_ENV === 'production'){
+    https.createServer({
+        key: fs.readFileSync('key.pem'),
+        cert: fs.readFileSync('cert.pem')
+      }, app).listen(3001)
+} else {
+    app.listen(3001, ()=> console.log('Server listening on 3001'))
+}
