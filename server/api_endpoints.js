@@ -10,6 +10,13 @@ const fs = require('fs')
 
 app.use(bodyParser)
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+
 // Get all projects
 app.get('/projects', (req, res)=> {
     return knex.select('id', 'project', 'lead as lead_id', 'username as lead', 'status', 'remediation')
