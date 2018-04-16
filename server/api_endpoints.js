@@ -5,6 +5,7 @@ const knex = require('knex')({
     connection: { filename: './mydb.sqlite' }
 })
 const https = require('https')
+const fs = require('fs')
 
 
 app.use(bodyParser)
