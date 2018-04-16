@@ -1,1 +1,1 @@
-export const url = process.env.NODE_ENV === 'production'? 'https://159.65.189.161:3000' : 'http://localhost:3000'
+export const url = process.env.NODE_ENV === 'production'? 'http://159.65.189.161:3000' : 'http://localhost:3000'
