@@ -7,15 +7,14 @@ const knex = require('knex')({
 const https = require('https')
 const fs = require('fs')
 
-
 app.use(bodyParser)
 
+// Allow cross origin
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
 
 // Get all projects
 app.get('/projects', (req, res)=> {
@@ -24,7 +23,7 @@ app.get('/projects', (req, res)=> {
         .innerJoin('users', 'lead', 'user')
         .then((results)=> {res.send(results)})
 })
-
+// Delete projects, used for updating records
 const deleteItems = (project_id)=>{
     return Promise.all([
         knex('project_skills')
@@ -37,8 +36,8 @@ const deleteItems = (project_id)=>{
 }
 
 /* 
-CREATE project with project, status, lead, skills req, assoc, remediation. 
-This api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
+*   CREATE project with project, status, lead, skills req, assoc, remediation. 
+*   This api endpoint will insert to multiple tables: projects, skills, project_associates, project_skills
 */
 const insertProject = (project, lead, status, remediation, skills, associates)=> {
     return knex('projects')
@@ -115,8 +114,7 @@ app.post('/create_project', (req, res)=>{
     )
 })
 
-
-// READ Projects all projects by project id
+// Read Projects all projects by project id
 app.get('/projects/:id', (req, res)=> {
     const projectId = req.params.id
     const results = Promise.all([
@@ -162,20 +160,20 @@ app.get('/projects/:id', (req, res)=> {
     })
 })
 
-// get skills from skills table
+// Read skills from skills table
 app.get('/skills', (req, res)=> {
     return knex.select('id', 'skill', 'status').from('skills')
     .then(results=> {res.send(results)})
 })
 
-// get associates from users table
+// Read associates from users table
 app.get('/users', (req,res)=>{
     return knex.select('user', 'username')
     .from('users')
     .then(results=> {res.send(results)})
 })
 
-// get lead from projects table
+// Read lead from projects table
 app.get('/leads', (req,res)=>{
     return knex.select('username')
     .from('projects')
@@ -183,7 +181,7 @@ app.get('/leads', (req,res)=>{
     .then(results=> {res.send(results)})
 })
 
-// READ user and skills from survey table
+// Read user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
     const results = 
         knex.select( 'user', 'skill', 'skills.id as skill_id', knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist'))
@@ -201,7 +199,7 @@ app.get('/surveys/:user', (req, res)=> {
     })
 })
 
-// POST Surveys by user
+// Update surveys by user
 app.post('/surveys/:user', (req, res)=> {
     const { project_skill, checked } = req.body
         return (checked? knex('surveys')
@@ -212,6 +210,11 @@ app.post('/surveys/:user', (req, res)=> {
         .catch(err=> res.send({err}))
     })
 
+
+/*
+*   The APIs below are used for reporting.
+*/
+
 // Chart: Projects by leasd
 app.get('/charts/active_lead', (req, res)=> {
     return knex('projects')
@@ -220,18 +223,85 @@ app.get('/charts/active_lead', (req, res)=> {
     .whereNot('status', 'Complete')
     .groupBy('lead')
     .then(results=> {res.send(results)})
-})
-
-// Chart: Projects by status
-app.get('/charts/active_status', (req, res)=> {
+})// Chart: Projects by status
+app.get('/charts/projectStatus', (req, res)=> {
     return knex('projects')
-    .select(knex.raw('count(id) as count, status'))
-    .whereNot('status', 'Complete')
+    .select('project as Project', 'status as Status')
+    .from('projects')
+    .orderBy('Status')
+    .then(results=> {res.send(results)})
+})
+// Chart: Count projects by status
+app.get('/charts/count_projectStatus', (req, res)=> {
+    return knex('projects')
+    .select( knex.raw('count(id) as Projects, status as Status') )
+    .from('projects')
     .groupBy('status')
     .then(results=> {res.send(results)})
 })
+// Chart: Gap result by project
+app.get('/charts/project_gaps', (req, res)=> {
+    return knex.raw(`
+        select 
+            project as Project,
+            case when sum( case when surveys.skill_id is null then 1 else 0 end) > 0 then "Yes" else "No" end as "Skill Gap"
+        from project_skills
+        left join surveys on project_skills.project_id = surveys.skill_id
+        inner join projects on projects.id = project_id
+        inner join users on lead = users.user
+        group by project_skills.project_id
+        order by "Skill Gap" desc
+        ;
+    `)
+    .then(results=> {res.send(results)} )
+})
+// Chart: skill gap by count of project ids
+app.get('/charts/count_gaps', (req, res)=> {
+    return knex.raw(`
+        select skillGap as "Skill Gap", count (project_id) as "# Projects"
+        from (
+            select 
+                project_skills.project_id, 
+                case when sum( case when surveys.skill_id is null then 1 else 0 end) > 0 then "Yes" else "No" end as skillGap
+            from project_skills
+            left join surveys on project_skills.project_id = surveys.skill_id
+            group by project_skills.project_id
+        )
+        group by skillGap;
+    `)
+    .then(results=> {res.send(results)} )
+})
+// Chart: Count skills requested
+app.get('/charts/count_req', (req, res)=> {
+    return knex.raw(`
+        select count (skill_id) as Count, skill as Skill
+        from project_skills
+        inner join skills on skills.id = skill_id
+        group by skill_id
+        order by Skill
+        ;
+    `)
+    .then(results=> {res.send(results)} )
+})
 
-// Self signed certs and server stuff
+// Chart: Count skills which exists
+app.get('/charts/count_skills', (req, res)=> {
+    return knex.raw(`
+        select count(skill_id) as Count, skill as Skill
+        from surveys
+        inner join skills on skills.id = skill_id
+        group by skill;
+    `)
+    .then(results=> {res.send(results)} )
+})
+
+
+
+
+
+/*
+*   Below are ports and certs for the Server
+*/ 
 if (process.env.NODE_ENV === 'production'){
     https.createServer({
         key: fs.readFileSync('key.pem'),
