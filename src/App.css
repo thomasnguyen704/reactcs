@@ -5,6 +5,7 @@
 
 body, html {
   height: 100vh;
+  padding-bottom: 150%;
 }
 .Navbar {
   margin-bottom: 25px;
