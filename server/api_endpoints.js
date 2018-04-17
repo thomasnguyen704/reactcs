@@ -201,6 +201,7 @@ app.get('/surveys/:user', (req, res)=> {
     })
 })
 
+// POST Surveys by user
 app.post('/surveys/:user', (req, res)=> {
     const { project_skill, checked } = req.body
         return (checked? knex('surveys')
@@ -210,8 +211,6 @@ app.post('/surveys/:user', (req, res)=> {
         .then(()=>{res.send({message: 'success'})})
         .catch(err=> res.send({err}))
     })
-
-
 
 // Chart: Projects by leasd
 app.get('/charts/active_lead', (req, res)=> {
@@ -232,6 +231,7 @@ app.get('/charts/active_status', (req, res)=> {
     .then(results=> {res.send(results)})
 })
 
+// Self signed certs and server stuff
 if (process.env.NODE_ENV === 'production'){
     https.createServer({
         key: fs.readFileSync('key.pem'),
