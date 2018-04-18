@@ -189,6 +189,7 @@ class ProjectFormModal extends React.Component {
                             <Option value = 'Training'>Training</Option>
                             <Option value = 'In Source'>In Source</Option>
                             <Option value = 'Out Source'>Out Source</Option>
+                            <Option value = 'None'>None</Option>
                         </Select>
                     </FormItem>
                 </Form>
