@@ -4,7 +4,7 @@ import { VictoryBar, VictoryPie, VictoryChart, VictoryAxis } from 'victory'
 import { Row, Col } from 'react-flexbox-grid'
 import {url} from './utils'
 
-const sectionHeader = { marginTop: '50px', fontSize: '1.7em', fontWeight: '200'}
+const sectionHeader = { margin:'50px 0 25px 0', fontSize: '1.7em', fontWeight: '200'}
 const tickStyles = { fontSize: 12, fontFamily: 'Open Sans' }
 const dataStyles = { fill: 'yellowGreen', opacity: 0.7, stroke: 'yellowGreen' }
 const chartStyles = { border: 'solid thin whitesmoke', padding: '50px 0 50px 0', margin: '10px 0 10px 0', height: '95%' }
@@ -83,12 +83,12 @@ class ProjectsCharts extends React.Component {
     render() {
         return (
             <div>
-                <h1>Managerial and Regulatory Reporting</h1>
-                <p>Managerial reporting is a display an overall view of results for projects and skill gaps remediations by Lead/Manager. Reporting should provide an overview for managerial and regulatory oversight purposes.</p>
-                <br/>
+                <div className='jumboSmall'>
+                    <h1>Managerial and Regulatory Reporting</h1>
+                    <h2>Reporting should provide an overall view of operational and regulatory metrics. Operational metrics focuses on drill down measures while regulatory metrics focuses on overall results. </h2>
+                </div>
 
-                <p style={sectionHeader}>Project Requirement Submissions</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p style={sectionHeader}>Project Submissions</p>
                 <Divider />
                 <Row>
                     <Col lg={6}>
@@ -118,8 +118,7 @@ class ProjectsCharts extends React.Component {
                     </Col>
                 </Row>
 
-                <p style={sectionHeader}>Project Gap Results</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p style={sectionHeader}>Gap Results</p>
                 <Divider />
                 <Row>
                     <Col lg={6}>
@@ -152,7 +151,6 @@ class ProjectsCharts extends React.Component {
                 </Row>
 
                 <p style={sectionHeader}>Skill Reqiurements Overview</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <Divider />
                 <Row>
                     <Col lg={6}>

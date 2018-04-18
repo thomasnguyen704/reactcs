@@ -5,6 +5,7 @@ import { getUniqueArray } from 'array_utils'
 import { url }  from './utils'
 import { Route, Link } from 'react-router-dom'
 
+
 const getApi_projects = (setState)=> {
 	fetch( url + '/projects' )
 	.then( response=> response.json() )
@@ -71,8 +72,10 @@ class ProjectsTable extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Projects</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<div className='jumboSmall'>
+					<h1>Projects</h1>
+					<h2>Project leads specify skill requirements by assigning team members (associates) to a project and indicating the skills required to complete a project. Simply create a project and the application will take care of the rest. Come back after your team members (associates) are done with their self assessment survey if you need to note a rememdiaton plan.</h2>
+				</div>
 				<Table 
 					columns = { columns( getUniqueArray(this.state.projects, 'lead'), this.props.match ) } 
 					dataSource = {this.state.projects}
