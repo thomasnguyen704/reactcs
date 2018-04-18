@@ -166,19 +166,13 @@ class ProjectsCharts extends React.Component {
                         </div>
                     </Col>
                     <Col lg={6}>
-                        <div style={chartStyles}>
-                            <p className='chartTitle'>Count of Skills Surveyed True</p>
-                            <VictoryChart domainPadding={{ y: 15 }}>
-                                <VictoryAxis style={{ tickLabels: tickStyles, data: dataStyles }} />
-                                <VictoryBar 
-                                    horizontal 
-                                    data={this.state.countSkillsData}
-                                    labels={ (d) => `${d.x}: ${d.y}` }
-                                    style={{ data: dataStyles, labels: tickStyles }}
-                                    x='Skill'
-                                    y='Count'
-                                />
-                            </VictoryChart>
+                        <div style={tableStyles}>
+                            <p className='chartTitle'>Count of Surveys True by Skill</p>
+                            <Table 
+                                dataSource={this.state.countSkillsData} 
+                                columns={columnsReq} 
+                                pagination={{ pageSize: 5 }}
+                            />
                         </div>
                     </Col>
                 </Row>
