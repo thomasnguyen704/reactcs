@@ -50,33 +50,25 @@ const updateProject = (id, project, lead, status, remediation, skills, associate
     .update({ project, lead, status, remediation })
 }
 
-
-/*
 const insertSkills = (skills)=> {
     return Promise.all(
         skills.map( skill=> (
             knex.select('skill')
             .from('skills')
-            .where({skill} )
-            .then( (result)=>{
-                if (result.length > 0){
-                    return knex('skill').insert({skill})
+            .where( {skill} )
+            .then( result=> {
+                console.log('60 ',result)
+                if (result.length === 0){
+                    console.log('62', skill)
+                    return knex('skills').insert({skill})
                 } else {
+                    console.log('65', skill)
                     return Promise.resolve()
                 }
             })
         ))
     )
 }
-*/
-const insertSkills = (skills)=> {
-    return Promise.all(
-        skills.map( skill=> (
-            knex.raw( 'replace into skills(skill) values(?)', [skill] )
-        ))
-    )
-}
-
 
 
 const insertProjectAssociates = (id, associates)=> {
