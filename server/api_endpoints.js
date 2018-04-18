@@ -49,6 +49,26 @@ const updateProject = (id, project, lead, status, remediation, skills, associate
     .where({id})
     .update({ project, lead, status, remediation })
 }
+
+
+/*
+const insertSkills = (skills)=> {
+    return Promise.all(
+        skills.map( skill=> (
+            knex.select('skill')
+            .from('skills')
+            .where({skill} )
+            .then( (result)=>{
+                if (result.length > 0){
+                    return knex('skill').insert({skill})
+                } else {
+                    return Promise.resolve()
+                }
+            })
+        ))
+    )
+}
+*/
 const insertSkills = (skills)=> {
     return Promise.all(
         skills.map( skill=> (
@@ -56,6 +76,9 @@ const insertSkills = (skills)=> {
         ))
     )
 }
+
+
+
 const insertProjectAssociates = (id, associates)=> {
     if(associates.length > 0){
         return knex.select('user').from('users').whereIn('username', associates).then( ids=>{
@@ -68,9 +91,18 @@ const insertProjectAssociates = (id, associates)=> {
 }
 const insertProjectSkills = (id, skills)=> {
     if (skills.length > 0){
-        return knex.select('id').from('skills').whereIn('skill', skills).then( ids=>{
+        return knex.select('id')
+        .from('skills').whereIn('skill', skills)
+        .then( ids=>{
             return knex('project_skills')
-            .insert( ids.map( skill=> ({ project_id: id, skill_id: skill.id }) ) )
+            .insert( ids.map( 
+                skill=> (
+                    { 
+                        project_id: id, 
+                        skill_id: skill.id 
+                    }
+                )
+            ))
         })
     } else {
         return Promise.resolve()
@@ -184,7 +216,7 @@ app.get('/leads', (req,res)=>{
 // Read user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
     const results = 
-        knex.select( 'user', 'skill', 'skills.id as skill_id', knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist'))
+        knex.select( 'user', 'skill', 'skills.id as skill_id', knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist') )
         .from( 'skills' )
         .leftJoin( 'surveys', 'surveys.skill_id', 'skills.id' )
         .where( 'user', req.params.user )
@@ -202,10 +234,11 @@ app.get('/surveys/:user', (req, res)=> {
 // Update surveys by user
 app.post('/surveys/:user', (req, res)=> {
     const { project_skill, checked } = req.body
-        return (checked? knex('surveys')
-        .insert( {skill_id: project_skill, user: req.params.user}) 
-        : knex('surveys').where({skill_id: project_skill, user: req.params.user })
-        .del())
+        return (
+            checked? knex('surveys').insert( {skill_id: project_skill, user: req.params.user}) 
+            : knex('surveys').where({skill_id: project_skill, user: req.params.user })
+            .del()
+        )
         .then(()=>{res.send({message: 'success'})})
         .catch(err=> res.send({err}))
     })

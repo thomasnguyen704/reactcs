@@ -33,6 +33,7 @@ exports.seed = (knex, Promise)=> {
 	}).then( ()=> {
 		return knex('project_skills').insert([
 			{ project_id: 1, skill_id: 1 },
+			{ project_id: 1, skill_id: 3 },
 			{ project_id: 2, skill_id: 1 },
 			{ project_id: 2, skill_id: 2 },
 			{ project_id: 3, skill_id: 1 },
