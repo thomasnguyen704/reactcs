@@ -134,7 +134,7 @@ class ProjectFormModal extends React.Component {
                             <Option value = 'Cancelled'>Cancelled</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label = 'Lead'>
+                    <FormItem label = 'Lead' required>
                         <Select
                             showSearch value={this.state.lead} 
                             onChange={this.inputItem('lead')}
@@ -193,11 +193,17 @@ class ProjectFormModal extends React.Component {
                     </FormItem>
                     <FormItem>
                         <Tooltip 
-                            title='Important! Enter a Project Name to submit' 
-                            visible={!this.state.project} 
+                            title='Enter a project name and lead to submit'
+                            visible={!this.state.project || !this.state.lead} 
                             placement='right'
                         >
-                            <Button onSubmit={this.submit} disabled={!this.state.project} type='primary'>Submit</Button>
+                            <Button 
+                                onClick={this.submit} 
+                                disabled={!this.state.project || !this.state.lead} 
+                                type='primary'
+                            >
+                                Submit
+                            </Button>
                         </Tooltip>
                     </FormItem>
                 </Form>
