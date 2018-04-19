@@ -265,31 +265,41 @@ app.get('/charts/count_projectStatus', (req, res)=> {
 app.get('/charts/project_gaps', (req, res)=> {
     return knex.raw(`
         select 
-            project as Project,
-            case when sum( case when surveys.skill_id is null then 1 else 0 end) > 0 then "Yes" else "No" end as "Skill Gap"
+            project as Project, 
+            case
+                when count(project_skills.skill_id) <> count(surveys.skill_id) 
+                then 'Yes' else 'No'
+            end as 'Skill Gap'
         from project_skills
-        left join surveys on project_skills.project_id = surveys.skill_id
-        inner join projects on projects.id = project_id
-        inner join users on lead = users.user
-        group by project_skills.project_id
-        order by "Skill Gap" desc
-        ;
+        inner join projects on projects.id = project_skills.project_id
+        left join surveys on surveys.skill_id = project_skills.skill_id
+        group by project_id
+        order by project ;
     `)
     .then(results=> {res.send(results)} )
 })
 // Chart: skill gap by count of project ids
 app.get('/charts/count_gaps', (req, res)=> {
     return knex.raw(`
-        select skillGap as "Skill Gap", count (project_id) as "# Projects"
-        from (
+        select
+            gap as 'Skill Gap',
+            count (gap) as '# Projects'
+        from(
             select 
-                project_skills.project_id, 
-                case when sum( case when surveys.skill_id is null then 1 else 0 end) > 0 then "Yes" else "No" end as skillGap
+                project_id, 
+                project as Project, 
+                count(project_skills.skill_id) as 'count required skills',
+                count(surveys.skill_id) as 'count survyed true skills',
+                case
+                    when count(project_skills.skill_id) <> count(surveys.skill_id) then 'Yes' else 'No'
+                end as gap 
             from project_skills
-            left join surveys on project_skills.project_id = surveys.skill_id
-            group by project_skills.project_id
+            inner join projects on projects.id = project_skills.project_id
+            left join surveys on surveys.skill_id = project_skills.skill_id
+            group by project_id
+            order by project
         )
-        group by skillGap;
+        group by gap;
     `)
     .then(results=> {res.send(results)} )
 })
@@ -316,9 +326,6 @@ app.get('/charts/count_skills', (req, res)=> {
     `)
     .then(results=> {res.send(results)} )
 })
-
-
-
 
 
 /*
