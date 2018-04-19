@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, Select, message } from 'antd'
+import { Modal, Form, Input, Select, message, Button, Tooltip } from 'antd'
 import { url }  from './utils'
 
 const FormItem = Form.Item
@@ -111,20 +111,16 @@ class ProjectFormModal extends React.Component {
         return (
             <Modal 
                 title='Project'
-                visible={true} 
-                onOk={this.submit}
-                okText='Submit'
+                visible={true}
+                footer={null}
+                //onOk={this.submit}
+                okText=''
                 onCancel={this.handleCancel}
-                cancelText='Back'
+                cancelText=''
             >
                 <Form className = 'project'>
-                    <FormItem label = 'Project Name'>
-                        <Input
-                            required={true} 
-                            value={this.state.project} 
-                            placeholder = 'Project Name'
-                            onChange={ this.inputItemEvent('project') }
-                        />
+                    <FormItem label = 'Project Name' required>
+                        <Input value={this.state.project} placeholder = 'Project Name' onChange={ this.inputItemEvent('project') } />
                     </FormItem>
                     <FormItem label = 'Status'>
                         <Select 
@@ -139,10 +135,11 @@ class ProjectFormModal extends React.Component {
                         </Select>
                     </FormItem>
                     <FormItem label = 'Lead'>
-                        <Select 
+                        <Select
                             showSearch value={this.state.lead} 
                             onChange={this.inputItem('lead')}
                         >
+                            <Option value='' disabled selected hidden>Select a project lead</Option>
                             <Option value = 'AaronTBridgers@gmail.com'>Aaron Bridgers</Option>
                             <Option value = 'chris_Kennedy@kenan-flagler.unc.edu'>Chris Kennedy</Option>
                             <Option value = 'danstahl1138@gmail.com'>Daniel Stahl</Option>
@@ -152,7 +149,7 @@ class ProjectFormModal extends React.Component {
                     <FormItem label = 'Skill Requirements'>
                         <Select
                             mode = 'tags' 
-                            placeholder = 'Skills Requirements' 
+                            placeholder = 'Type a skill then hit return to type another.'
                             value={this.state.skills}
                             onChange={this.inputItem('skills')}
                         >
@@ -165,6 +162,7 @@ class ProjectFormModal extends React.Component {
                             mode = 'multiple'
                             value= { this.state.associates } // load only checked associates
                             onChange={this.inputItem('associates')}
+                            placeholder='Choose assocaites for the project.'
                         >
                             { 
                                 this.state.users.map( (username)=>{ // load all associates
@@ -186,11 +184,21 @@ class ProjectFormModal extends React.Component {
                             value={this.state.remediation} 
                             onChange={this.inputItem('remediation')}
                         >
+                            <Option value ='' disabled selected hidden>Select a remediation method</Option>
                             <Option value = 'Training'>Training</Option>
                             <Option value = 'In Source'>In Source</Option>
                             <Option value = 'Out Source'>Out Source</Option>
                             <Option value = 'None'>None</Option>
                         </Select>
+                    </FormItem>
+                    <FormItem>
+                        <Tooltip 
+                            title='Important! Enter a Project Name to submit' 
+                            visible={!this.state.project} 
+                            placement='right'
+                        >
+                            <Button onSubmit={this.submit} disabled={!this.state.project} type='primary'>Submit</Button>
+                        </Tooltip>
                     </FormItem>
                 </Form>
 

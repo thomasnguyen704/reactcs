@@ -2,19 +2,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 
-
 body, html {
   height: 100vh;
 }
 .Navbar {
   margin-bottom: 25px;
-}
-.divider {
-  margin: 10% 0 10% 0;
-}
-.right {
-  background-color: whitesmoke;
-  height: 75vh;
 }
 .jumbo {
   align-items: center;
@@ -41,28 +33,11 @@ body, html {
 }
 
 /* Start Project Table Styles */
-.custom-filter-dropdown {
-  padding: 8px;
-  border-radius: 6px;
-  background: #fff;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
-}
-.custom-filter-dropdown input {
-  width: 130px;
-  margin-right: 8px;
-}
-.highlight {
-  color: #f50;
-}
 h1, h2, h3, p {
   font-weight: 100;
 }
-
 /* Charts and graphs*/
 .chartTitle {
   text-align: center;
   font-size: 1.2em;
-}
-.VictoryContainer * {
-  color: red !important;
 }
