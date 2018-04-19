@@ -57,12 +57,9 @@ const insertSkills = (skills)=> {
             .from('skills')
             .where( {skill} )
             .then( result=> {
-                console.log('60 ',result)
                 if (result.length === 0){
-                    console.log('62', skill)
                     return knex('skills').insert({skill})
                 } else {
-                    console.log('65', skill)
                     return Promise.resolve()
                 }
             })
