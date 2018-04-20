@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, Select, message, Button, Tooltip } from 'antd'
+import { Modal, Form, Input, Select, message, Button } from 'antd'
 import { url }  from './utils'
 
 const FormItem = Form.Item
@@ -63,16 +63,26 @@ class ProjectFormModal extends React.Component {
         associates: [],
         skillGap: '',
         remediation: '',
-        users: [],
+        users: []
     }
 
-    submit = ()=> {
-        const tempId = this.props.match.params.id
-        const id = tempId? parseInt(tempId, 10) :null
-        const {visible, ...rest} = this.state
-        postApi_project({...rest, id}).then( ()=>{this.props.getProjects()})
-        this.props.history.goBack()
-        message.info('Form Submitted.')
+    submit = (event)=> {
+        if(this.state.project === ''){
+            event.preventDefault()
+            message.error('Provide a Project')
+        }
+        if (this.state.lead === '') {
+            event.preventDefault()
+            message.error('Provide a Lead')
+        }
+        else {
+            const tempId = this.props.match.params.id
+            const id = tempId? parseInt(tempId, 10) :null
+            const {visible, ...rest} = this.state
+            postApi_project({...rest, id}).then( ()=>{this.props.getProjects()})
+            this.props.history.goBack()
+            message.info('Form Submitted.')
+        }
     }
 
     handleCancel = e=> { 
@@ -109,36 +119,21 @@ class ProjectFormModal extends React.Component {
 
     render() {
         return (
-            <Modal 
-                title='Project'
-                visible={true}
-                footer={null}
-                //onOk={this.submit}
-                okText=''
-                onCancel={this.handleCancel}
-                cancelText=''
-            >
+            <Modal title='Project' visible={true} footer={null} onCancel={this.handleCancel} >                
                 <Form className = 'project'>
-                    <FormItem label = 'Project Name' required>
-                        <Input value={this.state.project} placeholder = 'Project Name' onChange={ this.inputItemEvent('project') } />
+                    <FormItem label = 'Project Name'>
+                        <Input value={this.state.project} placeholder = 'Project Name' onChange={ this.inputItemEvent('project')} />
                     </FormItem>
                     <FormItem label = 'Status'>
-                        <Select 
-                            showSearch 
-                            value={this.state.status} 
-                            onChange={this.inputItem('status')}
-                        >
+                        <Select showSearch value={this.state.status} onChange={this.inputItem('status')} >
                             <Option value = 'Draft'>Draft</Option>
                             <Option value = 'Pending'>Pending Review</Option>
                             <Option value = 'Approved'>Approved</Option>
                             <Option value = 'Cancelled'>Cancelled</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label = 'Lead' required>
-                        <Select
-                            showSearch value={this.state.lead} 
-                            onChange={this.inputItem('lead')}
-                        >
+                    <FormItem label = 'Lead'>
+                        <Select showSearch value={this.state.lead} onChange={this.inputItem('lead')} >
                             <Option value='' disabled selected hidden>Select a project lead</Option>
                             <Option value = 'AaronTBridgers@gmail.com'>Aaron Bridgers</Option>
                             <Option value = 'chris_Kennedy@kenan-flagler.unc.edu'>Chris Kennedy</Option>
@@ -172,18 +167,10 @@ class ProjectFormModal extends React.Component {
                         </Select>
                     </FormItem>
                     <FormItem label = 'Skill Gap'>
-                        <Input 
-                            disabled 
-                            placeholder = 'Based on entries by associates skills survey' 
-                            value={this.state.skillGap} 
-                            onChange={this.inputItem('skillGap')}
-                        />
+                        <Input disabled placeholder = 'Based on entries by associates skills survey' value={this.state.skillGap} onChange={this.inputItem('skillGap')} />
                     </FormItem>
                     <FormItem label = 'Remediation'>
-                        <Select 
-                            value={this.state.remediation} 
-                            onChange={this.inputItem('remediation')}
-                        >
+                        <Select value={this.state.remediation} onChange={this.inputItem('remediation')} >
                             <Option value ='' disabled selected hidden>Select a remediation method</Option>
                             <Option value = 'Training'>Training</Option>
                             <Option value = 'In Source'>In Source</Option>
@@ -192,19 +179,7 @@ class ProjectFormModal extends React.Component {
                         </Select>
                     </FormItem>
                     <FormItem>
-                        <Tooltip 
-                            title='Enter a project name and lead to submit'
-                            visible={!this.state.project || !this.state.lead} 
-                            placement='right'
-                        >
-                            <Button 
-                                onClick={this.submit} 
-                                disabled={!this.state.project || !this.state.lead} 
-                                type='primary'
-                            >
-                                Submit
-                            </Button>
-                        </Tooltip>
+                        <Button onClick={this.submit} type='primary'> Submit </Button>
                     </FormItem>
                 </Form>
 
