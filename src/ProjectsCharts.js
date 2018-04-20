@@ -141,7 +141,7 @@ class ProjectsCharts extends React.Component {
                                 labels={ (d) => `${d.x}: ${d.y}` }
                                 innerRadius={100}
                                 padAngle={3}
-                                colorScale={[ 'tomato', 'orange', 'gold', 'cyan', 'navy' ]}
+                                colorScale={[ 'gainsboro', 'yellowgreen' ]}
                                 style={{ labels: tickStyles }}
                                 animate={{ duration: 2000, onLoad: { duration: 1000 } }}
                                 width={500}
