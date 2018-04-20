@@ -85,7 +85,7 @@ class ProjectFormModal extends React.Component {
         }
     }
 
-    handleCancel = e=> { 
+    handleCancel = e=> {
         this.props.history.goBack()
     }
 
