@@ -52,9 +52,9 @@ const columns = (selectFilter, match)=> {
 	]
 }
 
-const modalHoc = (getProjects)=>{
+const modalHoc = (getProjects, user)=>{
 	return props=>{
-		return <ProjectFormModal {...props} getProjects = {getProjects}/>
+		return <ProjectFormModal {...props} getProjects = {getProjects} user={user} />
 	}
 }
 
@@ -62,8 +62,12 @@ class ProjectsTable extends React.Component {
 	state = { projects: [], leads: [] }
 	
 	classModalHoc = modalHoc( ()=>{
-		return getApi_projects(this.setState.bind(this))
-	} )
+		return getApi_projects(
+			this.setState.bind(this)
+		)
+	},
+	this.props.googleToken.profileObj.email
+ )
 
 	componentWillMount(){
 		getApi_projects(this.setState.bind(this))

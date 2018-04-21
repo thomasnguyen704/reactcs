@@ -67,7 +67,7 @@ class App extends Component{
                                     <Switch>
                                         <Redirect exact to='/home' from ='/' />
                                         <Route component = {Home} path = '/home' />
-                                        <Route component = {ProjectsTable} path = '/projects' />
+                                        <Route render = { props=> <ProjectsTable {...props} googleToken = {this.state.googleToken} /> } path = '/projects' />
                                         <Route render = { props=> <SelectTags {...props} googleToken = {this.state.googleToken} /> } path = '/associates' />
                                         <Route component = {ProjectCharts} path = '/projectCharts' />
                                     </Switch>
