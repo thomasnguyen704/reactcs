@@ -199,7 +199,7 @@ class ProjectsCharts extends React.Component {
                     </Col>
                 </Row>
 
-                <p style={sectionHeader}>Skill Reqiurements Overview</p>
+                <p style={sectionHeader}>Skill Requirements Overview</p>
                 <Divider />
                 <Row>
                     <Col lg={6}>

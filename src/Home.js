@@ -54,7 +54,7 @@ class Home extends React.Component {
                         </Col>
                         <Col md={12} lg={4}>
                             <Icon type='link' style={largeIcon}/>
-                            <h3>Track Remediations</h3>
+                            <h3>Track Remediation</h3>
                             <h2>Gaps are determined by comparing requirements to survey results and then tracked for regulatory purposes.</h2>
                         </Col>
                     </Row>
