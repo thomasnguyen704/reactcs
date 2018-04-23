@@ -58,8 +58,8 @@ class SelectTags extends React.Component{
                 <h1 style={{marginTop: '2rem'}}>Skills Survey for {this.props.googleToken.profileObj.name}</h1>
                 <Row>
                     <Col md={12} lg={5}>
-                        <h2>Associates complete a survey indicating if he or she has the skill as specified by the project lead.</h2>
                         <h2>Only click on a skill if you self-assess that you have the working ability of the skill surveyed.</h2>
+                        <h2>The displayed skills do not represent your entire set of skills. These are only skills surveyed by project leads as when project requirements are developed. Please revisit this page often as new project requirements are often submitted.</h2>
                     </Col>
                     <Col md={12} lg={7}>
                         <div style = {selectStyles}>
@@ -75,7 +75,7 @@ class SelectTags extends React.Component{
                                         > 
                                             {row.skill} 
                                         </ClickTag> 
-                                        )
+                                    )
                                 })
                             }
                         </div>
