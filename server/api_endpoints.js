@@ -269,7 +269,7 @@ app.get('/charts/project_gaps', (req, res)=> {
             case
                 when count(project_skills.skill_id) <> count(surveys.skill_id) 
                 then 'Yes' else 'No'
-            end as 'Skill Gap'
+            end as 'SkillGap'
         from project_skills
         inner join projects on projects.id = project_skills.project_id
         left join surveys on surveys.skill_id = project_skills.skill_id

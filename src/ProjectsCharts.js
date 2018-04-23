@@ -48,18 +48,67 @@ const get_countSkills = (setState)=> {
 }
 
 // columns for tables
-const columnsGap = [
-    { title: 'Project', dataIndex: 'Project' },
-    { title: 'Skill Gap', dataIndex: 'Skill Gap' }
-]
 const columnsStatus = [
-    { title: 'Project', dataIndex: 'Project' },
-    { title: 'Status', dataIndex: 'Status' }
+    { 
+        title: 'Project', 
+        dataIndex: 'Project',
+        sorter: (a, b)=> {
+            var nameA = a.Project.toUpperCase()
+            var nameB = b.Project.toUpperCase()
+            if (nameA < nameB) { return -1 }
+            if (nameA > nameB) { return 1 }
+            return 0
+        }
+    },
+    { 
+        title: 'Status', 
+        dataIndex: 'Status',
+        sorter: (a, b)=> {
+            var nameA = a.Status.toUpperCase()
+            var nameB = b.Status.toUpperCase()
+            if (nameA < nameB) { return -1 }
+            if (nameA > nameB) { return 1 }
+            return 0
+        }
+    }
+]
+const columnsGap = [
+    { 
+        title: 'Project', 
+        dataIndex: 'Project',
+        sorter: (a, b)=> {
+            var nameA = a.Project.toUpperCase()
+            var nameB = b.Project.toUpperCase()
+            if (nameA < nameB) { return -1 }
+            if (nameA > nameB) { return 1 }
+            return 0
+        }
+    },
+    { 
+        title: 'Skill Gap', 
+        dataIndex: 'SkillGap', 
+        sorter: (a, b)=> a.SkillGap.length - b.SkillGap.length 
+    }
 ]
 const columnsReq = [
-    { title: 'Skill', dataIndex: 'Skill' },
-    { title: 'Count', dataIndex: 'Count' }
+    { 
+        title: 'Skill', 
+        dataIndex: 'Skill',
+        sorter: (a, b)=> {
+            var nameA = a.Skill.toUpperCase()
+            var nameB = b.Skill.toUpperCase()
+            if (nameA < nameB) { return -1 }
+            if (nameA > nameB) { return 1 }
+            return 0
+        }
+    },
+    { 
+        title: 'Count', 
+        dataIndex: 'Count', 
+        sorter: (a, b)=> a.Count - b.Count 
+    }
 ]
+
 
 class ProjectsCharts extends React.Component {
 	componentWillMount(){

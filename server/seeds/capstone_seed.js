@@ -13,8 +13,8 @@ exports.seed = (knex, Promise)=> {
 		return knex('projects').insert([
 			{ id: 1, project: 'CECL', lead: 'danstahl1138@gmail.com', status: 'Draft', remediation: 'Training' },
 			{ id: 2, project: 'Compliance', lead: 'thomasnguyen704@gmail.com', status: 'Pending', remediation: 'In Source' },
-			{ id: 3, project: 'ALLL', lead: 'AaronTBridgers@gmail.com', status: 'Approved', remediation: 'Out Source' },
-			{ id: 4, project: 'SAS BSA/AML', lead: 'thomasnguyen704@gmail.com', status: 'Approved', remediation: 'Training' }
+			{ id: 3, project: 'ALLL', lead: 'AaronTBridgers@gmail.com', status: 'Complete', remediation: 'Out Source' },
+			{ id: 4, project: 'SAS BSA/AML', lead: 'thomasnguyen704@gmail.com', status: 'Complete', remediation: 'Training' }
 		])
 	}).then( ()=>{
 		return knex('skills').del()

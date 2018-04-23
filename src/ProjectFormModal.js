@@ -128,7 +128,7 @@ class ProjectFormModal extends React.Component {
                         <Select showSearch value={this.state.status} onChange={this.inputItem('status')} >
                             <Option value = 'Draft'>Draft</Option>
                             <Option value = 'Pending'>Pending Review</Option>
-                            <Option value = 'Approved'>Approved</Option>
+                            <Option value = 'Complete'>Complete</Option>
                             <Option value = 'Cancelled'>Cancelled</Option>
                         </Select>
                     </FormItem>
