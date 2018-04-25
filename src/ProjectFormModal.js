@@ -171,17 +171,18 @@ class ProjectFormModal extends React.Component {
                     </FormItem>
 
                     <FormItem label = 'Remediation'>
-                        <Option value ='' disabled selected hidden>Deputy, select a remediation method</Option>
-                        <Option value = 'Training'>Training</Option>
-                        <Option value = 'In Source'>In Source</Option>
-                        <Option value = 'Out Source'>Out Source</Option>
-                        <Option value = 'None'>None</Option>
+                        <Select value={this.state.remediation} onChange={this.inputItem('remediation')} >
+                            <Option value ='' disabled selected hidden> Deputy selects a remediation method</Option>
+                            <Option value = 'Training'>Training</Option>
+                            <Option value = 'In Source'>In Source</Option>
+                            <Option value = 'Out Source'>Out Source</Option>
+                            <Option value = 'None'>None</Option>
+                        </Select>
                     </FormItem>
-                    <Select value={this.state.remediation} onChange={this.inputItem('remediation')} >	
+
                     <FormItem>
                         <Button onClick={this.submit} type='primary'> Submit </Button>
                     </FormItem>
-                    </Select>
                 </Form>
 
             </Modal>
