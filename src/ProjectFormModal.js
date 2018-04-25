@@ -177,10 +177,11 @@ class ProjectFormModal extends React.Component {
                         <Option value = 'Out Source'>Out Source</Option>
                         <Option value = 'None'>None</Option>
                     </FormItem>
-
+                    <Select value={this.state.remediation} onChange={this.inputItem('remediation')} >	
                     <FormItem>
                         <Button onClick={this.submit} type='primary'> Submit </Button>
                     </FormItem>
+                    </Select>
                 </Form>
 
             </Modal>
