@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Icon } from 'antd'
+import { Table, Icon, Button } from 'antd'
 import ProjectFormModal from './ProjectFormModal'
 import { getUniqueArray } from 'array_utils'
 import { url }  from './utils'
@@ -21,7 +21,7 @@ const columns = (selectFilter, match)=> {
 			dataIndex: 'id',
 			sorter: (a, b)=> a.id - b.id,
 			defaultSortOrder: 'ascend',
-			render: text=> <Link to={ match.url + '/modal/' + text }> {text} </Link>
+			render: text=> <Link to={ match.url + '/modal/' + text }> Open Project ID {text} </Link>
 		},
 		{
 			title: 'Project Name', 
