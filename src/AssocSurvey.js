@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tag } from 'antd'
+import { Tag, notification, /*message*/ } from 'antd'
 import { Row, Col } from 'react-flexbox-grid'
 import { url } from './utils'
 
@@ -32,10 +32,17 @@ const postApi = (user, data)=> {
 const { CheckableTag } = Tag
 
 class ClickTag extends React.Component {    
-    state = { checked: this.props.checked }
+    state = { 
+        checked: this.props.checked 
+    }
     handleChange = checked=> { 
         this.setState({ checked })
         postApi(this.props.user, {project_skill: this.props.project_skill, checked})
+        //message.info('Changes Saved.')
+        notification.open({
+            message: 'Changes Saved',
+            description: 'Your skills survey selections have been saved. A blue button indicates that you have the skill. A clear button indicates that you do not have the skill. ',
+        })
     }
     render() {
         return ( <CheckableTag {...this.props} checked={this.state.checked} onChange={this.handleChange} /> )

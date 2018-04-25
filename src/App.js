@@ -20,7 +20,7 @@ const LoginBtn = {
     padding: '10px' 
 }
 const background = {
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'grey',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -78,15 +78,6 @@ class App extends Component{
                 </Router>
             ):(
                 <div style={background}>
-                    <video 
-                        style={video}
-                        className='videoSignIn'
-                        src='http://nguyentom.com/capstone/blog3.mp4'
-                        autoPlay 
-                        loop
-                        muted
-                    >
-                    </video>
                     <div style={foreground}>
                         <SignIn />
                         <GoogleLogin 
