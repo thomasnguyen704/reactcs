@@ -1,7 +1,7 @@
 exports.seed = (knex, Promise)=> {
 	return knex('users').del().then( ()=> {
 		return knex('users').insert([
-			{ user: 'hcrtestuser@gmail.com', username: 'Test User' },
+			{ user: 'capstonehcrtestuser@gmail.com', username: 'Test User' },
 			{ user: 'AaronTBridgers@gmail.com', username: 'Aaron Bridgers' },
 			{ user: 'chris_Kennedy@kenan-flagler.unc.edu', username: 'Chris Kennedy' },
 			{ user: 'danstahl1138@gmail.com', username: 'Daniel Stahl' },
