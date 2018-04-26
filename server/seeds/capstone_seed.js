@@ -70,7 +70,8 @@ exports.seed = (knex, Promise)=> {
 			{ id: 4, skill_id: 1, user: 'AaronTBridgers@gmail.com' },
 			{ id: 5, skill_id: 7, user: 'AaronTBridgers@gmail.com' },
 			{ id: 6, skill_id: 4, user: 'chris_Kennedy@kenan-flagler.unc.edu' },
-			{ id: 7, skill_id: 5, user: 'chris_Kennedy@kenan-flagler.unc.edu' }
+			{ id: 7, skill_id: 5, user: 'chris_Kennedy@kenan-flagler.unc.edu' },
+			{ id: 8, skill_id: 1, user: 'hcrtestuser@gmail.com'}
 
 		])
 	})
