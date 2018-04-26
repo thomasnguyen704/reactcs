@@ -27,7 +27,7 @@ const background = {
     width: '100%',
     height: '100vh',
     overflow: 'hidden'
-}
+}/*
 const video = {
     position: 'absolute',
     top: 0,
@@ -37,7 +37,7 @@ const video = {
     height: '100%',
     objectFit: 'cover',
     filter: 'grayscale(75%) brightness(25%)'
-}
+}*/
 const foreground = {
     zIndex: 1,
     width: '50rem',

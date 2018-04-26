@@ -121,10 +121,10 @@ class ProjectFormModal extends React.Component {
         return (
             <Modal title='Project' visible={true} footer={null} onCancel={this.handleCancel} >                
                 <Form className = 'project'>
-                    <FormItem label = 'Project Name'>
+                    <FormItem label = 'Type a project name'>
                         <Input value={this.state.project} placeholder = 'Project Name' onChange={ this.inputItemEvent('project')} />
                     </FormItem>
-                    <FormItem label = 'Status'>
+                    <FormItem label = 'Select a status'>
                         <Select showSearch value={this.state.status} onChange={this.inputItem('status')} >
                             <Option value = 'Draft'>Draft</Option>
                             <Option value = 'Pending'>Pending Review</Option>
@@ -141,24 +141,23 @@ class ProjectFormModal extends React.Component {
                             <Option value = 'thomasnguyen704@gmail.com'>Thomas Nguyen</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label = 'Skill Requirements'>
+                    <FormItem label='Skill Requirements' extra='Type a skill then hit return to type another.'>
                         <Select
                             mode = 'tags' 
                             placeholder = 'Enter a skill'
                             value={this.state.skills}
                             onChange={this.inputItem('skills')}
-                            extra='Type a skill then hit return to type another.'
                         >
                             { children }
                         </Select>
                     </FormItem>
-                    <FormItem label = 'Associates'>
+                    <FormItem label='Associates'>
                         <Select
                             showSearch 
-                            mode = 'multiple'
+                            mode='multiple'
                             value= { this.state.associates } // load only checked associates
                             onChange={this.inputItem('associates')}
-                            placeholder='Choose associates for the project.'
+                            placeholder='Select associates for the project.'
                         >
                             { 
                                 this.state.users.map( (username)=>{ // load all associates
@@ -168,11 +167,11 @@ class ProjectFormModal extends React.Component {
                         </Select>
                     </FormItem>
 
-                    <FormItem label = 'Skill Gap'>
-                        <Input disabled placeholder = 'Based on entries by associates skills survey' value={this.state.skillGap} onChange={this.inputItem('skillGap')} />
+                    <FormItem label='Skill Gap' extra='Please check if your associates have answered all surveys before determining that your project has a skill gap.'>
+                        <Input disabled placeholder='Based on entries by associates skills survey' value={this.state.skillGap} onChange={this.inputItem('skillGap')} />
                     </FormItem>
 
-                    <FormItem label = 'Remediation'>
+                    <FormItem label='Remediation'>
                         <Select value={this.state.remediation} disabled={this.props.user !== 'AaronTBridgers@gmail.com'} onChange={this.inputItem('remediation')} >
                             <Option value ='' disabled selected hidden> Deputy selects a remediation method</Option>
                             <Option value = 'Training'>Training</Option>
