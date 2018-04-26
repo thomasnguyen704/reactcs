@@ -166,12 +166,13 @@ class ProjectFormModal extends React.Component {
                             }
                         </Select>
                     </FormItem>
+
                     <FormItem label = 'Skill Gap'>
                         <Input disabled placeholder = 'Based on entries by associates skills survey' value={this.state.skillGap} onChange={this.inputItem('skillGap')} />
                     </FormItem>
 
                     <FormItem label = 'Remediation'>
-                        <Select value={this.state.remediation} onChange={this.inputItem('remediation')} >
+                        <Select value={this.state.remediation} disabled={this.props.user !== 'AaronTBridgers@gmail.com'} onChange={this.inputItem('remediation')} >
                             <Option value ='' disabled selected hidden> Deputy selects a remediation method</Option>
                             <Option value = 'Training'>Training</Option>
                             <Option value = 'In Source'>In Source</Option>
