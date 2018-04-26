@@ -132,11 +132,11 @@ class ProjectsCharts extends React.Component {
     render() {
         return (
             <div>
-                <div className='jumboSmall'>
+                <div className='jumboSmall noPrint'>
                     <h1>Managerial and Regulatory Reporting</h1>
                     <h2>Reporting should provide an overall view of operational and regulatory metrics. Operational metrics focuses on drill down measures while regulatory metrics focuses on overall results. </h2>
                 </div>
-
+                
                 <p style={sectionHeader}>Project Submissions</p>
                 <Divider />
                 <Row>
@@ -151,6 +151,7 @@ class ProjectsCharts extends React.Component {
                         </div>
                     </Col>
                     <Col lg={6}>
+                        <div className='pageBreak'></div>
                         <div style={chartStyles}>
                             <p className='chartTitle'>Count Projects by Status</p>
                             <VictoryChart domainPadding={20} >
@@ -167,6 +168,8 @@ class ProjectsCharts extends React.Component {
                     </Col>
                 </Row>
 
+                <div className='pageBreak'></div>
+
                 <p style={sectionHeader}>Gap Results</p>
                 <Divider />
                 <Row>
@@ -181,7 +184,8 @@ class ProjectsCharts extends React.Component {
                         </div>
                     </Col>
                     <Col lg={6}>
-                    <div style={chartStyles}>
+                        <div className='pageBreak'></div>
+                        <div style={chartStyles}>
                             <p className='chartTitle'>Count of Gaps by Project</p>
                             <VictoryPie 
                                 data={this.state.countGapsData} 
@@ -199,6 +203,8 @@ class ProjectsCharts extends React.Component {
                     </Col>
                 </Row>
 
+                <div className='pageBreak'></div>
+
                 <p style={sectionHeader}>Skill Requirements Overview</p>
                 <Divider />
                 <Row>
@@ -212,6 +218,7 @@ class ProjectsCharts extends React.Component {
                             />
                         </div>
                     </Col>
+                    <div className='pageBreak'></div>
                     <Col lg={6}>
                         <div style={tableStyles}>
                             <p className='chartTitle'>Supply of Skills</p>

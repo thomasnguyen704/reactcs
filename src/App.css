@@ -41,3 +41,19 @@ h1, h2, h3, p {
   text-align: center;
   font-size: 1.2em;
 }
+
+@media print {
+  .pageBreak {
+    page-break-after: always !important;
+  }
+  svg {
+    max-height: 50vh;
+  }
+  table {
+    page-break-inside: avoid;
+    transform: scale(.8);
+  }
+  .noPrint {
+    display: none;
+  }
+}
