@@ -144,9 +144,10 @@ class ProjectFormModal extends React.Component {
                     <FormItem label = 'Skill Requirements'>
                         <Select
                             mode = 'tags' 
-                            placeholder = 'Type a skill then hit return to type another.'
+                            placeholder = 'Enter a skill'
                             value={this.state.skills}
                             onChange={this.inputItem('skills')}
+                            extra='Type a skill then hit return to type another.'
                         >
                             { children }
                         </Select>
@@ -157,7 +158,7 @@ class ProjectFormModal extends React.Component {
                             mode = 'multiple'
                             value= { this.state.associates } // load only checked associates
                             onChange={this.inputItem('associates')}
-                            placeholder='Choose assocaites for the project.'
+                            placeholder='Choose associates for the project.'
                         >
                             { 
                                 this.state.users.map( (username)=>{ // load all associates

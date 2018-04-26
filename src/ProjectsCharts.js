@@ -204,21 +204,21 @@ class ProjectsCharts extends React.Component {
                 <Row>
                     <Col lg={6}>
                     <div style={tableStyles}>
-                            <p className='chartTitle'>Count of Requirements by Skill</p>
+                            <p className='chartTitle'>Demand of Skills</p>
                             <Table 
                                 dataSource={this.state.countReqData} 
                                 columns={columnsReq} 
-                                pagination={{ pageSize: 5 }}
+                                pagination={{ pageSize: 10 }}
                             />
                         </div>
                     </Col>
                     <Col lg={6}>
                         <div style={tableStyles}>
-                            <p className='chartTitle'>Count of Surveys True by Skill</p>
+                            <p className='chartTitle'>Supply of Skills</p>
                             <Table 
                                 dataSource={this.state.countSkillsData} 
                                 columns={columnsReq} 
-                                pagination={{ pageSize: 5 }}
+                                pagination={{ pageSize: 10 }}
                             />
                         </div>
                     </Col>

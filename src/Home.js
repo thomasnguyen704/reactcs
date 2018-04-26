@@ -5,7 +5,7 @@ import { Divider, Icon } from 'antd'
 // Styles
 const moreMarginStart = { margin: '0 0 10rem 0' }
 const moreMargin = { margin: '10rem 0 10rem 0' }
-const subheader = { color: 'dodgerblue', fontWeight: '100', fontSize: '2.5em', textAlign:'center', marginBottom: '30px' }
+const subheader = { color: 'yellowgreen', fontWeight: '100', fontSize: '2.5em', textAlign:'center', marginBottom: '30px' }
 const largeIcon = { fontSize: '5em', marginBottom: '20px' }
 
 class Home extends React.Component {
