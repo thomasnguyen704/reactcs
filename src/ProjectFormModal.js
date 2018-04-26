@@ -138,7 +138,7 @@ class ProjectFormModal extends React.Component {
                             <Option value = 'AaronTBridgers@gmail.com'>Aaron Bridgers</Option>
                             <Option value = 'chris_Kennedy@kenan-flagler.unc.edu'>Chris Kennedy</Option>
                             <Option value = 'danstahl1138@gmail.com'>Daniel Stahl</Option>
-                            <Option value = 'thomasnguyen704@gmail.com'>Thomas Nguyen</Option>
+                            <Option value = 'thomasnguyen704@gmail.com'>Tommy Nguyen</Option>
                         </Select>
                     </FormItem>
                     <FormItem label='Skill Requirements' extra='Type a skill then hit return to type another.'>
