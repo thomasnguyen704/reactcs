@@ -1,7 +1,7 @@
 exports.seed = (knex, Promise)=> {
 	return knex('users').del().then( ()=> {
 		return knex('users').insert([
-			{ user: 'uattestuser@gmail.com', username: 'Test User' },
+			{ user: 'hcrtestuser@gmail.com', username: 'Test User' },
 			{ user: 'AaronTBridgers@gmail.com', username: 'Aaron Bridgers' },
 			{ user: 'chris_Kennedy@kenan-flagler.unc.edu', username: 'Chris Kennedy' },
 			{ user: 'danstahl1138@gmail.com', username: 'Daniel Stahl' },
@@ -70,9 +70,7 @@ exports.seed = (knex, Promise)=> {
 			{ id: 4, skill_id: 1, user: 'AaronTBridgers@gmail.com' },
 			{ id: 5, skill_id: 7, user: 'AaronTBridgers@gmail.com' },
 			{ id: 6, skill_id: 4, user: 'chris_Kennedy@kenan-flagler.unc.edu' },
-			{ id: 7, skill_id: 5, user: 'chris_Kennedy@kenan-flagler.unc.edu' },
-			{ id: 8, skill_id: 1, user: 'hcrtestuser@gmail.com'}
-
+			{ id: 7, skill_id: 5, user: 'chris_Kennedy@kenan-flagler.unc.edu' }
 		])
 	})
 }
