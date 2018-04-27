@@ -78,7 +78,7 @@ class ProjectsTable extends React.Component {
 			<div>
 				<div className='jumboSmall'>
 					<h1>Projects</h1>
-					<h2>Project leads specify skill requirements by assigning team members (associates) to a project and indicating the skills required to complete a project. Simply create a project and the application will take care of the rest. Come back after your team members (associates) are done with their self assessment survey if you need to note a remediation plan.</h2>
+					<h2>Project leads specify skill requirements by assigning team members (associates) to a project and indicating the skills required to complete a project. Simply create a project and the application will take care of the rest. Come back after your team members (associates) are done with their self assessment survey to see if your project has a skill gap.</h2>
 				</div>
 				<Table 
 					columns = { columns( getUniqueArray(this.state.projects, 'lead'), this.props.match ) } 

@@ -134,7 +134,7 @@ class ProjectsCharts extends React.Component {
             <div>
                 <div className='jumboSmall noPrint'>
                     <h1>Managerial and Regulatory Reporting</h1>
-                    <h2>Reporting should provide an overall view of operational and regulatory metrics. Operational metrics focuses on drill down measures while regulatory metrics focuses on overall results. </h2>
+                    <h2>Reporting should provide an overall view of operational and regulatory metrics. Operational metrics focuses on project level measures while regulatory metrics focuses on overall results.</h2>
                 </div>
                 
                 <p style={sectionHeader}>Project Submissions</p>
