@@ -121,10 +121,10 @@ class ProjectFormModal extends React.Component {
         return (
             <Modal title='Project' visible={true} footer={null} onCancel={this.handleCancel} >                
                 <Form className = 'project'>
-                    <FormItem label = 'Type a project name'>
+                    <FormItem label = 'Type a Project Name'>
                         <Input value={this.state.project} placeholder = 'Project Name' onChange={ this.inputItemEvent('project')} />
                     </FormItem>
-                    <FormItem label = 'Select a status'>
+                    <FormItem label = 'Select a Status'>
                         <Select showSearch value={this.state.status} onChange={this.inputItem('status')} >
                             <Option value = 'Draft'>Draft</Option>
                             <Option value = 'Pending'>Pending Review</Option>
