@@ -20,7 +20,7 @@ const LoginBtn = {
     padding: '10px' 
 }
 const background = {
-    backgroundColor: 'grey',
+    backgroundColor: 'dimgrey',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
