@@ -155,13 +155,22 @@ app.get('/projects/:id', (req, res)=> {
             knex.raw(
                 `case 
                     when sum(
-                        case when surveys.skill_id is null then 1 else 0 end
+                        case when surv.skill_id is null then 1 else 0 end
                     ) > 0 then "Yes" else "No" 
                 end as skillGap`
             ))
             .from('project_skills')
-            .leftJoin('surveys', 'project_skills.skill_id', 'surveys.skill_id')
-            .where('project_id', projectId)
+            .leftJoin(
+                knex.select('skill_id').from('surveys').innerJoin('project_associates', 'surveys.user', 'project_associates.associate')
+                .where('project_associates.project_id', projectId)
+                .as('surv'),
+                'project_skills.skill_id',
+                'surv.skill_id'
+            )
+            
+           // .leftJoin('surveys', 'project_skills.skill_id', 'surveys.skill_id')
+            //.innerJoin('project_associates', 'project_associates.associate', 'surveys.user')
+            .where('project_skills.project_id', projectId)
             .groupBy('project_skills.project_id')
     ]).then(results=> {
         // results is an array: project, skill, associates, requirement gap
@@ -204,8 +213,7 @@ app.get('/leads', (req,res)=>{
 
 // Read user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
-    const results = 
-    knex.raw(`
+    return knex.raw(`
         select 
         associate as user, 
         project_skills.skill_id,
@@ -221,7 +229,7 @@ app.get('/surveys/:user', (req, res)=> {
     `)
     // .orWhere( 'user', null ) ${req.params.user}'
     .then(results=> {
-        if(results[0].length===0){
+        if(results.length===0){
             throw new Error( 'No project assigned' )
         } else {
             res.send(results)
