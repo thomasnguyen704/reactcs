@@ -209,7 +209,7 @@ app.get('/surveys/:user', (req, res)=> {
         'project_associates.associate as user',
         'project_skills.skill_id',
         'skills.skill',
-        knex.raw('project_skills.skill_id in (select id from surveys) as skill_exist')
+        knex.raw('project_skills.skill_id in (select id from surveys where user = project_associates.associate) as skill_exist')
     )
     .from('project_associates')
     .innerJoin('project_skills', 'project_associates.project_id', 'project_skills.project_id')
