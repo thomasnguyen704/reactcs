@@ -67,7 +67,6 @@ const insertSkills = (skills)=> {
     )
 }
 
-
 const insertProjectAssociates = (id, associates)=> {
     if(associates.length > 0){
         return knex.select('user').from('users').whereIn('username', associates).then( ids=>{
@@ -202,35 +201,60 @@ app.get('/leads', (req,res)=>{
     .then(results=> {res.send(results)})
 })
 
+
 // Read user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
     const results = 
-        knex.select( 'user', 'skill', 'skills.id as skill_id', knex.raw('case when surveys.id is not null then 1 else 0 end as skill_exist') )
-        .from( 'skills' )
-        .leftJoin( 'surveys', 'surveys.skill_id', 'skills.id' )
-        .where( 'user', req.params.user )
-        .orWhere( 'user', null )
-        .groupBy('skill')
+    knex.select(
+        'project_associates.associate as user',
+        'project_skills.skill_id',
+        'skills.skill',
+        knex.raw('project_skills.skill_id in (select id from surveys) as skill_exist')
+    )
+    .from('project_associates')
+    .innerJoin('project_skills', 'project_associates.project_id', 'project_skills.project_id')
+    .innerJoin('skills', 'project_skills.skill_id', 'skills.id')
+    .groupBy('project_associates.associate', 'skills.id', 'skills.skill')
+    .where( 'user', req.params.user )
+    // .orWhere( 'user', null )
     .then(results=> {
         if(results[0].length===0){
-            throw new Error( 'User not found' )
+            throw new Error( 'No project assigned' )
         } else {
             res.send(results)
         }
     })
 })
+/*
+select
+	project_associates.associate,
+	project_skills.skill_id,
+	skills.skill,
+	project_skills.skill_id in (select id from surveys) as skill_exist
+from project_associates
+inner join project_skills on project_associates.project_id = project_skills.project_id
+inner join skills on project_skills.skill_id = skills.id
+group by project_associates.associate, skills.id, skills.skill
+order by project_associates.associate, project_associates.project_id;
+*/
 
 // Update surveys by user
 app.post('/surveys/:user', (req, res)=> {
     const { project_skill, checked } = req.body
-        return (
-            checked? knex('surveys').insert( {skill_id: project_skill, user: req.params.user}) 
-            : knex('surveys').where({skill_id: project_skill, user: req.params.user })
-            .del()
-        )
-        .then(()=>{res.send({message: 'success'})})
-        .catch(err=> res.send({err}))
-    })
+    return (
+        checked? knex('surveys').insert( {
+            skill_id: project_skill, 
+            user: req.params.user
+        }) 
+        : knex('surveys').where({
+            skill_id: project_skill, 
+            user: req.params.user 
+        })
+        .del()
+    )
+    .then(()=>{res.send({message: 'success'})})
+    .catch(err=> res.send({err}))
+})
 
 
 /*
