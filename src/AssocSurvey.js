@@ -7,7 +7,7 @@ const selectStyles = { border: 'solid thin whitesmoke', padding: '50px', margin:
 const tag = { border: 'solid thin lightgrey', margin: 5 }
 
 const getApi = (setState, user)=> {
-	fetch( url + '/surveys/' + user )
+    fetch( url + '/surveys/' + user )
 	.then( response=> response.json() )
 	.then( response=> {
 		setState({ data: response })
