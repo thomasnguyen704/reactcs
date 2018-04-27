@@ -205,18 +205,21 @@ app.get('/leads', (req,res)=>{
 // Read user and skills from survey table
 app.get('/surveys/:user', (req, res)=> {
     const results = 
-    knex.select(
-        'project_associates.associate as user',
-        'project_skills.skill_id',
-        'skills.skill',
-        knex.raw('project_skills.skill_id in (select id from surveys where user = project_associates.associate) as skill_exist')
-    )
-    .from('project_associates')
-    .innerJoin('project_skills', 'project_associates.project_id', 'project_skills.project_id')
-    .innerJoin('skills', 'project_skills.skill_id', 'skills.id')
-    .groupBy('project_associates.associate', 'skills.id', 'skills.skill')
-    .where( 'user', req.params.user )
-    // .orWhere( 'user', null )
+    knex.raw(`
+        select 
+        associate as user, 
+        project_skills.skill_id,
+        1- sum ( case when surveys.skill_id is null then 1 else 0 end ) as skill_exist,
+        max(skills.skill) as skill
+        from project_associates
+        inner join project_skills on project_associates.project_id = project_skills.project_id
+        inner join skills on project_skills.skill_id = skills.id
+        left join surveys on project_associates.associate = surveys.user and project_skills.skill_id = surveys.skill_id
+        where project_associates.associate = '${req.params.user}'
+        group by project_skills.skill_id, associate
+        ;
+    `)
+    // .orWhere( 'user', null ) ${req.params.user}'
     .then(results=> {
         if(results[0].length===0){
             throw new Error( 'No project assigned' )
@@ -226,16 +229,16 @@ app.get('/surveys/:user', (req, res)=> {
     })
 })
 /*
-select
-	project_associates.associate,
+select 
+	associate, 
 	project_skills.skill_id,
-	skills.skill,
-	project_skills.skill_id in (select id from surveys) as skill_exist
+	1- sum ( case when surveys.skill_id is null then 1 else 0 end ) as skill_gap
 from project_associates
 inner join project_skills on project_associates.project_id = project_skills.project_id
-inner join skills on project_skills.skill_id = skills.id
-group by project_associates.associate, skills.id, skills.skill
-order by project_associates.associate, project_associates.project_id;
+left join surveys on project_associates.associate = surveys.user and project_skills.skill_id = surveys.skill_id
+where project_associates.associate = 'thomasnguyen704@gmail.com'
+group by project_skills.skill_id, associate
+;
 */
 
 // Update surveys by user
