@@ -253,7 +253,7 @@ app.post('/surveys/:user', (req, res)=> {
 *   The APIs below are used for reporting.
 */
 
-// Chart: Projects by leasd
+// Chart: Projects by lead
 app.get('/charts/active_lead', (req, res)=> {
     return knex('projects')
     .select(knex.raw('count(id) as assigned, username'))
@@ -261,7 +261,9 @@ app.get('/charts/active_lead', (req, res)=> {
     .whereNot('status', 'Complete')
     .groupBy('lead')
     .then(results=> {res.send(results)})
-})// Chart: Projects by status
+})
+
+// Chart: Projects by status
 app.get('/charts/projectStatus', (req, res)=> {
     return knex('projects')
     .select('project as Project', 'status as Status')
@@ -269,6 +271,7 @@ app.get('/charts/projectStatus', (req, res)=> {
     .orderBy('Status')
     .then(results=> {res.send(results)})
 })
+
 // Chart: Count projects by status
 app.get('/charts/count_projectStatus', (req, res)=> {
     return knex('projects')
@@ -277,6 +280,7 @@ app.get('/charts/count_projectStatus', (req, res)=> {
     .groupBy('status')
     .then(results=> {res.send(results)})
 })
+
 // Chart: Gap result by project
 app.get('/charts/project_gaps', (req, res)=> {
     return knex.raw(`
@@ -294,6 +298,7 @@ app.get('/charts/project_gaps', (req, res)=> {
     `)
     .then(results=> {res.send(results)} )
 })
+
 // Chart: skill gap by count of project ids
 app.get('/charts/count_gaps', (req, res)=> {
     return knex.raw(`
@@ -305,7 +310,7 @@ app.get('/charts/count_gaps', (req, res)=> {
                 project_id, 
                 project as Project, 
                 count(project_skills.skill_id) as 'count required skills',
-                count(surveys.skill_id) as 'count survyed true skills',
+                count(surveys.skill_id) as 'count surveyed true skills',
                 case
                     when count(project_skills.skill_id) <> count(surveys.skill_id) then 'Yes' else 'No'
                 end as gap 
@@ -319,6 +324,7 @@ app.get('/charts/count_gaps', (req, res)=> {
     `)
     .then(results=> {res.send(results)} )
 })
+
 // Chart: Count skills requested
 app.get('/charts/count_req', (req, res)=> {
     return knex.raw(`
