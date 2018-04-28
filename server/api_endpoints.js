@@ -162,14 +162,8 @@ app.get('/projects/:id', (req, res)=> {
             .from('project_skills')
             .leftJoin(
                 knex.select('skill_id').from('surveys').innerJoin('project_associates', 'surveys.user', 'project_associates.associate')
-                .where('project_associates.project_id', projectId)
-                .as('surv'),
-                'project_skills.skill_id',
-                'surv.skill_id'
+                .where('project_associates.project_id', projectId).as('surv'),'project_skills.skill_id','surv.skill_id'
             )
-            
-           // .leftJoin('surveys', 'project_skills.skill_id', 'surveys.skill_id')
-            //.innerJoin('project_associates', 'project_associates.associate', 'surveys.user')
             .where('project_skills.project_id', projectId)
             .groupBy('project_skills.project_id')
     ]).then(results=> {
@@ -227,7 +221,6 @@ app.get('/surveys/:user', (req, res)=> {
         group by project_skills.skill_id, associate
         ;
     `)
-    // .orWhere( 'user', null ) ${req.params.user}'
     .then(results=> {
         if(results.length===0){
             throw new Error( 'No project assigned' )
@@ -236,18 +229,6 @@ app.get('/surveys/:user', (req, res)=> {
         }
     })
 })
-/*
-select 
-	associate, 
-	project_skills.skill_id,
-	1- sum ( case when surveys.skill_id is null then 1 else 0 end ) as skill_gap
-from project_associates
-inner join project_skills on project_associates.project_id = project_skills.project_id
-left join surveys on project_associates.associate = surveys.user and project_skills.skill_id = surveys.skill_id
-where project_associates.associate = 'thomasnguyen704@gmail.com'
-group by project_skills.skill_id, associate
-;
-*/
 
 // Update surveys by user
 app.post('/surveys/:user', (req, res)=> {
